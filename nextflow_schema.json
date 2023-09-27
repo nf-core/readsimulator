@@ -49,14 +49,37 @@
             "fa_icon": "fas fa-terminal",
             "description": "Choose the data types that should be simulated by the pipeline.",
             "properties": {
-                "illumina_amplicon": {
+                "amplicon": {
                     "type": "boolean",
-                    "description": "Option to simulate Illumina amplicon data.",
+                    "description": "Option to simulate amplicon data.",
                     "fa_icon": "fas fa-question-circle"
                 },
-                "illumina_uce": {
+                "target_capturee": {
                     "type": "boolean",
-                    "description": "Option to simulate Illumina UCE data.",
+                    "description": "Option to simulate UCE target capture data.",
+                    "fa_icon": "fas fa-question-circle"
+                }
+            }
+        },
+        "provider_options": {
+            "title": "Provider options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Choose the sequencing provider of the simulated reads.",
+            "properties": {
+                "illumina": {
+                    "type": "boolean",
+                    "description": "Option to simulate illumina data.",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "pacbio": {
+                    "type": "boolean",
+                    "description": "Option to simulate pacbio data.",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "nanopore": {
+                    "type": "boolean",
+                    "description": "Option to simulate nanopore data.",
                     "fa_icon": "fas fa-question-circle"
                 }
             }
