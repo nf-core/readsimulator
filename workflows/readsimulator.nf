@@ -35,8 +35,8 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { AMPLICON       } from '../subworkflows/local/amplicon'
-include { TARGET_CAPTURE } from '../subworkflows/local/target_capture'
+include { AMPLICON_WORKFLOW       } from '../subworkflows/local/amplicon_workflow'
+include { TARGET_CAPTURE_WORKFLOW } from '../subworkflows/local/target_capture_workflow'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,12 +71,12 @@ workflow READSIMULATOR {
     // SUBWORKFLOW: Simulate amplicon reads
     //
     if ( params.amplicon ) {
-        AMPLICON (
+        AMPLICON_WORKFLOW (
             ch_fasta,
             ch_input
         )
-        ch_versions = ch_versions.mix(AMPLICON.out.versions.first())
-        ch_fastq_input = ch_fastq_input.mix(AMPLICON.out.illumina_reads)
+        ch_versions = ch_versions.mix(AMPLICON_WORKFLOW.out.versions.first())
+        ch_fastq_input = ch_fastq_input.mix(AMPLICON_WORKFLOW.out.illumina_reads)
     }
 
     //
@@ -90,14 +90,14 @@ workflow READSIMULATOR {
                 meta.id = "probes"
                 [ meta, fasta ]
         }
-        TARGET_CAPTURE (
+        TARGET_CAPTURE_WORKFLOW (
             ch_fasta,
             ch_input,
             ch_probes
         )
-        ch_versions = ch_versions.mix(TARGET_CAPTURE.out.versions.first())
-        ch_fastq_input = ch_fastq_input.mix(TARGET_CAPTURE.out.illumina_reads)
-        ch_fastq_input = ch_fastq_input.mix(TARGET_CAPTURE.out.pacbio_reads)
+        ch_versions = ch_versions.mix(TARGET_CAPTURE_WORKFLOW.out.versions.first())
+        ch_fastq_input = ch_fastq_input.mix(TARGET_CAPTURE_WORKFLOW.out.illumina_reads)
+        ch_fastq_input = ch_fastq_input.mix(TARGET_CAPTURE_WORKFLOW.out.pacbio_reads)
     }
 
     // MODULE: Create sample sheet

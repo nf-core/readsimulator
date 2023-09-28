@@ -11,6 +11,7 @@ process PBSIM {
 
     input:
     tuple val(meta), path(fasta)
+    path(model)
 
     output:
     tuple val(meta), path("*.fastq.gz"), emit: fastq
@@ -28,10 +29,10 @@ process PBSIM {
     pbsim \\
         --prefix $prefix \\
         --seed $seed \\
-        $args \\
+        $args $model \\
         $fasta
 
-    gzip ${prefix}.fastq
+    gzip ${prefix}*.fastq
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

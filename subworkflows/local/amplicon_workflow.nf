@@ -7,8 +7,10 @@ include { CRABS_INSILICOPCR } from '../../modules/local/crabs_insilicopcr'
 include { ART_ILLUMINA      } from '../../modules/nf-core/art/illumina/main'
 include { PBSIM             } from '../../modules/local/pbsim'
 include { SIMLORD           } from '../../modules/local/simlord'
+include { BADREAD           } from '../../modules/local/badread'
+include { NANOSIM           } from '../../modules/local/nanosim'
 
-workflow AMPLICON {
+workflow AMPLICON_WORKFLOW {
     ch_versions = Channel.empty()
 
     take:
@@ -43,7 +45,7 @@ workflow AMPLICON {
 
     // Now that we have processed our fasta file,
     // we need to map it to our sample data
-    ch_art_input = CRABS_INSILICOPCR.out.fasta
+    ch_meta_fasta = CRABS_INSILICOPCR.out.fasta
         .combine ( ch_input )
         .map {
             it = [ it[2], it[1] ]
@@ -60,7 +62,7 @@ workflow AMPLICON {
     ch_illumina_reads = Channel.empty()
     if ( params.illumina ) {
         ART_ILLUMINA (
-            ch_art_input,
+            ch_meta_fasta,
             "HS25",
             130
         )
@@ -68,23 +70,34 @@ workflow AMPLICON {
         ch_illumina_reads = ART_ILLUMINA.out.fastq
     }
 
-    // Pacbio simulators,
-    // PBSIM is expecting a file that's not in the container, maybe it can be pulled?
-    // SIMLORD works, but doesn't have a seed parameter, maybe it's using the internal clock for the seed?
-    //PBSIM (
-    //    ch_art_input
-    //)
-    //SIMLORD (
-    //    ch_art_input
+    //
+    // MODULE: Simulate pacbio reads
+    //
+    ch_pacbio_reads = Channel.empty()
+    if ( params.pacbio ) {
+        ch_model = Channel.fromPath(params.pbsim_model)
+        PBSIM (
+            ch_meta_fasta,
+            ch_model.first()
+        )
+        ch_versions = ch_versions.mix(PBSIM.out.versions.first())
+        ch_pacbio_reads = PBSIM.out.fastq
+        //SIMLORD (
+        //    ch_meta_fasta
+        //)
+        //ch_pacbio_reads = SIMLORD.out.fastq
+    }
+
+    //BADREAD (
+    //    ch_meta_fasta
     //)
 
-    // Nanopore simulator
-    //NANOSIM ()
-
-    // BAD READ simulator
-    //BADREAD ()
+    //NANOSIM (
+    //    ch_meta_fasta
+    //)
 
     emit:
     illumina_reads = ch_illumina_reads // channel: [ meta, fastq ]
+    pacbio_reads   = ch_pacbio_reads   // channel: [ meta, fastq ]
     versions       = ch_versions       // channel: [ versions.yml ]
 }

@@ -40,6 +40,13 @@
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
+                },
+                "pbsim_model": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "description": "Path to pbsim model.",
+                    "fa_icon": "fas fa-file-signature"
                 }
             }
         },
@@ -54,7 +61,7 @@
                     "description": "Option to simulate amplicon data.",
                     "fa_icon": "fas fa-question-circle"
                 },
-                "target_capturee": {
+                "target_capture": {
                     "type": "boolean",
                     "description": "Option to simulate UCE target capture data.",
                     "fa_icon": "fas fa-question-circle"

@@ -8,7 +8,7 @@ include { SAMTOOLS_INDEX            } from '../../modules/nf-core/samtools/index
 include { CAPSIM as CAPSIM_ILLUMINA } from '../../modules/local/capsim'
 include { CAPSIM as CAPSIM_PACBIO   } from '../../modules/local/capsim'
 
-workflow TARGET_CAPTURE {
+workflow TARGET_CAPTURE_WORKFLOW {
     take:
     ch_fasta  // file: /path/to/reference.fasta
     ch_input  // channel: [ meta ]
