@@ -40,13 +40,6 @@
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
-                },
-                "pbsim_model": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "description": "Path to pbsim model.",
-                    "fa_icon": "fas fa-file-signature"
                 }
             }
         },
@@ -68,34 +61,11 @@
                 }
             }
         },
-        "provider_options": {
-            "title": "Provider options",
-            "type": "object",
-            "fa_icon": "fas fa-terminal",
-            "description": "Choose the sequencing provider of the simulated reads.",
-            "properties": {
-                "illumina": {
-                    "type": "boolean",
-                    "description": "Option to simulate illumina data.",
-                    "fa_icon": "fas fa-question-circle"
-                },
-                "pacbio": {
-                    "type": "boolean",
-                    "description": "Option to simulate pacbio data.",
-                    "fa_icon": "fas fa-question-circle"
-                },
-                "nanopore": {
-                    "type": "boolean",
-                    "description": "Option to simulate nanopore data.",
-                    "fa_icon": "fas fa-question-circle"
-                }
-            }
-        },
         "amplicon_options": {
             "title": "Amplicon options",
             "type": "object",
             "fa_icon": "fas fa-dna",
-            "description": "Options required when simulating amplicon data.",
+            "description": "Options for simulating amplicon data.",
             "properties": {
                 "fw_primer": {
                     "type": "string",
@@ -106,6 +76,58 @@
                     "type": "string",
                     "description": "Reverse primer to use with crabs_insilicopcr. E.g., CATAGTGGGGTATCTAATCCCAGTTTG",
                     "default": "CATAGTGGGGTATCTAATCCCAGTTTG"
+                },
+                "amplicon_ref_source": {
+                    "type": "string",
+                    "description": "Source for downloading reference database when not using `--fasta` parameter. Can be 'ncbi', 'embl', 'bold', or 'mitofish'. Currently only ncbi and embl works",
+                    "default": "mitofish"
+                },
+                "amplicon_ncbi_db": {
+                    "type": "string",
+                    "description": "NCBI database to use when `--amplicon_ref_source` is set to 'ncbi'",
+                    "default": "nucleotide"
+                },
+                "amplicon_ncbi_query": {
+                    "type": "string",
+                    "description": "NCBI query to use when `--amplicon_ref_source` is set to 'ncbi'",
+                    "default": "16S[All Fields] AND (\"1\"[SLEN] : \"50000\"[SLEN])"
+                },
+                "amplicon_ncbi_species": {
+                    "type": "string",
+                    "description": "Species to use when `--amplicon_ref_source` is set to 'ncbi', seperate taxa with ' + '",
+                    "default": "Carcharinus leucas + Carcharinus acronotus"
+                },
+                "amplicon_ncbi_email": {
+                    "type": "string",
+                    "description": "email to conect to ncbi when `--amplicon_ref_source` is set to 'ncbi'",
+                    "default": "johndoe@gmail.com"
+                },
+                "amplicon_ncbi_batchsize": {
+                    "type": "integer",
+                    "description": "Batchsize to use when `--amplicon_ref_source` is set to 'ncbi'",
+                    "default": 5000
+                },
+                "amplicon_embl_db": {
+                    "type": "string",
+                    "description": "EMBL database to use when `--amplicon_ref_source` is set to 'embl'",
+                    "default": "vrt*"
+                },
+                "amplicon_bold_db": {
+                    "type": "string",
+                    "description": "BOLD database to use when `--amplicon_ref_source` is set to 'bold', seperate databases with '|'",
+                    "default": "Actinopterygii|Aves"
+                }
+            }
+        },
+        "target_capture_options": {
+            "title": "Target capture options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for simulating target capture data.",
+            "properties": {
+                "target_capture_pacbio": {
+                    "type": "boolean",
+                    "description": "Use this option to simulate Pacbio long-read target capture reads. By default, only Illumina short-reads are simulated for target capture."
                 }
             }
         },
@@ -128,7 +150,7 @@
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified, unless simulating amplicon data. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
                     "fa_icon": "far fa-file-code"
                 },
                 "igenomes_base": {

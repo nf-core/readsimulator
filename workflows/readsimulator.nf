@@ -76,7 +76,7 @@ workflow READSIMULATOR {
             ch_input
         )
         ch_versions = ch_versions.mix(AMPLICON_WORKFLOW.out.versions.first())
-        ch_fastq_input = ch_fastq_input.mix(AMPLICON_WORKFLOW.out.illumina_reads)
+        ch_fastq_input = ch_fastq_input.mix(AMPLICON_WORKFLOW.out.reads)
     }
 
     //

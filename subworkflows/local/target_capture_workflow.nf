@@ -22,7 +22,7 @@ workflow TARGET_CAPTURE_WORKFLOW {
         .map {
             fasta ->
                 def meta = [:]
-                meta.id = "illumina_uce"
+                meta.id = "target_capture"
                 return [ meta, fasta ]
         }
 
@@ -68,29 +68,22 @@ workflow TARGET_CAPTURE_WORKFLOW {
         .map {
             it = [ it[3], it[0], it[1], it[2] ]
         }
-        //.map {
-        //    meta, fasta, bam, index ->
-        //        meta.id = "illumina_taget_capture_" + meta.id
-        //        return [ meta, fasta, bam, index ]
-        //}
 
     //
     // MODULE: Simulate target capture illumina reads
     //
     ch_illumina_reads = Channel.empty()
-    if ( params.illumina ) {
-        CAPSIM_ILLUMINA (
-            ch_capsim_input
-        )
-        ch_versions = ch_versions.mix(CAPSIM_ILLUMINA.out.versions.first())
-        ch_illumina_reads = CAPSIM_ILLUMINA.out.fastq
-    }
+    CAPSIM_ILLUMINA (
+        ch_capsim_input
+    )
+    ch_versions = ch_versions.mix(CAPSIM_ILLUMINA.out.versions.first())
+    ch_illumina_reads = CAPSIM_ILLUMINA.out.fastq
 
     //
     // MODULE: Simulate target capture pacbio reads
     //
     ch_pacbio_reads = Channel.empty()
-    if ( params.pacbio ) {
+    if ( params.taget_capture_pacbio ) {
         CAPSIM_PACBIO (
             ch_capsim_input
         )
@@ -100,6 +93,6 @@ workflow TARGET_CAPTURE_WORKFLOW {
 
     emit:
     illumina_reads = ch_illumina_reads // channel: [ meta, fastq ]
-    pacbio_reads   = ch_pacbio_reads // channel: [ meta, fastq ]
+    pacbio_reads   = ch_pacbio_reads   // channel: [ meta, fastq ]
     versions       = ch_versions       // channel: [ versions.yml ]
 }
