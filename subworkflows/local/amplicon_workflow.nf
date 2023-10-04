@@ -16,9 +16,9 @@ workflow AMPLICON_WORKFLOW {
 
     main:
     ch_ref_fasta = Channel.empty()
-    if ( params.fasta ) {
+    if ( !params.fasta ) {
         CRABS_DBDOWNLOAD ()
-        ch_versions = ch_versions.mix(CRABS_DBDOWNLOAD.out.versions.first())
+        ch_versions = ch_versions.mix(CRABS_DBDOWNLOAD.out.versions)
         ch_ref_fasta = CRABS_DBDOWNLOAD.out.fasta
             .map {
                 fasta ->
@@ -42,7 +42,7 @@ workflow AMPLICON_WORKFLOW {
         CRABS_DBIMPORT (
             ch_meta_fasta
         )
-        ch_versions = ch_versions.mix(CRABS_DBIMPORT.out.versions.first())
+        ch_versions = ch_versions.mix(CRABS_DBIMPORT.out.versions)
         ch_ref_fasta = CRABS_DBIMPORT.out.fasta
     }
 
@@ -52,7 +52,7 @@ workflow AMPLICON_WORKFLOW {
     CRABS_INSILICOPCR (
         ch_ref_fasta
     )
-    ch_versions = ch_versions.mix(CRABS_INSILICOPCR.out.versions.first())
+    ch_versions = ch_versions.mix(CRABS_INSILICOPCR.out.versions)
 
     // Now that we have processed our fasta file,
     // we need to map it to our sample data

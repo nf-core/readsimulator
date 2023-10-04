@@ -62,42 +62,46 @@ def multiqc_report = []
 
 workflow READSIMULATOR {
 
-    ch_versions = Channel.empty()
-    ch_fasta = Channel.fromPath(params.fasta)
-    ch_input = Channel.fromSamplesheet("input")
-    ch_fastq_input = Channel.empty()
+    ch_versions     = Channel.empty()
+    ch_input        = Channel.fromSamplesheet("input")
+    ch_fastqc_input = Channel.empty()
+
+    if ( params.fasta ) {
+        ch_fasta = Channel.fromPath(params.fasta)
+    } else {
+        ch_fasta = Channel.empty()
+    }
+
+    if ( params.probe_fasta ) {
+        ch_probes = Channel.fromPath(params.probe_fasta)
+    } else {
+        ch_probes = Channel.empty()
+    }
 
     //
     // SUBWORKFLOW: Simulate amplicon reads
     //
     if ( params.amplicon ) {
         AMPLICON_WORKFLOW (
-            ch_fasta,
+            ch_fasta.ifEmpty([]),
             ch_input
         )
-        ch_versions = ch_versions.mix(AMPLICON_WORKFLOW.out.versions.first())
-        ch_fastq_input = ch_fastq_input.mix(AMPLICON_WORKFLOW.out.reads)
+        ch_versions     = ch_versions.mix(AMPLICON_WORKFLOW.out.versions.first())
+        ch_fastqc_input = ch_fastqc_input.mix(AMPLICON_WORKFLOW.out.reads)
     }
 
     //
     // SUBWORKFLOW: Simulate UCE taget capture reads
     //
     if ( params.target_capture ) {
-        ch_probes = Channel.fromPath(params.probes)
-        ch_probes = ch_probes.map {
-            fasta ->
-                def meta = [:]
-                meta.id = "probes"
-                [ meta, fasta ]
-        }
         TARGET_CAPTURE_WORKFLOW (
             ch_fasta,
             ch_input,
-            ch_probes
+            ch_probes.ifEmpty([])
         )
-        ch_versions = ch_versions.mix(TARGET_CAPTURE_WORKFLOW.out.versions.first())
-        ch_fastq_input = ch_fastq_input.mix(TARGET_CAPTURE_WORKFLOW.out.illumina_reads)
-        ch_fastq_input = ch_fastq_input.mix(TARGET_CAPTURE_WORKFLOW.out.pacbio_reads)
+        ch_versions     = ch_versions.mix(TARGET_CAPTURE_WORKFLOW.out.versions.first())
+        ch_fastqc_input = ch_fastqc_input.mix(TARGET_CAPTURE_WORKFLOW.out.illumina_reads)
+        ch_fastqc_input = ch_fastqc_input.mix(TARGET_CAPTURE_WORKFLOW.out.pacbio_reads)
     }
 
     // MODULE: Create sample sheet
@@ -107,7 +111,7 @@ workflow READSIMULATOR {
     // MODULE: Run FastQC
     //
     FASTQC (
-        ch_fastq_input
+        ch_fastqc_input
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 

@@ -7,6 +7,7 @@ include { BOWTIE2_ALIGN             } from '../../modules/nf-core/bowtie2/align/
 include { SAMTOOLS_INDEX            } from '../../modules/nf-core/samtools/index/main'
 include { CAPSIM as CAPSIM_ILLUMINA } from '../../modules/local/capsim'
 include { CAPSIM as CAPSIM_PACBIO   } from '../../modules/local/capsim'
+include { UNZIP                     } from '../../modules/local/unzip'
 
 workflow TARGET_CAPTURE_WORKFLOW {
     take:
@@ -34,12 +35,21 @@ workflow TARGET_CAPTURE_WORKFLOW {
     )
     ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions.first())
 
+    if ( !params.probe_fasta ) {
+        ch_zip_file = Channel.fromPath(params.probe_ref_db[params.probe_ref_name]["url"])
+        ch_probes = UNZIP (
+            ch_zip_file
+        ).file
+    }
     ch_probes = ch_probes
         .map {
-            meta, fasta ->
+            fasta ->
+                def meta = [:]
+                meta.id = "probes"
                 meta.single_end = true
-                return [ meta, fasta ]
+                [ meta, fasta ]
         }
+
     //
     // MODULE: Align probes to genome
     //
@@ -83,7 +93,7 @@ workflow TARGET_CAPTURE_WORKFLOW {
     // MODULE: Simulate target capture pacbio reads
     //
     ch_pacbio_reads = Channel.empty()
-    if ( params.taget_capture_pacbio ) {
+    if ( params.target_capture_pacbio ) {
         CAPSIM_PACBIO (
             ch_capsim_input
         )

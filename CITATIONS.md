@@ -10,6 +10,22 @@
 
 ## Pipeline tools
 
+- [ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm)
+
+  > Weichun Huang, Leping Li, Jason R. Myers, Gabor T. Marth, ART: a next-generation sequencing read simulator, Bioinformatics, Volume 28, Issue 4, February 2012, Pages 593–594, https://doi.org/10.1093/bioinformatics/btr708
+
+- [Bowtie2](https://www.nature.com/articles/nmeth.1923)
+
+  > Langmead, B., Salzberg, S. Fast gapped-read alignment with Bowtie 2. Nat Methods 9, 357–359 (2012). https://doi.org/10.1038/nmeth.1923
+
+- [CapSim](https://academic.oup.com/bioinformatics/article/34/5/873/4575140)
+
+  > Minh Duc Cao, Devika Ganesamoorthy, Chenxi Zhou, Lachlan J M Coin, Simulating the dynamics of targeted capture sequencing with CapSim, Bioinformatics, Volume 34, Issue 5, March 2018, Pages 873–874, https://doi.org/10.1093/bioinformatics/btx691
+
+- [CRABS](https://onlinelibrary.wiley.com/doi/10.1111/1755-0998.13741)
+
+  > Jeunen, G.-J., Dowle, E., Edgecombe, J., von Ammon, U., Gemmell, N. J., & Cross, H. (2022). crabs—A software program to generate curated reference databases for metabarcoding sequencing data. Molecular Ecology Resources, 00, 1– 14. https://doi.org/10.1111/1755-0998.13741
+
 - [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
   > Andrews, S. (2010). FastQC: A Quality Control Tool for High Throughput Sequence Data [Online]. Available online https://www.bioinformatics.babraham.ac.uk/projects/fastqc/.
@@ -17,6 +33,10 @@
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
 
   > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
+
+- [Samtools](https://academic.oup.com/gigascience/article/10/2/giab008/6137722?login=false)
+
+  > Twelve years of SAMtools and BCFtools. Petr Danecek, James K Bonfield, Jennifer Liddle, John Marshall, Valeriu Ohan, Martin O Pollard, Andrew Whitwham, Thomas Keane, Shane A McCarthy, Robert M Davies, Heng Li. GigaScience, Volume 10, Issue 2, February 2021, giab008, https://doi.org/10.1093/gigascience/giab008
 
 ## Software packaging/containerisation tools
 

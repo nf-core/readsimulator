@@ -79,8 +79,9 @@
                 },
                 "amplicon_ref_source": {
                     "type": "string",
-                    "description": "Source for downloading reference database when not using `--fasta` parameter. Can be 'ncbi', 'embl', 'bold', or 'mitofish'. Currently only ncbi and embl works",
-                    "default": "mitofish"
+                    "description": "Source for downloading reference database when using `--amplicon` parameter, but not using `--fasta` parameter.",
+                    "help_text": "Can be 'ncbi', 'embl', 'bold', or 'mitofish'. Currently only ncbi and bold works.",
+                    "default": "bold"
                 },
                 "amplicon_ncbi_db": {
                     "type": "string",
@@ -127,7 +128,37 @@
             "properties": {
                 "target_capture_pacbio": {
                     "type": "boolean",
-                    "description": "Use this option to simulate Pacbio long-read target capture reads. By default, only Illumina short-reads are simulated for target capture."
+                    "description": "Use this option to simulate Pacbio long-read target capture reads.",
+                    "help_text": "By default, only Illumina short-reads are simulated for target capture data."
+                },
+                "probe_fasta": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
+                    "description": "Path to FASTA probe file.",
+                    "help_text": "This parameter is *mandatory* if `--probe_ref_name` is not specified but `--target_capture` is specified.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "probe_ref_name": {
+                    "type": "string",
+                    "default": "Tetrapods-UCE-5Kv1",
+                    "description": "Name of supported probe. Mandatory if not using `--probes` parameter.",
+                    "help_text": "Supported probes are 'Tetrapods-UCE-2.5Kv1', 'Tetrapods-UCE-5Kv1', 'Actinopterygians-0.5Kv1', 'Acanthomorphs-1Kv1', 'Arachnida-1.1Kv1', 'Coleoptera-1.1Kv1', 'Diptera-2.7Kv1', 'Hemiptera-2.7Kv1', 'Hymenoptera-1.5Kv1', 'Hymenoptera-2.5Kv2', and 'Anthozoa-1.7Kv1'",
+                    "enum": [
+                        "Tetrapods-UCE-2.5Kv1",
+                        "Tetrapods-UCE-5Kv1",
+                        "Actinopterygians-0.5Kv1",
+                        "Acanthomorphs-1Kv1",
+                        "Arachnida-1.1Kv1",
+                        "Coleoptera-1.1Kv1",
+                        "Diptera-2.7Kv1",
+                        "Hemiptera-2.7Kv1",
+                        "Hymenoptera-1.5Kv1",
+                        "Hymenoptera-2.5Kv2",
+                        "Anthozoa-1.7Kv1"
+                    ]
                 }
             }
         },
