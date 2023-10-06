@@ -16,6 +16,10 @@ workflow AMPLICON_WORKFLOW {
 
     main:
     ch_ref_fasta = Channel.empty()
+
+    //
+    // MODULE: Run Crabs db_download if user doesn't have a reference database
+    //
     if ( !params.fasta ) {
         CRABS_DBDOWNLOAD ()
         ch_versions = ch_versions.mix(CRABS_DBDOWNLOAD.out.versions)
@@ -27,6 +31,9 @@ workflow AMPLICON_WORKFLOW {
                     return [ meta, fasta ]
             }
 
+    //
+    // MODULE: Run Crabs db_import if user does have a reference database
+    //
     } else {
         ch_meta_fasta = Channel.fromPath(params.fasta)
             .map {
@@ -36,9 +43,6 @@ workflow AMPLICON_WORKFLOW {
                     return [ meta, fasta ]
             }
 
-        //
-        // MODULE: Run Crabs db_import
-        //
         CRABS_DBIMPORT (
             ch_meta_fasta
         )
@@ -72,7 +76,15 @@ workflow AMPLICON_WORKFLOW {
     )
     ch_versions = ch_versions.mix(ART_ILLUMINA.out.versions.first())
 
+    ch_illumina_reads = ART_ILLUMINA.out.fastq
+        .map {
+            meta, fastqs ->
+                meta.outdir = "art_illumina"
+                meta.datatype = "amplicon_illumina"
+                return [ meta, fastqs ]
+        }
+
     emit:
-    reads    = ART_ILLUMINA.out.fastq // channel: [ meta, fastq ]
-    versions = ch_versions            // channel: [ versions.yml ]
+    reads    = ch_illumina_reads // channel: [ meta, fastq ]
+    versions = ch_versions       // channel: [ versions.yml ]
 }

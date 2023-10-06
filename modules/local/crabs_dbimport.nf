@@ -1,7 +1,7 @@
 process CRABS_DBIMPORT {
 
     tag "$meta.id"
-    label 'process_single'
+    label 'process_medium'
 
     // WARN: Version information not provided by tool on CLI. Please update version string below when bumping container versions.
     conda "bioconda::crabs=0.1.1-0"

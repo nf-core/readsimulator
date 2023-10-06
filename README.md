@@ -14,11 +14,7 @@
 
 **nf-core/readsimulator** is a bioinformatics pipeline that ...
 
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
+nf-core/readsimulator is a pipeline to simulate sequencing reads. The pipeline currently supports simulating Amplicon, Metagenomic, and Target Capture data. It takes a samplesheet with sample names and seeds for random generation to produce simulated fastq files and a samplesheet that contains the paths to the fastq files.
 
 <!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
@@ -72,11 +68,12 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/readsimulator was originally written by Adam Bennett.
+nf-core/readsimulator was originally written by Adam Bennett ([@a4000](https://github.com/a4000)) for use at the [MinderooFoundation](https://www.minderoo.org/).
 
-We thank the following people for their extensive assistance in the development of this pipeline:
+We thank the following people for their extensive assistance in the development of this pipeline (in alphabetical order):
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+- [Lauren Huet](https://github.com/LaurenHuet/)
+- [Philipp Bayer](https://github.com/philippbayer)
 
 ## Contributions and Support
 

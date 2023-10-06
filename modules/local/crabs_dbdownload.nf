@@ -1,14 +1,13 @@
 process CRABS_DBDOWNLOAD {
 
     tag ""
-    label 'process_single'
+    label 'process_medium'
 
     // WARN: Version information not provided by tool on CLI. Please update version string below when bumping container versions.
     conda "bioconda::crabs=0.1.1-0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/crabs:0.1.1--pyhb7b1952_0':
-        'swordfish/crabs:0.1.4' }" // this container works better than biocontainers/crabs:0.1.1--pyhb7b1952_0
-                                   // no it doesn't, it just gives me a different error message
+        'biocontainers/crabs:0.1.1--pyhb7b1952_0' }"
 
     input:
 

@@ -6,7 +6,7 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+The pipeline curently support simulating amplicon, metagenomic, and target capture sequencing reads. The different modes can be selected with `--amplicon`, `--metagenome`, or `--target_capture` respectively.
 
 ## Samplesheet input
 
@@ -44,7 +44,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/readsimulator --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker <--amplicon | --target_capture>
+nextflow run nf-core/readsimulator --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker <--amplicon/--target_capture/--metgenome>
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.

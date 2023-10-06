@@ -58,6 +58,11 @@
                     "type": "boolean",
                     "description": "Option to simulate UCE target capture data.",
                     "fa_icon": "fas fa-question-circle"
+                },
+                "metagenome": {
+                    "type": "boolean",
+                    "description": "Option to simulate metagenomic data.",
+                    "fa_icon": "fas fa-question-circle"
                 }
             }
         },
@@ -80,8 +85,13 @@
                 "amplicon_ref_source": {
                     "type": "string",
                     "description": "Source for downloading reference database when using `--amplicon` parameter, but not using `--fasta` parameter.",
-                    "help_text": "Can be 'ncbi', 'embl', 'bold', or 'mitofish'. Currently only ncbi and bold works.",
-                    "default": "bold"
+                    "help_text": "Can be 'ncbi', 'embl', or 'bold'.",
+                    "default": "bold",
+                    "enum": [
+                        "ncbi",
+                        "embl",
+                        "bold"
+                    ]
                 },
                 "amplicon_ncbi_db": {
                     "type": "string",
@@ -159,6 +169,99 @@
                         "Hymenoptera-2.5Kv2",
                         "Anthozoa-1.7Kv1"
                     ]
+                }
+            }
+        },
+        "metagenome_options": {
+            "title": "Metagenome options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for simulating metagenomic data.",
+            "properties": {
+                "metagenome_ncbi_db": {
+                    "type": "string",
+                    "default": "viruses",
+                    "description": "NCBI databases supported by InSilicoSeq. This option gets used when not using the `--fasta` or `--genome` parameters.",
+                    "help_text": "Supported databases are 'bacteria', 'viruses', and 'archaea'. Multiple databases can be used by providing a space seperated string."
+                },
+                "metagenome_n_genomes": {
+                    "type": "string",
+                    "default": "10",
+                    "description": "Number of genomes to download form NCBI. This option gets used when not using the `--fasta` or `--genome` parameters.",
+                    "help_text": "Use multiple values (space seperated) if using multiple NCBI databases"
+                },
+                "metagenome_abundance": {
+                    "type": "string",
+                    "default": "lognormal",
+                    "description": "Abundance distribution.",
+                    "help_text": "Can be 'uniform', 'halfnormal', 'exponential', 'lognormal', or 'zero_inflated_lognormal'",
+                    "enum": [
+                        "uniform",
+                        "halfnormal",
+                        "exponential",
+                        "lognormal",
+                        "zero_inflated_lognormal"
+                    ]
+                },
+                "metagenome_abundance_file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.tsv$",
+                    "mimetype": "text/plain",
+                    "description": "Path to tab-separated file containing abundance distribution.",
+                    "help_text": "The first column should contain the genome and the second column should contain abundance proportion. It's recommended that the total abundace in your file equals 1."
+                },
+                "metagenome_coverage": {
+                    "type": "string",
+                    "description": "Coverage distribution.",
+                    "help_text": "Can be 'uniform', 'halfnormal', 'exponential', 'lognormal', or 'zero_inflated_lognormal'",
+                    "enum": [
+                        "uniform",
+                        "halfnormal",
+                        "exponential",
+                        "lognormal",
+                        "zero_inflated_lognormal"
+                    ]
+                },
+                "metagenome_coverage_file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.tsv$",
+                    "mimetype": "text/plain",
+                    "description": "Path to tab-separated file containing coverage information.",
+                    "help_text": "The first column should contain the genome and the second column should contain the coverage (e.g., use the value 20 for a coverage of 20X)."
+                },
+                "metagenome_n_reads": {
+                    "type": "string",
+                    "default": "1M",
+                    "description": "Number of reads to generate.",
+                    "help_text": "Supported suffixes are 'k', 'K', 'm', 'M', 'g', and 'G'."
+                },
+                "metagenome_mode": {
+                    "type": "string",
+                    "default": "kde",
+                    "description": "Can be 'kde', or 'basic'.",
+                    "help_text": "Set this to basic if you don't want to use a model with `--metagenome_model`.",
+                    "enum": [
+                        "kde",
+                        "basic"
+                    ]
+                },
+                "metagenome_model": {
+                    "type": "string",
+                    "default": "MiSeq",
+                    "description": "Can be 'HiSeq', 'NovaSeq', or 'MiSeq'.",
+                    "enum": [
+                        "HiSeq",
+                        "NovaSeq",
+                        "MiSeq"
+                    ]
+                },
+                "metagenome_gc_bias": {
+                    "type": "boolean",
+                    "description": "Use this option to prevent simulating reads that have abnormal GC content."
                 }
             }
         },

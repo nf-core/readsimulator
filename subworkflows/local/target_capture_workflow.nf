@@ -2,12 +2,12 @@
 // Simulate UCE target capture reads
 //
 
-include { BOWTIE2_BUILD             } from '../../modules/nf-core/bowtie2/build/main'
-include { BOWTIE2_ALIGN             } from '../../modules/nf-core/bowtie2/align/main'
-include { SAMTOOLS_INDEX            } from '../../modules/nf-core/samtools/index/main'
-include { CAPSIM as CAPSIM_ILLUMINA } from '../../modules/local/capsim'
-include { CAPSIM as CAPSIM_PACBIO   } from '../../modules/local/capsim'
-include { UNZIP                     } from '../../modules/local/unzip'
+include { BOWTIE2_BUILD                   } from '../../modules/nf-core/bowtie2/build/main'
+include { BOWTIE2_ALIGN                   } from '../../modules/nf-core/bowtie2/align/main'
+include { SAMTOOLS_INDEX                  } from '../../modules/nf-core/samtools/index/main'
+include { JAPSA_CAPSIM as CAPSIM_ILLUMINA } from '../../modules/local/japsa_capsim'
+include { JAPSA_CAPSIM as CAPSIM_PACBIO   } from '../../modules/local/japsa_capsim'
+include { UNZIP                           } from '../../modules/local/unzip'
 
 workflow TARGET_CAPTURE_WORKFLOW {
     take:
@@ -18,7 +18,6 @@ workflow TARGET_CAPTURE_WORKFLOW {
     main:
     ch_versions = Channel.empty()
 
-    // Add a meta map to fasta channel for compatibility with modules
     ch_meta_fasta = ch_fasta
         .map {
             fasta ->
@@ -35,6 +34,9 @@ workflow TARGET_CAPTURE_WORKFLOW {
     )
     ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions.first())
 
+    //
+    // MODULE: Unzip probes file if user is downloading them
+    //
     if ( !params.probe_fasta ) {
         ch_zip_file = Channel.fromPath(params.probe_ref_db[params.probe_ref_name]["url"])
         ch_probes = UNZIP (
@@ -88,6 +90,12 @@ workflow TARGET_CAPTURE_WORKFLOW {
     )
     ch_versions = ch_versions.mix(CAPSIM_ILLUMINA.out.versions.first())
     ch_illumina_reads = CAPSIM_ILLUMINA.out.fastq
+        .map {
+            meta, fastqs ->
+                meta.outdir = "capsim_illumina"
+                meta.datatype = "target_capture_illumina"
+                return [ meta, fastqs ]
+        }
 
     //
     // MODULE: Simulate target capture pacbio reads
@@ -99,6 +107,12 @@ workflow TARGET_CAPTURE_WORKFLOW {
         )
         ch_versions = ch_versions.mix(CAPSIM_PACBIO.out.versions.first())
         ch_pacbio_reads = CAPSIM_PACBIO.out.fastq
+            .map {
+                meta, fastqs ->
+                    meta.outdir   = "capsim_pacbio"
+                    meta.datatype = "target_capture_pacbio"
+                    return [ meta, fastqs ]
+            }
     }
 
     emit:
