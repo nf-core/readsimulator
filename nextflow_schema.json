@@ -169,6 +169,11 @@
                         "Hymenoptera-2.5Kv2",
                         "Anthozoa-1.7Kv1"
                     ]
+                },
+                "probe_ref_db": {
+                    "type": "string",
+                    "description": "This parameter can be ignored if you want to download probes from https://www.ultraconserved.org/",
+                    "help_text": "If you want to download the probes from an alternative source, this can be achieved by using `--probe_ref_db \"'$probe_ref_name' {url='$url'}\"`"
                 }
             }
         },
@@ -509,6 +514,18 @@
     "allOf": [
         {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/simulation_options"
+        },
+        {
+            "$ref": "#/definitions/amplicon_options"
+        },
+        {
+            "$ref": "#/definitions/target_capture_options"
+        },
+        {
+            "$ref": "#/definitions/metagenome_options"
         },
         {
             "$ref": "#/definitions/reference_genome_options"
