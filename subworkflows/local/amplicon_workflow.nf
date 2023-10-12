@@ -27,7 +27,7 @@ workflow AMPLICON_WORKFLOW {
             .map {
                 fasta ->
                     def meta = [:]
-                    meta.id = "amplicon"
+                    meta.id  = "amplicon"
                     return [ meta, fasta ]
             }
 
@@ -39,14 +39,14 @@ workflow AMPLICON_WORKFLOW {
             .map {
                 fasta ->
                     def meta = [:]
-                    meta.id = "amplicon"
+                    meta.id  = "amplicon"
                     return [ meta, fasta ]
             }
 
         CRABS_DBIMPORT (
             ch_meta_fasta
         )
-        ch_versions = ch_versions.mix(CRABS_DBIMPORT.out.versions)
+        ch_versions  = ch_versions.mix(CRABS_DBIMPORT.out.versions)
         ch_ref_fasta = CRABS_DBIMPORT.out.fasta
     }
 
@@ -79,7 +79,7 @@ workflow AMPLICON_WORKFLOW {
     ch_illumina_reads = ART_ILLUMINA.out.fastq
         .map {
             meta, fastqs ->
-                meta.outdir = "art_illumina"
+                meta.outdir   = "art_illumina"
                 meta.datatype = "amplicon_illumina"
                 return [ meta, fastqs ]
         }

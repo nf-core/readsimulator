@@ -22,7 +22,7 @@ workflow TARGET_CAPTURE_WORKFLOW {
         .map {
             fasta ->
                 def meta = [:]
-                meta.id = "target_capture"
+                meta.id  = "target_capture"
                 return [ meta, fasta ]
         }
 
@@ -88,11 +88,11 @@ workflow TARGET_CAPTURE_WORKFLOW {
     CAPSIM_ILLUMINA (
         ch_capsim_input
     )
-    ch_versions = ch_versions.mix(CAPSIM_ILLUMINA.out.versions.first())
+    ch_versions       = ch_versions.mix(CAPSIM_ILLUMINA.out.versions.first())
     ch_illumina_reads = CAPSIM_ILLUMINA.out.fastq
         .map {
             meta, fastqs ->
-                meta.outdir = "capsim_illumina"
+                meta.outdir   = "capsim_illumina"
                 meta.datatype = "target_capture_illumina"
                 return [ meta, fastqs ]
         }
@@ -105,7 +105,7 @@ workflow TARGET_CAPTURE_WORKFLOW {
         CAPSIM_PACBIO (
             ch_capsim_input
         )
-        ch_versions = ch_versions.mix(CAPSIM_PACBIO.out.versions.first())
+        ch_versions     = ch_versions.mix(CAPSIM_PACBIO.out.versions.first())
         ch_pacbio_reads = CAPSIM_PACBIO.out.fastq
             .map {
                 meta, fastqs ->
