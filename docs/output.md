@@ -10,17 +10,17 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-    - [ART](#art) - ART Illumina simulated reads
-    - [Bowtie2](#bowtie2) - Bowtie2 alignments
-    - [CapSim](#capsim) - CapSim simulated reads (Illumina or Pacbio)
-    - [CRABS](#crabs) - Formated reference database for simulating amplicon reads
-    - [FastQC](#fastqc) - Raw read QC
-    - [InSilicoSeq](#insilicoseq) - InSilicoSeq simulated metagenomic reads
-    - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
-    - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
-    - [Samplesheet](#samplesheet) - Samplesheets produced during the running of the pipeline
-    - [SAMtools](#samtools) - SAMtools index
-    - [Unzip](#unzip) - Unziped probe file
+- [ART](#art) - ART Illumina simulated reads
+- [Bowtie2](#bowtie2) - Bowtie2 alignments
+- [CapSim](#capsim) - CapSim simulated reads (Illumina or Pacbio)
+- [CRABS](#crabs) - Formated reference database for simulating amplicon reads
+- [FastQC](#fastqc) - Raw read QC
+- [InSilicoSeq](#insilicoseq) - InSilicoSeq simulated metagenomic reads
+- [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
+- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
+- [Samplesheet](#samplesheet) - Samplesheets produced during the running of the pipeline
+- [SAMtools](#samtools) - SAMtools index
+- [Unzip](#unzip) - Unziped probe file
 
 ### ART
 
@@ -61,7 +61,6 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - `capsim_pacbio/`
   - `*_1.fastq.gz`: Read 1 files simulating Pacbio reads. The prefix will be the sample name found in the samplesheet.
   - `*_1.fastq.gz`: Read 2 files simulating Pacbio reads. The prefix will be the sample name found in the samplesheet.
-
 
 </details>
 
