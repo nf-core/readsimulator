@@ -125,7 +125,7 @@ workflow READSIMULATOR {
                 meta, fastqs ->
                     meta[0].outdir   = "insilicoseq"
                     meta[0].datatype = "metagenomic_illumina"
-                    return [ meta, fastqs ]
+                    return [ meta[0], fastqs ]
             }
         ch_simulated_reads  = ch_simulated_reads.mix(ch_metagenome_reads)
     }
