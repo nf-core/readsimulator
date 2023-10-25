@@ -87,11 +87,7 @@
                     "description": "Source for downloading reference database when using `--amplicon` parameter, but not using `--fasta` parameter.",
                     "help_text": "Can be 'ncbi', 'embl', or 'bold'.",
                     "default": "bold",
-                    "enum": [
-                        "ncbi",
-                        "embl",
-                        "bold"
-                    ]
+                    "enum": ["ncbi", "embl", "bold"]
                 },
                 "amplicon_ncbi_db": {
                     "type": "string",
@@ -195,13 +191,7 @@
                     "default": "lognormal",
                     "description": "Abundance distribution.",
                     "help_text": "Can be 'uniform', 'halfnormal', 'exponential', 'lognormal', or 'zero_inflated_lognormal'",
-                    "enum": [
-                        "uniform",
-                        "halfnormal",
-                        "exponential",
-                        "lognormal",
-                        "zero_inflated_lognormal"
-                    ]
+                    "enum": ["uniform", "halfnormal", "exponential", "lognormal", "zero_inflated_lognormal"]
                 },
                 "metagenome_abundance_file": {
                     "type": "string",
@@ -216,13 +206,7 @@
                     "type": "string",
                     "description": "Coverage distribution.",
                     "help_text": "Can be 'uniform', 'halfnormal', 'exponential', 'lognormal', or 'zero_inflated_lognormal'",
-                    "enum": [
-                        "uniform",
-                        "halfnormal",
-                        "exponential",
-                        "lognormal",
-                        "zero_inflated_lognormal"
-                    ]
+                    "enum": ["uniform", "halfnormal", "exponential", "lognormal", "zero_inflated_lognormal"]
                 },
                 "metagenome_coverage_file": {
                     "type": "string",
@@ -244,20 +228,13 @@
                     "default": "kde",
                     "description": "Can be 'kde', or 'basic'.",
                     "help_text": "Set this to basic if you don't want to use a model with `--metagenome_model`.",
-                    "enum": [
-                        "kde",
-                        "basic"
-                    ]
+                    "enum": ["kde", "basic"]
                 },
                 "metagenome_model": {
                     "type": "string",
                     "default": "MiSeq",
                     "description": "Can be 'HiSeq', 'NovaSeq', or 'MiSeq'.",
-                    "enum": [
-                        "HiSeq",
-                        "NovaSeq",
-                        "MiSeq"
-                    ]
+                    "enum": ["HiSeq", "NovaSeq", "MiSeq"]
                 },
                 "metagenome_gc_bias": {
                     "type": "boolean",

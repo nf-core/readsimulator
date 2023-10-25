@@ -32,10 +32,10 @@ sample_5,5
 sample_6,6
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be used as the prefix for many output files. Spaces in sample names are automatically converted to underscores (`_`).          |
-| `seed` | Seed used with tools that have a seed parameter for Random Number Generation.                                                                       |
+| Column   | Description                                                                                                                                               |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample` | Custom sample name. This entry will be used as the prefix for many output files. Spaces in sample names are automatically converted to underscores (`_`). |
+| `seed`   | Seed used with tools that have a seed parameter for Random Number Generation.                                                                             |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 

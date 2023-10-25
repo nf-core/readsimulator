@@ -62,7 +62,6 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
   - `*_1.fastq.gz`: Read 1 files simulating Pacbio reads. The prefix will be the sample name found in the samplesheet.
   - `*_1.fastq.gz`: Read 2 files simulating Pacbio reads. The prefix will be the sample name found in the samplesheet.
 
-
 </details>
 
 [CapSim](https://academic.oup.com/bioinformatics/article/34/5/873/4575140) is a tool to simulate capture sequencing reads. It's part of the Japsa package. For further reading and documentation see the [CapSim documentation](https://japsa.readthedocs.io/en/latest/tools/jsa.sim.capsim.html).
