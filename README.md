@@ -68,7 +68,7 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/readsimulator was originally written by [Adam Bennett](https://github.com/a4000) for use at the [MinderooFoundation](https://www.minderoo.org/).
+nf-core/readsimulator was originally written by [Adam Bennett](https://github.com/a4000) for use at the [Minderoo Foundation's OceanOmics project](https://www.minderoo.org/oceanomics).
 
 We thank the following people for their extensive assistance in the development of this pipeline (in alphabetical order):
 

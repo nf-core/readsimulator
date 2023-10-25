@@ -106,7 +106,7 @@ workflow READSIMULATOR {
             ch_input,
             ch_probes.ifEmpty([])
         )
-        ch_versions          = ch_versions.mix(TARGET_CAPTURE_WORKFLOW.out.versions.first())
+        ch_versions        = ch_versions.mix(TARGET_CAPTURE_WORKFLOW.out.versions.first())
         ch_simulated_reads = ch_simulated_reads.mix(TARGET_CAPTURE_WORKFLOW.out.illumina_reads)
         ch_simulated_reads = ch_simulated_reads.mix(TARGET_CAPTURE_WORKFLOW.out.pacbio_reads)
     }
@@ -123,9 +123,9 @@ workflow READSIMULATOR {
         ch_metagenome_reads = INSILICOSEQ_GENERATE.out.fastq
             .map {
                 meta, fastqs ->
-                    meta.outdir   = "insilicoseq"
-                    meta.datatype = "metagenomic_illumina"
-                    return [ meta, fastqs ]
+                    meta[0].outdir   = "insilicoseq"
+                    meta[0].datatype = "metagenomic_illumina"
+                    return [ meta[0], fastqs ]
             }
         ch_simulated_reads  = ch_simulated_reads.mix(ch_metagenome_reads)
     }
@@ -145,7 +145,7 @@ workflow READSIMULATOR {
         .map {
             datatype, old_meta, samplesheet ->
                 def meta = [:]
-                meta.id = datatype
+                meta.id  = datatype
                 return [ meta, samplesheet ]
         }
 

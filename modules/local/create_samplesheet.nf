@@ -30,6 +30,6 @@ process CREATE_SAMPLESHEET {
     samplesheet += pipeline_map.values().collect{ '"' + it + '"'}.join(",")
 
     // Write samplesheet to file
-    def samplesheet_file = task.workDir.resolve("${meta.datatype}_${meta.id}.samplesheet.csv")
+    def samplesheet_file  = task.workDir.resolve("${meta.datatype}_${meta.id}.samplesheet.csv")
     samplesheet_file.text = samplesheet
 }
