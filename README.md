@@ -12,9 +12,7 @@
 
 ## Introduction
 
-**nf-core/readsimulator** is a bioinformatics pipeline that ...
-
-nf-core/readsimulator is a pipeline to simulate sequencing reads. The pipeline currently supports simulating Amplicon, Metagenomic, and Target Capture data. It takes a samplesheet with sample names and seeds for random generation to produce simulated fastq files and a samplesheet that contains the paths to the fastq files.
+**nf-core/readsimulator** is a pipeline to simulate sequencing reads. The pipeline currently supports simulating Amplicon, Metagenomic, and Target Capture data. It takes a samplesheet with sample names and seeds for random generation to produce simulated fastq files and a samplesheet that contains the paths to the fastq files.
 
 <!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
@@ -40,8 +38,6 @@ sample_1,1
 ```
 
 Each row represents an output sample.
-
--->
 
 Now, you can run the pipeline using:
 
