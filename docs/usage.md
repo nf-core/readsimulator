@@ -44,7 +44,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/readsimulator --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker <--amplicon/--target_capture/--metgenome>
+nextflow run nf-core/readsimulator --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker <--amplicon/--target_capture/--metagenome>
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
