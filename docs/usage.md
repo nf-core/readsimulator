@@ -6,7 +6,7 @@
 
 ## Introduction
 
-The pipeline curently support simulating amplicon, metagenomic, and target capture sequencing reads. The different modes can be selected with `--amplicon`, `--metagenome`, or `--target_capture` respectively.
+The pipeline currently supporst simulating amplicon, metagenomic, and target capture sequencing reads. The different modes can be selected with `--amplicon`, `--metagenome`, or `--target_capture` respectively.
 
 ## Samplesheet input
 
