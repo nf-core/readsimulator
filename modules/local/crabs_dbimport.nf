@@ -1,5 +1,4 @@
 process CRABS_DBIMPORT {
-
     tag "$meta.id"
     label 'process_medium'
 
