@@ -8,7 +8,6 @@ include { CRABS_INSILICOPCR } from '../../modules/local/crabs_insilicopcr'
 include { ART_ILLUMINA      } from '../../modules/nf-core/art/illumina/main'
 
 workflow AMPLICON_WORKFLOW {
-    ch_versions = Channel.empty()
 
     take:
     ch_fasta // file: /path/to/reference.fasta
