@@ -25,9 +25,7 @@ ch_versions = Channel.empty()
         ch_ref_fasta = CRABS_DBDOWNLOAD.out.fasta
             .map {
                 fasta ->
-                    def meta = [:]
-                    meta.id  = "amplicon"
-                    return [ meta, fasta ]
+                    return [ [id:"amplicon"], fasta ]
             }
 
     //
