@@ -114,7 +114,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 </details>
 
-[InSilicoSeq](https://academic.oup.com/bioinformatics/article/35/3/521/5055123) is a tool for simulating Illumina metgenomic sequencing reads. For further reading and documentation see the [InSilicoSeq documentation](https://insilicoseq.readthedocs.io/en/latest/).
+[InSilicoSeq](https://academic.oup.com/bioinformatics/article/35/3/521/5055123) is a tool for simulating Illumina metagenomic sequencing reads. For further reading and documentation see the [InSilicoSeq documentation](https://insilicoseq.readthedocs.io/en/latest/).
 
 ### MultiQC
 
