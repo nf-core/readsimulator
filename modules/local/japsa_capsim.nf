@@ -1,5 +1,4 @@
 process JAPSA_CAPSIM {
-
     tag "$meta.id"
     label 'process_single'
 
