@@ -1,5 +1,4 @@
 process MERGE_SAMPLESHEETS {
-
     tag "$meta.id"
     label 'process_low'
 
