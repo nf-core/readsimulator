@@ -15,7 +15,7 @@ workflow AMPLICON_WORKFLOW {
 
     main:
     ch_ref_fasta = Channel.empty()
-
+ch_versions = Channel.empty()
     //
     // MODULE: Run Crabs db_download if user doesn't have a reference database
     //
