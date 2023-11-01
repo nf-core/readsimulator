@@ -1,5 +1,4 @@
 process INSILICOSEQ_GENERATE {
-
     tag "$meta.id"
     label 'process_single'
 
