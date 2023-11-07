@@ -10,8 +10,9 @@ Initial release of nf-core/readsimulator, created with the [nf-core](https://nf-
 ### `Added`
 
 - Option to simulate amplicon sequencing reads
-- Option to simulate metagenomic sequencing reads
 - Option to simulate target capture sequencing reads
+- Option to simulate metagenomic sequencing reads
+- Option to simulate wholegenome sequencing reads
 - Samplesheet creation after reads have been simulated
 
 ### `Fixed`

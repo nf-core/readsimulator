@@ -19,22 +19,30 @@ process INSILICOSEQ_GENERATE {
     task.ext.when == null || task.ext.when
 
     script:
-    def args    = task.ext.args ?: ''
-    def args2   = task.ext.args2 ?: ''
-    def prefix  = task.ext.prefix ?: "${meta.id}"
-    def seed    = task.ext.seed ?: "${meta.seed}"
+    def args          = task.ext.args ?: ''
+    def args2         = task.ext.args2 ?: ''
+    def prefix        = task.ext.prefix ?: "${meta.id}"
+    def seed          = task.ext.seed ?: "${meta.seed}"
     if (fasta) {
+        def is_compressed = fasta.name.endsWith(".gz")
+        def fasta_name    = fasta.name.replace(".gz", "")
         """
         seed=\$(echo $seed | sed 's/\\[//g' | sed 's/\\]//g')
         prefix=\$(echo $prefix | sed 's/\\[//g' | sed 's/\\]//g')
 
+        if [ "${is_compressed}" == "true" ]; then
+            gzip -c -d ${fasta} > ${fasta_name}
+        fi
+
         iss generate \\
-            --genomes $fasta \\
+            --genomes ${fasta_name} \\
             --seed \$seed \\
             --output \$prefix \\
             --compress \\
             --cpus $task.cpus \\
             $args
+
+        rm ${fasta_name}
 
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":

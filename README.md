@@ -12,14 +12,42 @@
 
 ## Introduction
 
-**nf-core/readsimulator** is a pipeline to simulate sequencing reads. The pipeline currently supports simulating Amplicon, Metagenomic, and Target Capture data. It takes a samplesheet with sample names and seeds for random generation to produce simulated fastq files and a samplesheet that contains the paths to the fastq files.
+**nf-core/readsimulator** is a pipeline to simulate sequencing reads. The pipeline currently supports simulating Amplicon, Target Capture, Metagenome, and Wholegenome data. It takes a samplesheet with sample names and seeds for random generation to produce simulated fastq files and a samplesheet that contains the paths to the fastq files.
 
 <!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-1. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
+### Amplicon simulation steps
+
+1. Create Reference database for Amplicon-Based Sequencing ([`CRABS`](https://github.com/gjeunen/reference_database_creator))
+2. Simulate amplicon Illumina reads ([`art_illumina`](https://manpages.debian.org/testing/art-nextgen-simulation-tools/art_illumina.1.en.html))
+3. Create samplesheet with sample names and paths to simluated read files
+4. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+5. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
+
+### Target capture simulation steps
+
+1. Align probes to genome ([`Bowtie2`](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml))
+2. Get SAM index ([`SAMtools`](https://www.htslib.org/))
+3. Simulate target capture reads (Illumina or Pacbio; default=Illumina) ([`Japsa capsim`](https://japsa.readthedocs.io/en/latest/tools/jsa.sim.capsim.html))
+4. Create samplesheet with sample names and paths to simluated read files
+5. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+6. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
+
+### Metagenome simulation steps
+
+1. Simulate metagenome Illumina reads ([`InsilicoSeq Generate`](https://insilicoseq.readthedocs.io/en/latest/))
+2. Create samplesheet with sample names and paths to simluated read files
+3. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+4. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
+
+### Wholegenome simulation steps
+
+1. Simulate wholegenome reads ([`wgsim`](https://github.com/lh3/wgsim))
+2. Create samplesheet with sample names and paths to simluated read files
+3. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+4. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
 
 ## Usage
 
