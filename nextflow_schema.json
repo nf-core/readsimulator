@@ -272,7 +272,7 @@
             "properties": {
                 "wholegenome_error_rate": {
                     "type": "number",
-                    "default": 0.020,
+                    "default": 0.02,
                     "description": "The base error rate."
                 },
                 "wholegenome_outer_dist": {
@@ -302,7 +302,7 @@
                 },
                 "wholegenome_mutation_rate": {
                     "type": "number",
-                    "default": 0.0010,
+                    "default": 0.001,
                     "description": "The rate of mutations."
                 },
                 "wholegenome_indel_fraction": {
@@ -312,7 +312,7 @@
                 },
                 "wholegenome_indel_extended": {
                     "type": "number",
-                    "default": 0.30,
+                    "default": 0.3,
                     "description": "The probability that an indel is extended."
                 }
             }
@@ -573,6 +573,9 @@
         },
         {
             "$ref": "#/definitions/metagenome_options"
+        },
+        {
+            "$ref": "#/definitions/wholegenome_options"
         },
         {
             "$ref": "#/definitions/reference_genome_options"
