@@ -15,7 +15,8 @@ workflow AMPLICON_WORKFLOW {
 
     main:
     ch_ref_fasta = Channel.empty()
-ch_versions = Channel.empty()
+    ch_versions = Channel.empty()
+
     //
     // MODULE: Run Crabs db_download if user doesn't have a reference database
     //
@@ -35,9 +36,7 @@ ch_versions = Channel.empty()
         ch_meta_fasta = Channel.fromPath(params.fasta)
             .map {
                 fasta ->
-                    def meta = [:]
-                    meta.id  = "amplicon"
-                    return [ meta, fasta ]
+                    return [ [id:"amplicon"], fasta ]
             }
 
         CRABS_DBIMPORT (
@@ -68,8 +67,8 @@ ch_versions = Channel.empty()
     //
     ART_ILLUMINA (
         ch_art_input,
-        "HS25",
-        130
+        params.amplicon_seq_system,
+        params.amplicon_read_length
     )
     ch_versions = ch_versions.mix(ART_ILLUMINA.out.versions.first())
 

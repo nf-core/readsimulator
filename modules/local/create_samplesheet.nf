@@ -1,9 +1,6 @@
 process CREATE_SAMPLESHEET {
     tag "$meta.id"
 
-    executor 'local'
-    memory 100.MB
-
     input:
     tuple val(meta), path(fastq)
 

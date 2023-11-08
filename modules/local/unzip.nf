@@ -9,8 +9,10 @@ process UNZIP {
 
     input:
     path(file)
+    //tuple val(meta), path(file)
 
     output:
+    //tuple val(meta), path "unziped/*", emit: file
     path "unziped/*"   , emit: file
     path "versions.yml", emit: versions
 

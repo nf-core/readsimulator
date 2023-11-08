@@ -19,14 +19,22 @@ process CRABS_DBIMPORT {
     task.ext.when == null || task.ext.when
 
     script:
-    def args    = task.ext.args ?: ''
-    def prefix  = task.ext.prefix ?: "${meta.id}"
-    def VERSION = '0.1.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def args          = task.ext.args ?: ''
+    def prefix        = task.ext.prefix ?: "${meta.id}"
+    def VERSION       = '0.1.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def is_compressed = fasta.name.endsWith(".gz")
+    def fasta_name    = fasta.name.replace(".gz", "")
     """
+    if [ "${is_compressed}" == "true" ]; then
+        gzip -c -d ${fasta} > ${fasta_name}
+    fi
+
     crabs db_import \\
-        --input $fasta \\
+        --input ${fasta_name} \\
         --output ${prefix}.crabsdb.fa \\
         $args
+
+    rm ${fasta_name}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

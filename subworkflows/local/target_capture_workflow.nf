@@ -21,9 +21,7 @@ workflow TARGET_CAPTURE_WORKFLOW {
     ch_meta_fasta = ch_fasta
         .map {
             fasta ->
-                def meta = [:]
-                meta.id  = "target_capture"
-                return [ meta, fasta ]
+                return [ [id:"target_capture"], fasta ]
         }
 
     //

@@ -38,6 +38,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 include { INSILICOSEQ_GENERATE    } from '../modules/local/insilicoseq_generate'
 include { CREATE_SAMPLESHEET      } from '../modules/local/create_samplesheet'
 include { MERGE_SAMPLESHEETS      } from '../modules/local/merge_samplesheets'
+include { WGSIM                   } from '../modules/local/wgsim'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -128,6 +129,25 @@ workflow READSIMULATOR {
                     return [ meta[0], fastqs ]
             }
         ch_simulated_reads  = ch_simulated_reads.mix(ch_metagenome_reads)
+    }
+
+    //
+    // MODULE: Simulate wholegenomic reads
+    //
+    if ( params.wholegenome ) {
+        WGSIM (
+            ch_fasta.first(),
+            ch_input
+        )
+        ch_versions          = ch_versions.mix(WGSIM.out.versions.first())
+        ch_wholegenome_reads = WGSIM.out.fastq
+            .map {
+                meta, fastqs ->
+                    meta[0].outdir   = "wgsim"
+                    meta[0].datatype = "wholegenome"
+                    return [ meta[0], fastqs ]
+            }
+        ch_simulated_reads  = ch_simulated_reads.mix(ch_wholegenome_reads)
     }
 
     // MODULE: Create sample sheet (just the header and one row)

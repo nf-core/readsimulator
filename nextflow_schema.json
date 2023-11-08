@@ -63,6 +63,11 @@
                     "type": "boolean",
                     "description": "Option to simulate metagenomic data.",
                     "fa_icon": "fas fa-question-circle"
+                },
+                "wholegenome": {
+                    "type": "boolean",
+                    "description": "Option to simulate wholegenomic data.",
+                    "fa_icon": "fas fa-question-circle"
                 }
             }
         },
@@ -123,6 +128,23 @@
                     "type": "string",
                     "description": "BOLD database to use when `--amplicon_ref_source` is set to 'bold', seperate databases with '|'",
                     "default": "Actinopterygii|Aves"
+                },
+                "amplicon_read_count": {
+                    "type": "integer",
+                    "description": "Number of reads to be simulated.",
+                    "default": 500
+                },
+                "amplicon_read_length": {
+                    "type": "integer",
+                    "description": "Length of reads to be simulated.",
+                    "default": 130
+                },
+                "amplicon_seq_system": {
+                    "type": "string",
+                    "description": "Sequencing system of reads to be simulated.",
+                    "default": "HS25",
+                    "help_text": "Can be 'GA1' for Genome Analyser I, 'GA2' for Genome Analyser II, 'HS10' for HiSeq 1000, 'HS20' for HiSeq 2000, 'HS25' for HiSeq 2500, or 'MS' for MiSeq.",
+                    "enum": ["GA1", "GA2", "HS10", "HS20", "HS25", "MS"]
                 }
             }
         },
@@ -239,6 +261,59 @@
                 "metagenome_gc_bias": {
                     "type": "boolean",
                     "description": "Use this option to prevent simulating reads that have abnormal GC content."
+                }
+            }
+        },
+        "wholegenome_options": {
+            "title": "Wholegenome options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for simulating wholegenome data.",
+            "properties": {
+                "wholegenome_error_rate": {
+                    "type": "number",
+                    "default": 0.02,
+                    "description": "The base error rate."
+                },
+                "wholegenome_outer_dist": {
+                    "type": "integer",
+                    "default": 500,
+                    "description": "The outer distance between the two ends."
+                },
+                "wholegenome_standard_dev": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "The standard deviation."
+                },
+                "wholegenome_n_reads": {
+                    "type": "integer",
+                    "default": 1000000,
+                    "description": "The number of read pairs."
+                },
+                "wholegenome_r1_length": {
+                    "type": "integer",
+                    "default": 70,
+                    "description": "The length of the first reads."
+                },
+                "wholegenome_r2_length": {
+                    "type": "integer",
+                    "default": 70,
+                    "description": "The length of the second reads."
+                },
+                "wholegenome_mutation_rate": {
+                    "type": "number",
+                    "default": 0.001,
+                    "description": "The rate of mutations."
+                },
+                "wholegenome_indel_fraction": {
+                    "type": "number",
+                    "default": 0.15,
+                    "description": "The fraction of indels."
+                },
+                "wholegenome_indel_extended": {
+                    "type": "number",
+                    "default": 0.3,
+                    "description": "The probability that an indel is extended."
                 }
             }
         },
@@ -498,6 +573,9 @@
         },
         {
             "$ref": "#/definitions/metagenome_options"
+        },
+        {
+            "$ref": "#/definitions/wholegenome_options"
         },
         {
             "$ref": "#/definitions/reference_genome_options"
