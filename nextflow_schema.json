@@ -131,7 +131,7 @@
                 },
                 "amplicon_read_count": {
                     "type": "integer",
-                    "description": "Number of reads to be simulated.",
+                    "description": "Number of reads to be simulated per amplicon.",
                     "default": 500
                 },
                 "amplicon_read_length": {
