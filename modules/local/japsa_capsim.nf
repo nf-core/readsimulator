@@ -4,11 +4,6 @@ process JAPSA_CAPSIM {
 
     container "docker.io/vmurigneux/japsa@sha256:ba74e9c844d115f390be62cde1272cfa5e10492512674ea342a4eeec47840f98"
 
-    // Exit if running this module with -profile conda / -profile mamba
-    if (workflow.profile.tokenize(',').intersect(['conda', 'mamba']).size() >= 1) {
-        exit 1, "CAPSIM does not support Conda. Please use Docker / Singularity / Podman instead."
-    }
-
     input:
     tuple val(meta), path(fasta), path(probes), path(index)
 
@@ -20,6 +15,10 @@ process JAPSA_CAPSIM {
     task.ext.when == null || task.ext.when
 
     script:
+    // Exit if running this module with -profile conda / -profile mamba
+    if (workflow.profile.tokenize(',').intersect(['conda', 'mamba']).size() >= 1) {
+        error "CAPSIM does not support Conda. Please use Docker / Singularity / Podman instead."
+    }
     def args    = task.ext.args ?: ''
     def prefix  = task.ext.prefix ?: "${meta.id}"
     def seed    = task.ext.seed ?: "${meta.seed}"
