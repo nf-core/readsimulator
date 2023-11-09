@@ -22,7 +22,7 @@
 
 1. Create Reference database for Amplicon-Based Sequencing ([`CRABS`](https://github.com/gjeunen/reference_database_creator))
 2. Simulate amplicon Illumina reads ([`art_illumina`](https://manpages.debian.org/testing/art-nextgen-simulation-tools/art_illumina.1.en.html))
-3. Create samplesheet with sample names and paths to simluated read files
+3. Create samplesheet with sample names and paths to simulated read files
 4. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 5. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
 
@@ -31,21 +31,21 @@
 1. Align probes to genome ([`Bowtie2`](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml))
 2. Get SAM index ([`SAMtools`](https://www.htslib.org/))
 3. Simulate target capture reads (Illumina or Pacbio; default=Illumina) ([`Japsa capsim`](https://japsa.readthedocs.io/en/latest/tools/jsa.sim.capsim.html))
-4. Create samplesheet with sample names and paths to simluated read files
+4. Create samplesheet with sample names and paths to simulated read files
 5. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 6. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
 
 ### Metagenome simulation steps
 
 1. Simulate metagenome Illumina reads ([`InsilicoSeq Generate`](https://insilicoseq.readthedocs.io/en/latest/))
-2. Create samplesheet with sample names and paths to simluated read files
+2. Create samplesheet with sample names and paths to simulated read files
 3. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 4. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
 
 ### Wholegenome simulation steps
 
 1. Simulate wholegenome reads ([`wgsim`](https://github.com/lh3/wgsim))
-2. Create samplesheet with sample names and paths to simluated read files
+2. Create samplesheet with sample names and paths to simulated read files
 3. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 4. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
 
