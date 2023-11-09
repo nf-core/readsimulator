@@ -33,7 +33,7 @@ workflow TARGET_CAPTURE_WORKFLOW {
     ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions.first())
 
     //
-    // MODULE: Unzip probes file if user is downloading them
+    // MODULE: Unzip probes file if user is downloading a reference probe file
     //
     if ( !params.probe_fasta ) {
         ch_zip_file = Channel.fromPath(params.probe_ref_db[params.probe_ref_name]["url"])
