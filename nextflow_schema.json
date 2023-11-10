@@ -104,16 +104,6 @@
                     "description": "NCBI query to use when `--amplicon_ref_source` is set to 'ncbi'",
                     "default": "16S[All Fields] AND (\"1\"[SLEN] : \"50000\"[SLEN])"
                 },
-                "amplicon_ncbi_species": {
-                    "type": "string",
-                    "description": "Species to use when `--amplicon_ref_source` is set to 'ncbi', seperate taxa with ' + '",
-                    "default": "Carcharinus leucas + Carcharinus acronotus"
-                },
-                "amplicon_ncbi_email": {
-                    "type": "string",
-                    "description": "email to conect to ncbi when `--amplicon_ref_source` is set to 'ncbi'",
-                    "default": "johndoe@gmail.com"
-                },
                 "amplicon_ncbi_batchsize": {
                     "type": "integer",
                     "description": "Batchsize to use when `--amplicon_ref_source` is set to 'ncbi'",
