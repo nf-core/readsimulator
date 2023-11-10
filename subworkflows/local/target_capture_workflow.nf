@@ -7,7 +7,7 @@ include { BOWTIE2_ALIGN                   } from '../../modules/nf-core/bowtie2/
 include { SAMTOOLS_INDEX                  } from '../../modules/nf-core/samtools/index/main'
 include { JAPSA_CAPSIM as CAPSIM_ILLUMINA } from '../../modules/local/japsa_capsim'
 include { JAPSA_CAPSIM as CAPSIM_PACBIO   } from '../../modules/local/japsa_capsim'
-include { UNZIP                           } from '../../modules/local/unzip'
+include { UNZIP as UNZIP_PROBE            } from '../../modules/local/unzip'
 
 workflow TARGET_CAPTURE_WORKFLOW {
     take:
@@ -37,7 +37,7 @@ workflow TARGET_CAPTURE_WORKFLOW {
     //
     if ( !params.probe_fasta ) {
         ch_zip_file = Channel.fromPath(params.probe_ref_db[params.probe_ref_name]["url"])
-        ch_probes = UNZIP (
+        ch_probes = UNZIP_PROBE (
             ch_zip_file
         ).file
     }
