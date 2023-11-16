@@ -51,22 +51,22 @@
             "properties": {
                 "amplicon": {
                     "type": "boolean",
-                    "description": "Option to simulate amplicon data.",
+                    "description": "Option to simulate amplicon sequencing reads.",
                     "fa_icon": "fas fa-question-circle"
                 },
                 "target_capture": {
                     "type": "boolean",
-                    "description": "Option to simulate UCE target capture data.",
+                    "description": "Option to simulate target capture sequencing reads.",
                     "fa_icon": "fas fa-question-circle"
                 },
                 "metagenome": {
                     "type": "boolean",
-                    "description": "Option to simulate metagenomic data.",
+                    "description": "Option to simulate metagenomic sequencing reads.",
                     "fa_icon": "fas fa-question-circle"
                 },
                 "wholegenome": {
                     "type": "boolean",
-                    "description": "Option to simulate wholegenomic data.",
+                    "description": "Option to simulate wholegenomic sequencing reads.",
                     "fa_icon": "fas fa-question-circle"
                 }
             }
@@ -75,7 +75,7 @@
             "title": "Amplicon options",
             "type": "object",
             "fa_icon": "fas fa-dna",
-            "description": "Options for simulating amplicon data.",
+            "description": "Options for simulating amplicon sequencing reads.",
             "properties": {
                 "fw_primer": {
                     "type": "string",
@@ -102,7 +102,8 @@
                 "amplicon_ncbi_query": {
                     "type": "string",
                     "description": "NCBI query to use when `--amplicon_ref_source` is set to 'ncbi'",
-                    "default": "16S[All Fields] AND (\"1\"[SLEN] : \"50000\"[SLEN])"
+                    "default": "16S[All Fields] AND (\"1\"[SLEN] : \"50000\"[SLEN])",
+                    "help_text": "Multiple species can be queried like this '(\"Mus musculus\"[Organism] OR \"Salmo salar\"[Organism]) AND 16S[All Fields]'"
                 },
                 "amplicon_ncbi_batchsize": {
                     "type": "integer",
@@ -142,7 +143,7 @@
             "title": "Target capture options",
             "type": "object",
             "fa_icon": "fas fa-dna",
-            "description": "Options for simulating target capture data.",
+            "description": "Options for simulating target capture sequencing reads.",
             "properties": {
                 "target_capture_pacbio": {
                     "type": "boolean",
@@ -184,7 +185,7 @@
             "title": "Metagenome options",
             "type": "object",
             "fa_icon": "fas fa-dna",
-            "description": "Options for simulating metagenomic data.",
+            "description": "Options for simulating metagenomic sequencing reads.",
             "properties": {
                 "metagenome_ncbi_db": {
                     "type": "string",
@@ -258,7 +259,7 @@
             "title": "Wholegenome options",
             "type": "object",
             "fa_icon": "fas fa-dna",
-            "description": "Options for simulating wholegenome data.",
+            "description": "Options for simulating wholegenome sequencing reads.",
             "properties": {
                 "wholegenome_error_rate": {
                     "type": "number",
@@ -325,8 +326,8 @@
                     "exists": true,
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
-                    "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified, unless simulating amplicon data. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "description": "Path to reference FASTA file.",
+                    "help_text": "If this parameter is not used, the pipeline will download a fasta file, either using the `--genome` parameter or by using other parameters specific to individual modes (e.g., the `--amplicon` mode has parameters specific to just that mode.).",
                     "fa_icon": "far fa-file-code"
                 },
                 "igenomes_base": {
