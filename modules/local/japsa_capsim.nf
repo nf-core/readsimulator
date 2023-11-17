@@ -2,7 +2,7 @@ process JAPSA_CAPSIM {
     tag "$meta.id"
     label 'process_single'
 
-    container "docker.io/vmurigneux/japsa@sha256:ba74e9c844d115f390be62cde1272cfa5e10492512674ea342a4eeec47840f98"
+    container "nf-core/japsa:0"
 
     input:
     tuple val(meta), path(fasta), path(probes), path(index)
