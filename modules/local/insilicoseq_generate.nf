@@ -1,6 +1,6 @@
 process INSILICOSEQ_GENERATE {
     tag "$meta.id"
-    label 'process_single'
+    label 'process_low'
 
     conda "bioconda::insilicoseq=1.6.0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
