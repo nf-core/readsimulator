@@ -178,10 +178,7 @@
                     "type": "string",
                     "default": "illumina",
                     "description": "Simulate 'illumina' or 'pacbio' reads.",
-                    "enum": [
-                        "illumina",
-                        "pacbio"
-                    ]
+                    "enum": ["illumina", "pacbio"]
                 },
                 "target_capture_fmedian": {
                     "type": "integer",
@@ -205,12 +202,10 @@
                 },
                 "target_capture_tmedian": {
                     "type": "integer",
-                    "default": null,
                     "description": "Median of target fragment size (the fragment size of the data). If specified, will override '--fmedian' and '--smedian'. Othersise will be estimated."
                 },
                 "target_capture_tshape": {
                     "type": "number",
-                    "default": null,
                     "description": "Shape parameter of the effective fragment size distribution."
                 },
                 "target_capture_num": {
@@ -233,11 +228,7 @@
                     "default": "pe",
                     "description": "Illumina: Sequencing mode.",
                     "help_text": "'pe' = paired-end, 'mp' = mate-paired and 'se' = singled-end",
-                    "enum": [
-                        "pe",
-                        "mp",
-                        "se"
-                    ]
+                    "enum": ["pe", "mp", "se"]
                 }
             }
         },
