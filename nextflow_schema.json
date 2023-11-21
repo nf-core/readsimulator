@@ -145,11 +145,6 @@
             "fa_icon": "fas fa-dna",
             "description": "Options for simulating target capture sequencing reads.",
             "properties": {
-                "target_capture_pacbio": {
-                    "type": "boolean",
-                    "description": "Use this option to simulate Pacbio long-read target capture reads.",
-                    "help_text": "By default, only Illumina short-reads are simulated for target capture data."
-                },
                 "probe_fasta": {
                     "type": "string",
                     "format": "file-path",
@@ -177,6 +172,71 @@
                         "Hymenoptera-1.5Kv1",
                         "Hymenoptera-2.5Kv2",
                         "Anthozoa-1.7Kv1"
+                    ]
+                },
+                "target_capture_mode": {
+                    "type": "string",
+                    "default": "illumina",
+                    "description": "Simulate 'illumina' or 'pacbio' reads.",
+                    "enum": [
+                        "illumina",
+                        "pacbio"
+                    ]
+                },
+                "target_capture_fmedian": {
+                    "type": "integer",
+                    "default": 2000,
+                    "description": "Median of fragment size at shearing."
+                },
+                "target_capture_fshape": {
+                    "type": "number",
+                    "default": 6.0,
+                    "description": "Shape parameter of the fragment size distribution."
+                },
+                "target_capture_smedian": {
+                    "type": "integer",
+                    "default": 1300,
+                    "description": "Median of fragment size distribution."
+                },
+                "target_capture_sshape": {
+                    "type": "number",
+                    "default": 6.0,
+                    "description": "Shape parameter of the fragment size distribution."
+                },
+                "target_capture_tmedian": {
+                    "type": "integer",
+                    "default": null,
+                    "description": "Median of target fragment size (the fragment size of the data). If specified, will override '--fmedian' and '--smedian'. Othersise will be estimated."
+                },
+                "target_capture_tshape": {
+                    "type": "number",
+                    "default": null,
+                    "description": "Shape parameter of the effective fragment size distribution."
+                },
+                "target_capture_num": {
+                    "type": "integer",
+                    "default": 1000000,
+                    "description": "Number of fragments."
+                },
+                "target_capture_illen": {
+                    "type": "integer",
+                    "default": 300,
+                    "description": "Illumina: read length."
+                },
+                "target_capture_pblen": {
+                    "type": "integer",
+                    "default": 30000,
+                    "description": "PacBio: Average (polymerase) read length."
+                },
+                "target_capture_ilmode": {
+                    "type": "string",
+                    "default": "pe",
+                    "description": "Illumina: Sequencing mode.",
+                    "help_text": "'pe' = paired-end, 'mp' = mate-paired and 'se' = singled-end",
+                    "enum": [
+                        "pe",
+                        "mp",
+                        "se"
                     ]
                 }
             }

@@ -108,8 +108,7 @@ workflow READSIMULATOR {
             ch_probes.ifEmpty([])
         )
         ch_versions        = ch_versions.mix(TARGET_CAPTURE_WORKFLOW.out.versions.first())
-        ch_simulated_reads = ch_simulated_reads.mix(TARGET_CAPTURE_WORKFLOW.out.illumina_reads)
-        ch_simulated_reads = ch_simulated_reads.mix(TARGET_CAPTURE_WORKFLOW.out.pacbio_reads)
+        ch_simulated_reads = ch_simulated_reads.mix(TARGET_CAPTURE_WORKFLOW.out.reads)
     }
 
     //
@@ -117,16 +116,15 @@ workflow READSIMULATOR {
     //
     if ( params.metagenome ) {
         INSILICOSEQ_GENERATE (
-            ch_fasta.ifEmpty([]).first(),
-            ch_input
+            ch_input.combine(ch_fasta.ifEmpty([[]]))
         )
         ch_versions         = ch_versions.mix(INSILICOSEQ_GENERATE.out.versions.first())
         ch_metagenome_reads = INSILICOSEQ_GENERATE.out.fastq
             .map {
                 meta, fastqs ->
-                    meta[0].outdir   = "insilicoseq"
-                    meta[0].datatype = "metagenomic_illumina"
-                    return [ meta[0], fastqs ]
+                    meta.outdir   = "insilicoseq"
+                    meta.datatype = "metagenomic_illumina"
+                    return [ meta, fastqs ]
             }
         ch_simulated_reads  = ch_simulated_reads.mix(ch_metagenome_reads)
     }
@@ -136,16 +134,15 @@ workflow READSIMULATOR {
     //
     if ( params.wholegenome ) {
         WGSIM (
-            ch_fasta.first(),
-            ch_input
+            ch_input.combine(ch_fasta)
         )
         ch_versions          = ch_versions.mix(WGSIM.out.versions.first())
         ch_wholegenome_reads = WGSIM.out.fastq
             .map {
                 meta, fastqs ->
-                    meta[0].outdir   = "wgsim"
-                    meta[0].datatype = "wholegenome"
-                    return [ meta[0], fastqs ]
+                    meta.outdir   = "wgsim"
+                    meta.datatype = "wholegenome"
+                    return [ meta, fastqs ]
             }
         ch_simulated_reads  = ch_simulated_reads.mix(ch_wholegenome_reads)
     }

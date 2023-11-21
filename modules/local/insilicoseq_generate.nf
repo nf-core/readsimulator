@@ -8,8 +8,7 @@ process INSILICOSEQ_GENERATE {
         'biocontainers/insilicoseq:1.6.0--pyh7cba7a3_0' }"
 
     input:
-    path(fasta)
-    val(meta)
+    tuple val(meta), path(fasta)
 
     output:
     tuple val(meta), path("*.fastq.gz*"), emit: fastq

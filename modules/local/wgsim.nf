@@ -9,8 +9,7 @@ process WGSIM {
         'biocontainers/wgsim:1.0--he4a0461_7' }"
 
     input:
-    path(fasta)
-    val(meta)
+    tuple val(meta), path(fasta)
 
     output:
     tuple val(meta), path("*.fq.gz*"), emit: fastq
