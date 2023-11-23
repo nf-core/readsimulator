@@ -3,7 +3,7 @@ process WGSIM {
     label 'process_single'
 
     // WARN: Version information not provided by tool on CLI. Please update version string below when bumping container versions.
-    conda "bioconda::wgsim=1.0"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/wgsim:1.0--he4a0461_7':
         'biocontainers/wgsim:1.0--he4a0461_7' }"

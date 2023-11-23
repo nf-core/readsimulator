@@ -2,17 +2,15 @@ process UNZIP {
     tag "$file"
     label 'process_single'
 
-    conda "conda-forge::unzip=6.0"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/unzip:6.0':
         'biocontainers/unzip:6.0' }"
 
     input:
     path(file)
-    //tuple val(meta), path(file)
 
     output:
-    //tuple val(meta), path "unziped/*", emit: file
     path "unziped/*"   , emit: file
     path "versions.yml", emit: versions
 

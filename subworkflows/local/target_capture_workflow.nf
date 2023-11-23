@@ -5,8 +5,8 @@
 include { BOWTIE2_BUILD                   } from '../../modules/nf-core/bowtie2/build/main'
 include { BOWTIE2_ALIGN                   } from '../../modules/nf-core/bowtie2/align/main'
 include { SAMTOOLS_INDEX                  } from '../../modules/nf-core/samtools/index/main'
-include { JAPSA_CAPSIM                    } from '../../modules/local/japsa_capsim'
-include { UNZIP as UNZIP_PROBE            } from '../../modules/local/unzip'
+include { JAPSA_CAPSIM                    } from '../../modules/local/japsa/capsim/main'
+include { UNZIP as UNZIP_PROBE            } from '../../modules/local/unzip/main'
 
 workflow TARGET_CAPTURE_WORKFLOW {
     take:

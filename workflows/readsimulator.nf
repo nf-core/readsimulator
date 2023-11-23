@@ -35,10 +35,10 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // MODULE: Local modules
 //
-include { INSILICOSEQ_GENERATE    } from '../modules/local/insilicoseq_generate'
-include { CREATE_SAMPLESHEET      } from '../modules/local/create_samplesheet'
-include { MERGE_SAMPLESHEETS      } from '../modules/local/merge_samplesheets'
-include { WGSIM                   } from '../modules/local/wgsim'
+include { INSILICOSEQ_GENERATE    } from '../modules/local/insilicoseq/generate/main'
+include { CREATE_SAMPLESHEET      } from '../modules/local/custom/create_samplesheet/main'
+include { MERGE_SAMPLESHEETS      } from '../modules/local/custom/merge_samplesheets/main'
+include { WGSIM                   } from '../modules/local/wgsim/main'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
