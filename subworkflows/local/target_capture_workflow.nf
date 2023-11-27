@@ -5,9 +5,8 @@
 include { BOWTIE2_BUILD                   } from '../../modules/nf-core/bowtie2/build/main'
 include { BOWTIE2_ALIGN                   } from '../../modules/nf-core/bowtie2/align/main'
 include { SAMTOOLS_INDEX                  } from '../../modules/nf-core/samtools/index/main'
-include { JAPSA_CAPSIM as CAPSIM_ILLUMINA } from '../../modules/local/japsa_capsim'
-include { JAPSA_CAPSIM as CAPSIM_PACBIO   } from '../../modules/local/japsa_capsim'
-include { UNZIP as UNZIP_PROBE            } from '../../modules/local/unzip'
+include { JAPSA_CAPSIM                    } from '../../modules/local/japsa/capsim/main'
+include { UNZIP as UNZIP_PROBE            } from '../../modules/local/unzip/main'
 
 workflow TARGET_CAPTURE_WORKFLOW {
     take:
@@ -80,41 +79,22 @@ workflow TARGET_CAPTURE_WORKFLOW {
         }
 
     //
-    // MODULE: Simulate target capture illumina reads
+    // MODULE: Simulate target capture reads
     //
-    ch_illumina_reads = Channel.empty()
-    CAPSIM_ILLUMINA (
+    ch_reads = Channel.empty()
+    JAPSA_CAPSIM (
         ch_capsim_input
     )
-    ch_versions       = ch_versions.mix(CAPSIM_ILLUMINA.out.versions.first())
-    ch_illumina_reads = CAPSIM_ILLUMINA.out.fastq
+    ch_versions = ch_versions.mix(JAPSA_CAPSIM.out.versions.first())
+    ch_reads    = JAPSA_CAPSIM.out.fastq
         .map {
             meta, fastqs ->
-                meta.outdir   = "capsim_illumina"
-                meta.datatype = "target_capture_illumina"
+                meta.outdir   = "capsim"
+                meta.datatype = "target_capture"
                 return [ meta, fastqs ]
         }
 
-    //
-    // MODULE: Simulate target capture pacbio reads
-    //
-    ch_pacbio_reads = Channel.empty()
-    if ( params.target_capture_pacbio ) {
-        CAPSIM_PACBIO (
-            ch_capsim_input
-        )
-        ch_versions     = ch_versions.mix(CAPSIM_PACBIO.out.versions.first())
-        ch_pacbio_reads = CAPSIM_PACBIO.out.fastq
-            .map {
-                meta, fastqs ->
-                    meta.outdir   = "capsim_pacbio"
-                    meta.datatype = "target_capture_pacbio"
-                    return [ meta, fastqs ]
-            }
-    }
-
     emit:
-    illumina_reads = ch_illumina_reads // channel: [ meta, fastq ]
-    pacbio_reads   = ch_pacbio_reads   // channel: [ meta, fastq ]
-    versions       = ch_versions       // channel: [ versions.yml ]
+    reads    = ch_reads    // channel: [ meta, fastq ]
+    versions = ch_versions // channel: [ versions.yml ]
 }

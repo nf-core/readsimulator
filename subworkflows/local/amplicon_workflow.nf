@@ -2,9 +2,9 @@
 // Simulate amplicon reads
 //
 
-include { CRABS_DBDOWNLOAD  } from '../../modules/local/crabs_dbdownload'
-include { CRABS_DBIMPORT    } from '../../modules/local/crabs_dbimport'
-include { CRABS_INSILICOPCR } from '../../modules/local/crabs_insilicopcr'
+include { CRABS_DBDOWNLOAD  } from '../../modules/local/crabs/dbdownload/main'
+include { CRABS_DBIMPORT    } from '../../modules/local/crabs/dbimport/main'
+include { CRABS_INSILICOPCR } from '../../modules/local/crabs/insilicopcr/main'
 include { ART_ILLUMINA      } from '../../modules/nf-core/art/illumina/main'
 
 workflow AMPLICON_WORKFLOW {

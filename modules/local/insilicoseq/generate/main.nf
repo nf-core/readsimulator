@@ -2,14 +2,13 @@ process INSILICOSEQ_GENERATE {
     tag "$meta.id"
     label 'process_low'
 
-    conda "bioconda::insilicoseq=1.6.0"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/insilicoseq:1.6.0--pyh7cba7a3_0':
         'biocontainers/insilicoseq:1.6.0--pyh7cba7a3_0' }"
 
     input:
-    path(fasta)
-    val(meta)
+    tuple val(meta), path(fasta)
 
     output:
     tuple val(meta), path("*.fastq.gz*"), emit: fastq
