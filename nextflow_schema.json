@@ -117,7 +117,7 @@
                 },
                 "amplicon_bold_db": {
                     "type": "string",
-                    "description": "BOLD database to use when `--amplicon_ref_source` is set to 'bold', seperate databases with '|'",
+                    "description": "BOLD database to use when `--amplicon_ref_source` is set to 'bold'. Separate database names with `|`",
                     "default": "Actinopterygii|Aves"
                 },
                 "amplicon_read_count": {
