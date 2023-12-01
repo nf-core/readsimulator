@@ -12,7 +12,7 @@
 
 ## Introduction
 
-**nf-core/readsimulator** is a pipeline to simulate sequencing reads. The pipeline currently supports simulating Amplicon, Target Capture, Metagenome, and Wholegenome data. It takes a samplesheet with sample names and seeds for random generation to produce simulated fastq files and a samplesheet that contains the paths to the fastq files.
+**nf-core/readsimulator** is a pipeline to simulate sequencing reads. The pipeline currently supports simulating amplicon, target capture, metagenome, and wholegenome data. It takes a samplesheet with sample names and seeds for random generation to produce simulated FASTQ files and a samplesheet that contains the paths to the FASTQ files.
 
 <p align="center">
     <img src="docs/images/readsimulator_workflow.png" alt="nf-core/readsimulator workflow overview" width="60%">
@@ -20,7 +20,7 @@
 
 ### Amplicon simulation steps
 
-1. Create Reference database for Amplicon-Based Sequencing ([`CRABS`](https://github.com/gjeunen/reference_database_creator))
+1. Create reference database for amplicon-based sequencing ([`CRABS`](https://github.com/gjeunen/reference_database_creator))
 2. Simulate amplicon Illumina reads ([`art_illumina`](https://manpages.debian.org/testing/art-nextgen-simulation-tools/art_illumina.1.en.html))
 3. Create samplesheet with sample names and paths to simulated read files
 4. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))

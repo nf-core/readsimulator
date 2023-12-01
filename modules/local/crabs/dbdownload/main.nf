@@ -10,6 +10,9 @@ process CRABS_DBDOWNLOAD {
         'biocontainers/crabs:0.1.1--pyhb7b1952_0' }"
 
     input:
+    val amplicon_ncbi_db
+    val amplicon_embl_db
+    val amplicon_bold_db
 
     output:
     path("*.fasta")     , emit: fasta
@@ -20,10 +23,17 @@ process CRABS_DBDOWNLOAD {
 
     script:
     def args    = task.ext.args ?: ''
+    def ncbi_input  = amplicon_ncbi_db ? "--source ncbi --database ${amplicon_ncbi_db} --output ncbi.fasta" : ""
+    def embl_input = amplicon_embl_db ? "--source embl --database ${params.amplicon_embl_db} --output embl.fasta " : ""
+    def bold_input = amplicon_bold_db ? "--source bold --database '${params.amplicon_bold_db} --output bold.fasta" : ""
+    // Check for clashing inputs here
+    
+    def input_args = ncbi_input + embl_input + bold_input
     def VERSION = '0.1.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     """
     crabs db_download \\
-        $args
+        $args \\
+        $input_args
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

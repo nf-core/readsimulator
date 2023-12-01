@@ -75,7 +75,7 @@ workflow TARGET_CAPTURE_WORKFLOW {
         .combine ( SAMTOOLS_INDEX.out.bai.map { it = it[1] } )
         .combine ( ch_input )
         .map {
-            it = [ it[3], it[0], it[1], it[2] ]
+            fasta, bam, index, meta -> [ meta, fasta, bam, index ]
         }
 
     //
