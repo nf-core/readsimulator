@@ -30,7 +30,7 @@
 
 1. Align probes to genome ([`Bowtie2`](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml))
 2. Get SAM index ([`SAMtools`](https://www.htslib.org/))
-3. Simulate target capture reads (Illumina or Pacbio; default=Illumina) ([`Japsa capsim`](https://japsa.readthedocs.io/en/latest/tools/jsa.sim.capsim.html))
+3. Simulate target capture reads (Illumina (default) or Pacbio) ([`Japsa capsim`](https://japsa.readthedocs.io/en/latest/tools/jsa.sim.capsim.html))
 4. Create samplesheet with sample names and paths to simulated read files
 5. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 6. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
@@ -63,6 +63,7 @@ First, prepare a samplesheet with your input data that looks as follows:
 ```csv
 sample,seed
 sample_1,1
+sample_2,4
 ```
 
 Each row represents an output sample.

@@ -22,7 +22,7 @@ The samplesheet can have as many columns as you desire, however, there is a stri
 
 A final samplesheet file may look something like the one below. This is for 6 samples.
 
-```console
+```csv
 sample,seed
 sample_1,1
 sample_2,2

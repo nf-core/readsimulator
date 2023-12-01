@@ -15,6 +15,7 @@
                 "meta": ["id"]
             },
             "seed": {
+               "type": "integer",
                 "errorMessage": "Seed must be provided",
                 "unique": true,
                 "meta": ["seed"]
