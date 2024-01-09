@@ -1,0 +1,7 @@
+name: insilicoseq_generate
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bioconda::insilicoseq=1.6.0

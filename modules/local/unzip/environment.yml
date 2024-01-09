@@ -1,0 +1,7 @@
+name: unzip
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - conda-forge::unzip=6.0
