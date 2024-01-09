@@ -28,7 +28,7 @@
 
 - [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
-  > Andrews, S. (2010). FastQC: A Quality Control Tool for High Throughput Sequence Data [Online]. Available online https://www.bioinformatics.babraham.ac.uk/projects/fastqc/.
+  > Andrews, S. (2010). FastQC: A Quality Control Tool for High Throughput Sequence Data [Online].
 
 - [InSilicoSeq](https://academic.oup.com/bioinformatics/article/35/3/521/5055123)
 
