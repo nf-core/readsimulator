@@ -1,26 +1,26 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "https://raw.githubusercontent.com/nf-core/readsimulator/master/assets/schema_input.json",
-  "title": "nf-core/readsimulator pipeline - params.input schema",
-  "description": "Schema for the file provided with params.input",
-  "type": "array",
-  "items": {
-    "type": "object",
-    "properties": {
-      "sample": {
-        "type": "string",
-        "pattern": "^\\S+$",
-        "unique": true,
-        "errorMessage": "Sample name must be provided and cannot contain spaces",
-        "meta": ["id"]
-      },
-      "seed": {
-        "type": "integer",
-        "errorMessage": "Seed must be provided",
-        "unique": true,
-        "meta": ["seed"]
-      }
-    },
-    "required": ["sample", "seed"]
-  }
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/readsimulator/master/assets/schema_input.json",
+    "title": "nf-core/readsimulator pipeline - params.input schema",
+    "description": "Schema for the file provided with params.input",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "sample": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "unique": true,
+                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "meta": ["id"]
+            },
+            "seed": {
+                "type": "integer",
+                "errorMessage": "Seed must be provided",
+                "unique": true,
+                "meta": ["seed"]
+            }
+        },
+        "required": ["sample", "seed"]
+    }
 }
