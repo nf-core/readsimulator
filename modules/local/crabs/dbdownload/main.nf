@@ -26,8 +26,6 @@ process CRABS_DBDOWNLOAD {
     def ncbi_input  = amplicon_ncbi_db ? "--source ncbi --database ${amplicon_ncbi_db} --output ncbi.fasta" : ""
     def embl_input = amplicon_embl_db ? "--source embl --database ${params.amplicon_embl_db} --output embl.fasta " : ""
     def bold_input = amplicon_bold_db ? "--source bold --database '${params.amplicon_bold_db} --output bold.fasta" : ""
-    // Check for clashing inputs here
-    
     def input_args = ncbi_input + embl_input + bold_input
     def VERSION = '0.1.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     """
