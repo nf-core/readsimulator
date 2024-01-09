@@ -10,17 +10,17 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [ART](#art) - ART Illumina simulated reads
-- [Bowtie2](#bowtie2) - Bowtie2 alignments and SAMtools index
-- [CapSim](#capsim) - CapSim simulated reads (Illumina or Pacbio)
-- [CRABS](#crabs) - Formated reference database for simulating amplicon reads
+- [ART](#art) - Simulated amplicon reads
+- [Bowtie2](#bowtie2) - Alignments and index files
+- [CapSim](#capsim) - Simulated target capture reads
+- [CRABS](#crabs) - Reference database formatted for amplicon read simulation
 - [FastQC](#fastqc) - Raw read QC
-- [InSilicoSeq](#insilicoseq) - InSilicoSeq simulated metagenomic reads
+- [InSilicoSeq](#insilicoseq) - Simulated metagenomic reads
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 - [Samplesheet](#samplesheet) - Samplesheets produced during the running of the pipeline
 - [Unzip](#unzip) - Unziped probe file
-- [Wgsim](#wgsim) - Wgsim simulated wholegenome reads
+- [Wgsim](#wgsim) - Simulated wholegenome reads
 
 ### ART
 
@@ -74,7 +74,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `crabs_dbdownload/`
-  - `*.fasta`: Reference fasta file.
+  - `*.fa`: Reference fasta file.
 - `crabs_dbimport/`
   - `*.fa`: Reference fasta file.
 - `crabs_insilicopcr/`

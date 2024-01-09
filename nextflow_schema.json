@@ -52,21 +52,25 @@
                 "amplicon": {
                     "type": "boolean",
                     "description": "Option to simulate amplicon sequencing reads.",
+                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 },
                 "target_capture": {
                     "type": "boolean",
                     "description": "Option to simulate target capture sequencing reads.",
+                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 },
                 "metagenome": {
                     "type": "boolean",
                     "description": "Option to simulate metagenomic sequencing reads.",
+                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 },
                 "wholegenome": {
                     "type": "boolean",
                     "description": "Option to simulate wholegenomic sequencing reads.",
+                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 }
             }
@@ -79,12 +83,12 @@
             "properties": {
                 "fw_primer": {
                     "type": "string",
-                    "description": "Forward primer to use with crabs_insilicopcr. E.g., GTCGGTAAAACTCGTGCCAGC",
+                    "description": "Forward primer to use with crabs_insilicopcr.",
                     "default": "GTCGGTAAAACTCGTGCCAGC"
                 },
                 "rv_primer": {
                     "type": "string",
-                    "description": "Reverse primer to use with crabs_insilicopcr. E.g., CATAGTGGGGTATCTAATCCCAGTTTG",
+                    "description": "Reverse primer to use with crabs_insilicopcr.",
                     "default": "CATAGTGGGGTATCTAATCCCAGTTTG"
                 },
                 "amplicon_ref_source": {
@@ -182,7 +186,7 @@
                 },
                 "target_capture_fmedian": {
                     "type": "integer",
-                    "default": 2000,
+                    "default": 500,
                     "description": "Median of fragment size at shearing."
                 },
                 "target_capture_fshape": {
@@ -210,12 +214,12 @@
                 },
                 "target_capture_num": {
                     "type": "integer",
-                    "default": 1000000,
+                    "default": 500000,
                     "description": "Number of fragments."
                 },
                 "target_capture_illen": {
                     "type": "integer",
-                    "default": 300,
+                    "default": 150,
                     "description": "Illumina: read length."
                 },
                 "target_capture_pblen": {

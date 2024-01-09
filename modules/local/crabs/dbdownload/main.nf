@@ -22,13 +22,12 @@ process CRABS_DBDOWNLOAD {
     task.ext.when == null || task.ext.when
 
     script:
-    def args    = task.ext.args ?: ''
-    def ncbi_input  = amplicon_ncbi_db ? "--source ncbi --database ${amplicon_ncbi_db} --output ncbi.fasta" : ""
-    def embl_input = amplicon_embl_db ? "--source embl --database ${params.amplicon_embl_db} --output embl.fasta " : ""
-    def bold_input = amplicon_bold_db ? "--source bold --database '${params.amplicon_bold_db} --output bold.fasta" : ""
-    // Check for clashing inputs here
-    
-    def input_args = ncbi_input + embl_input + bold_input
+    def args       = task.ext.args ?: ''
+    def input_args = amplicon_ncbi_db ? "--source ncbi --database ${params.amplicon_ncbi_db} --output ncbi.fa" :
+        amplicon_embl_db ? "--source embl --database ${params.amplicon_embl_db} --output embl.fa " :
+        amplicon_bold_db ? "--source bold --database ${params.amplicon_bold_db} --output bold.fa" :
+        ""
+
     def VERSION = '0.1.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     """
     crabs db_download \\

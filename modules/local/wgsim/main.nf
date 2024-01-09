@@ -24,17 +24,14 @@ process WGSIM {
     def seed          = task.ext.seed ?: "${meta.seed}"
     def VERSION       = '1.0' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     """
-    seed=\$(echo $seed | sed 's/\\[//g' | sed 's/\\]//g')
-    prefix=\$(echo $prefix | sed 's/\\[//g' | sed 's/\\]//g')
-
     wgsim \\
         $args \\
-        -S \$seed \\
+        -S $seed \\
         $fasta \\
-        \${prefix}_R1.fq \\
-        \${prefix}_R2.fq
+        ${prefix}_R1.fq \\
+        ${prefix}_R2.fq
 
-    gzip \${prefix}_R1.fq \${prefix}_R2.fq
+    gzip ${prefix}_R1.fq ${prefix}_R2.fq
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

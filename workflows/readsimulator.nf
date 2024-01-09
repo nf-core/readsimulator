@@ -39,6 +39,7 @@ include { INSILICOSEQ_GENERATE    } from '../modules/local/insilicoseq/generate/
 include { CREATE_SAMPLESHEET      } from '../modules/local/custom/create_samplesheet/main'
 include { MERGE_SAMPLESHEETS      } from '../modules/local/custom/merge_samplesheets/main'
 include { WGSIM                   } from '../modules/local/wgsim/main'
+include { NCBIGENOMEDOWNLOAD      } from '../modules/local/ncbi_genome_download'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -77,7 +78,8 @@ workflow READSIMULATOR {
     if ( params.fasta ) {
         ch_fasta = Channel.fromPath(params.fasta)
     } else {
-        ch_fasta = Channel.empty()
+        //ch_fasta = Channel.empty()
+        ch_fasta = NCBIGENOMEDOWNLOAD(ch_input.first(), [], []).fna
     }
 
     if ( params.probe_fasta ) {

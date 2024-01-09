@@ -21,7 +21,11 @@ workflow AMPLICON_WORKFLOW {
     // MODULE: Run Crabs db_download if user doesn't have a reference database
     //
     if ( !params.fasta ) {
-        CRABS_DBDOWNLOAD()
+        CRABS_DBDOWNLOAD (
+            params.amplicon_ncbi_db,
+            params.amplicon_embl_db,
+            params.amplicon_bold_db
+        )
         ch_versions = ch_versions.mix(CRABS_DBDOWNLOAD.out.versions)
         ch_ref_fasta = CRABS_DBDOWNLOAD.out.fasta
             .map {
