@@ -13,50 +13,67 @@
 
 ## Introduction
 
-**nf-core/readsimulator** is a bioinformatics pipeline that ...
+**nf-core/readsimulator** is a pipeline to simulate sequencing reads. The pipeline currently supports simulating amplicon, target capture, metagenome, and wholegenome data. It takes a samplesheet with sample names and seeds for random generation to produce simulated FASTQ files and a samplesheet that contains the paths to the FASTQ files.
 
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
+<p align="center">
+    <img src="docs/images/readsimulator_workflow.png" alt="nf-core/readsimulator workflow overview" width="60%">
+</p>
 
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+### Amplicon simulation steps
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+1. Create reference database for amplicon-based sequencing ([`CRABS`](https://github.com/gjeunen/reference_database_creator))
+2. Simulate amplicon Illumina reads ([`art_illumina`](https://manpages.debian.org/testing/art-nextgen-simulation-tools/art_illumina.1.en.html))
+3. Create samplesheet with sample names and paths to simulated read files
+4. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+5. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
+
+### Target capture simulation steps
+
+1. Align probes to genome ([`Bowtie2`](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml))
+2. Get SAM index ([`SAMtools`](https://www.htslib.org/))
+3. Simulate target capture reads (Illumina (default) or Pacbio) ([`Japsa capsim`](https://japsa.readthedocs.io/en/latest/tools/jsa.sim.capsim.html))
+4. Create samplesheet with sample names and paths to simulated read files
+5. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+6. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
+
+### Metagenome simulation steps
+
+1. Simulate metagenome Illumina reads ([`InsilicoSeq Generate`](https://insilicoseq.readthedocs.io/en/latest/))
+2. Create samplesheet with sample names and paths to simulated read files
+3. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+4. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
+
+### Wholegenome simulation steps
+
+1. Simulate wholegenome reads ([`wgsim`](https://github.com/lh3/wgsim))
+2. Create samplesheet with sample names and paths to simulated read files
+3. Simulated read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+4. Present QC for simulated reads ([`MultiQC`](http://multiqc.info/))
 
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
-
 First, prepare a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
 
 ```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
+sample,seed
+sample_1,1
+sample_2,4
 ```
 
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
-
--->
+Each row represents an output sample.
 
 Now, you can run the pipeline using:
-
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
 
 ```bash
 nextflow run nf-core/readsimulator \
    -profile <docker/singularity/.../institute> \
    --input samplesheet.csv \
+   --amplicon \
    --outdir <OUTDIR>
 ```
 
@@ -74,11 +91,12 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/readsimulator was originally written by Adam Bennett.
+nf-core/readsimulator was originally written by [Adam Bennett](https://github.com/a4000) for use at the [Minderoo Foundation's OceanOmics project](https://www.minderoo.org/oceanomics).
 
-We thank the following people for their extensive assistance in the development of this pipeline:
+We thank the following people for their extensive assistance in the development of this pipeline (in alphabetical order):
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+- [Lauren Huet](https://github.com/LaurenHuet/)
+- [Philipp Bayer](https://github.com/philippbayer)
 
 ## Contributions and Support
 

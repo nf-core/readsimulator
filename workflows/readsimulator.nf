@@ -4,7 +4,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { paramsSummaryLog; paramsSummaryMap } from 'plugin/nf-validation'
+include { paramsSummaryLog; paramsSummaryMap; fromSamplesheet } from 'plugin/nf-validation'
 
 def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
 def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
@@ -33,9 +33,18 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 */
 
 //
+// MODULE: Local modules
+//
+include { INSILICOSEQ_GENERATE    } from '../modules/local/insilicoseq/generate/main'
+include { CREATE_SAMPLESHEET      } from '../modules/local/custom/create_samplesheet/main'
+include { MERGE_SAMPLESHEETS      } from '../modules/local/custom/merge_samplesheets/main'
+include { WGSIM                   } from '../modules/local/wgsim/main'
+
+//
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK } from '../subworkflows/local/input_check'
+include { AMPLICON_WORKFLOW       } from '../subworkflows/local/amplicon_workflow'
+include { TARGET_CAPTURE_WORKFLOW } from '../subworkflows/local/target_capture_workflow'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -61,24 +70,112 @@ def multiqc_report = []
 
 workflow READSIMULATOR {
 
-    ch_versions = Channel.empty()
+    ch_versions        = Channel.empty()
+    ch_input           = Channel.fromSamplesheet("input")
+    ch_simulated_reads = Channel.empty()
+
+    if ( params.fasta ) {
+        ch_fasta = Channel.fromPath(params.fasta)
+    } else {
+        ch_fasta = Channel.empty()
+    }
+
+    if ( params.probe_fasta ) {
+        ch_probes = Channel.fromPath(params.probe_fasta)
+    } else {
+        ch_probes = Channel.empty()
+    }
 
     //
-    // SUBWORKFLOW: Read in samplesheet, validate and stage input files
+    // SUBWORKFLOW: Simulate amplicon reads
     //
-    INPUT_CHECK (
-        file(params.input)
+    if ( params.amplicon ) {
+        AMPLICON_WORKFLOW (
+            ch_fasta.ifEmpty([]),
+            ch_input
+        )
+        ch_versions        = ch_versions.mix(AMPLICON_WORKFLOW.out.versions.first())
+        ch_simulated_reads = ch_simulated_reads.mix(AMPLICON_WORKFLOW.out.reads)
+    }
+
+    //
+    // SUBWORKFLOW: Simulate UCE target capture reads
+    //
+    if ( params.target_capture ) {
+        TARGET_CAPTURE_WORKFLOW (
+            ch_fasta,
+            ch_input,
+            ch_probes.ifEmpty([])
+        )
+        ch_versions        = ch_versions.mix(TARGET_CAPTURE_WORKFLOW.out.versions.first())
+        ch_simulated_reads = ch_simulated_reads.mix(TARGET_CAPTURE_WORKFLOW.out.reads)
+    }
+
+    //
+    // MODULE: Simulate metagenomic reads
+    //
+    if ( params.metagenome ) {
+        INSILICOSEQ_GENERATE (
+            ch_input.combine(ch_fasta.ifEmpty([[]]))
+        )
+        ch_versions         = ch_versions.mix(INSILICOSEQ_GENERATE.out.versions.first())
+        ch_metagenome_reads = INSILICOSEQ_GENERATE.out.fastq
+            .map {
+                meta, fastqs ->
+                    meta.outdir   = "insilicoseq"
+                    meta.datatype = "metagenomic_illumina"
+                    return [ meta, fastqs ]
+            }
+        ch_simulated_reads  = ch_simulated_reads.mix(ch_metagenome_reads)
+    }
+
+    //
+    // MODULE: Simulate wholegenomic reads
+    //
+    if ( params.wholegenome ) {
+        WGSIM (
+            ch_input.combine(ch_fasta)
+        )
+        ch_versions          = ch_versions.mix(WGSIM.out.versions.first())
+        ch_wholegenome_reads = WGSIM.out.fastq
+            .map {
+                meta, fastqs ->
+                    meta.outdir   = "wgsim"
+                    meta.datatype = "wholegenome"
+                    return [ meta, fastqs ]
+            }
+        ch_simulated_reads  = ch_simulated_reads.mix(ch_wholegenome_reads)
+    }
+
+    // MODULE: Create sample sheet (just the header and one row)
+    CREATE_SAMPLESHEET (
+        ch_simulated_reads
     )
-    ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
-    // TODO: OPTIONAL, you can use nf-validation plugin to create an input channel from the samplesheet with Channel.fromSamplesheet("input")
-    // See the documentation https://nextflow-io.github.io/nf-validation/samplesheets/fromSamplesheet/
-    // ! There is currently no tooling to help you write a sample sheet schema
+
+    // Group the samplesheets by datatype so that we can merge them
+    ch_samplesheets = CREATE_SAMPLESHEET.out.samplesheet
+        .map {
+            meta, samplesheet ->
+                tuple( meta.datatype, meta, samplesheet )
+        }
+        .groupTuple()
+        .map {
+            datatype, old_meta, samplesheet ->
+                def meta = [:]
+                meta.id  = datatype
+                return [ meta, samplesheet ]
+        }
+
+    // MODULE: Merge the samplesheets by data type
+    MERGE_SAMPLESHEETS (
+        ch_samplesheets
+    )
 
     //
     // MODULE: Run FastQC
     //
     FASTQC (
-        INPUT_CHECK.out.reads
+        ch_simulated_reads
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
