@@ -27,23 +27,23 @@ workflow TARGET_CAPTURE_WORKFLOW {
         ch_probes = UNZIP (
             ch_zip_file
         ).file
-    }
+    } else {
+        //
+        // MODULE: Run bedtools_getfasta if the probe file is a bed file
+        //
+        if ( params.probe_file.endsWith('.bed') ) {
+            // Bedtools_getfasta requires an uncompressed fasta file
+            ch_uncompressed_fasta = UNCOMPRESS_FASTA (
+                ch_fasta
+            ).fasta
 
-    //
-    // MODULE: Run bedtools_getfasta if the probe file is a bed file
-    //
-    if ( params.probe_file.endsWith('.bed') ) {
-        // Bedtools_getfasta requires an uncompressed fasta file
-        ch_uncompressed_fasta = UNCOMPRESS_FASTA (
-            ch_fasta
-        ).fasta
+            BEDTOOLS_GETFASTA (
+                ch_probes,
+                ch_uncompressed_fasta
+            )
 
-        BEDTOOLS_GETFASTA (
-            ch_probes,
-            ch_uncompressed_fasta
-        )
-
-        ch_probes = BEDTOOLS_GETFASTA.out.fasta
+            ch_probes = BEDTOOLS_GETFASTA.out.fasta
+        }
     }
 
     ch_probes = ch_probes
