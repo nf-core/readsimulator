@@ -1,7 +1,0 @@
-name: crabs_dbdownload
-channels:
-  - conda-forge
-  - bioconda
-  - defaults
-dependencies:
-  - bioconda::crabs=0.1.1-0
