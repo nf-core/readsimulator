@@ -18,7 +18,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [FastQC](#fastqc) - Raw read QC
 - [InSilicoSeq](#insilicoseq) - Simulated metagenomic reads
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
-- [ncbi-genome-download](#ncbigenomedownload) - Reference fasta files
+- [ncbi-genome-download](#ncbi-genome-download) - Reference fasta files
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 - [Samplesheet](#samplesheet) - Samplesheets produced during the running of the pipeline
 - [Unzip](#unzip) - Unziped probe file
