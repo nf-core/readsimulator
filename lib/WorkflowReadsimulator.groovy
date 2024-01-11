@@ -14,8 +14,8 @@ class WorkflowReadsimulator {
 
         genomeExistsError(params, log)
 
-        if (!params.fasta && params.target_capture) {
-            Nextflow.error "Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file."
+        if (!params.fasta && !params.ncbidownload_accessions && !params.ncbidownload_taxids) {
+            Nextflow.error "Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file. Alternatively, '--ncbidownload_accessions accessions.txt' or '--ncbidownload_taxids taxids.txt' can be used."
         }
     }
 

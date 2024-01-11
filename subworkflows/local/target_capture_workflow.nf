@@ -2,11 +2,13 @@
 // Simulate UCE target capture reads
 //
 
+include { BEDTOOLS_GETFASTA               } from '../../modules/nf-core/bedtools/getfasta/main'
 include { BOWTIE2_BUILD                   } from '../../modules/nf-core/bowtie2/build/main'
 include { BOWTIE2_ALIGN                   } from '../../modules/nf-core/bowtie2/align/main'
 include { SAMTOOLS_INDEX                  } from '../../modules/nf-core/samtools/index/main'
 include { JAPSA_CAPSIM                    } from '../../modules/local/japsa/capsim/main'
-include { UNZIP as UNZIP_PROBE            } from '../../modules/local/unzip/main'
+include { UNZIP                           } from '../../modules/local/unzip/main'
+include { UNCOMPRESS_FASTA                } from '../../modules/local/uncompress_fasta/main'
 
 workflow TARGET_CAPTURE_WORKFLOW {
     take:
@@ -16,6 +18,42 @@ workflow TARGET_CAPTURE_WORKFLOW {
 
     main:
     ch_versions = Channel.empty()
+
+    //
+    // MODULE: Unzip probes file if user is downloading a reference probe file
+    //
+    if ( !params.probe_file ) {
+        ch_zip_file = Channel.fromPath(params.probe_ref_db[params.probe_ref_name]["url"])
+        ch_probes = UNZIP (
+            ch_zip_file
+        ).file
+    }
+
+    //
+    // MODULE: Run bedtools_getfasta if the probe file is a bed file
+    //
+    if ( params.probe_file.endsWith('.bed') ) {
+        // Bedtools_getfasta requires an uncompressed fasta file
+        ch_uncompressed_fasta = UNCOMPRESS_FASTA (
+            ch_fasta
+        ).fasta
+
+        BEDTOOLS_GETFASTA (
+            ch_probes,
+            ch_uncompressed_fasta
+        )
+
+        ch_probes = BEDTOOLS_GETFASTA.out.fasta
+    }
+
+    ch_probes = ch_probes
+        .map {
+            fasta ->
+                def meta = [:]
+                meta.id = "probes"
+                meta.single_end = true
+                [ meta, fasta ]
+        }
 
     ch_meta_fasta = ch_fasta
         .map {
@@ -30,24 +68,6 @@ workflow TARGET_CAPTURE_WORKFLOW {
         ch_meta_fasta
     )
     ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions.first())
-
-    //
-    // MODULE: Unzip probes file if user is downloading a reference probe file
-    //
-    if ( !params.probe_fasta ) {
-        ch_zip_file = Channel.fromPath(params.probe_ref_db[params.probe_ref_name]["url"])
-        ch_probes = UNZIP_PROBE (
-            ch_zip_file
-        ).file
-    }
-    ch_probes = ch_probes
-        .map {
-            fasta ->
-                def meta = [:]
-                meta.id = "probes"
-                meta.single_end = true
-                [ meta, fasta ]
-        }
 
     //
     // MODULE: Align probes to genome

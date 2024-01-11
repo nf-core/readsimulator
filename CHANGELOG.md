@@ -14,6 +14,7 @@ Initial release of nf-core/readsimulator, created with the [nf-core](https://nf-
 - Option to simulate metagenomic sequencing reads
 - Option to simulate wholegenome sequencing reads
 - Samplesheet creation after reads have been simulated
+- ncbi-genome-download added to download reference database
 
 ### `Fixed`
 

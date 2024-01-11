@@ -35,11 +35,11 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // MODULE: Local modules
 //
+include { MERGE_FASTAS            } from '../modules/local/custom/merge_fastas/main'
 include { INSILICOSEQ_GENERATE    } from '../modules/local/insilicoseq/generate/main'
 include { CREATE_SAMPLESHEET      } from '../modules/local/custom/create_samplesheet/main'
 include { MERGE_SAMPLESHEETS      } from '../modules/local/custom/merge_samplesheets/main'
 include { WGSIM                   } from '../modules/local/wgsim/main'
-include { NCBIGENOMEDOWNLOAD      } from '../modules/local/ncbi_genome_download'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -57,6 +57,7 @@ include { TARGET_CAPTURE_WORKFLOW } from '../subworkflows/local/target_capture_w
 // MODULE: Installed directly from nf-core/modules
 //
 include { FASTQC                      } from '../modules/nf-core/fastqc/main'
+include { NCBIGENOMEDOWNLOAD          } from '../modules/nf-core/ncbigenomedownload/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
@@ -74,16 +75,41 @@ workflow READSIMULATOR {
     ch_versions        = Channel.empty()
     ch_input           = Channel.fromSamplesheet("input")
     ch_simulated_reads = Channel.empty()
+    ch_taxids          = Channel.empty()
+    ch_accessions      = Channel.empty()
 
     if ( params.fasta ) {
         ch_fasta = Channel.fromPath(params.fasta)
     } else {
-        //ch_fasta = Channel.empty()
-        ch_fasta = NCBIGENOMEDOWNLOAD(ch_input.first(), [], []).fna
+        if ( params.ncbidownload_accessions ) {
+            ch_accessions = Channel.fromPath(params.ncbidownload_accessions)
+        } else if ( params.ncbidownload_taxids ) {
+            ch_taxids = Channel.fromPath(params.ncbidownload_taxids)
+        }
+
+        //
+        // MODULE: Download reference fasta files
+        //
+        NCBIGENOMEDOWNLOAD (
+            [ id:"ncbigenomedownload" ],
+            ch_accessions.ifEmpty([]),
+            ch_taxids.ifEmpty([]),
+            params.ncbidownload_group
+        )
+
+        MERGE_FASTAS (
+            NCBIGENOMEDOWNLOAD.out.fna
+        )
+
+        ch_fasta = MERGE_FASTAS.out.fasta
+            .map {
+                meta, fasta ->
+                return fasta
+            }
     }
 
-    if ( params.probe_fasta ) {
-        ch_probes = Channel.fromPath(params.probe_fasta)
+    if ( params.probe_file ) {
+        ch_probes = Channel.fromPath(params.probe_file)
     } else {
         ch_probes = Channel.empty()
     }
@@ -93,7 +119,7 @@ workflow READSIMULATOR {
     //
     if ( params.amplicon ) {
         AMPLICON_WORKFLOW (
-            ch_fasta.ifEmpty([]),
+            ch_fasta,
             ch_input
         )
         ch_versions        = ch_versions.mix(AMPLICON_WORKFLOW.out.versions.first())
@@ -118,7 +144,7 @@ workflow READSIMULATOR {
     //
     if ( params.metagenome ) {
         INSILICOSEQ_GENERATE (
-            ch_input.combine(ch_fasta.ifEmpty([[]]))
+            ch_input.combine(ch_fasta)
         )
         ch_versions         = ch_versions.mix(INSILICOSEQ_GENERATE.out.versions.first())
         ch_metagenome_reads = INSILICOSEQ_GENERATE.out.fastq

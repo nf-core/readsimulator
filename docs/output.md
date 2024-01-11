@@ -11,12 +11,14 @@ The directories listed below will be created in the results directory after the 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
 - [ART](#art) - Simulated amplicon reads
+- [bedtools](#bedtools) - Probe fasta file
 - [Bowtie2](#bowtie2) - Alignments and index files
 - [CapSim](#capsim) - Simulated target capture reads
 - [CRABS](#crabs) - Reference database formatted for amplicon read simulation
 - [FastQC](#fastqc) - Raw read QC
 - [InSilicoSeq](#insilicoseq) - Simulated metagenomic reads
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
+- [ncbi-genome-download](#ncbigenomedownload) - Reference fasta files
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 - [Samplesheet](#samplesheet) - Samplesheets produced during the running of the pipeline
 - [Unzip](#unzip) - Unziped probe file
@@ -30,6 +32,16 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - `art_illumina/`
   - `*1.fq.gz`: Read 1 files simulating Illumina reads. The prefix will be the sample name found in the samplesheet.
   - `*2.fq.gz`: Read 2 files simulating Illumina reads. The prefix will be the sample name found in the samplesheet.
+
+</details>
+
+### bedtools
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `bedtools/`
+  - `*.fa`: The probe fasta file extracted from the reference fasta file if the input probe file was a bed file.
 
 </details>
 
@@ -106,6 +118,16 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 :::note
 The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
 :::
+
+### ncbi-genome-download
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `ncbigenomedownload/`
+  - `*.fna.gz`: Reference fasta files downloaded from NCBI
+
+</details>
 
 ### InSilicoSeq
 
