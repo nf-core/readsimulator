@@ -35,6 +35,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 </details>
 
+[ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm) is a tool for simulating Illumina sequencing reads. For further reading and documentation see the [ART Illumina manual](https://manpages.debian.org/testing/art-nextgen-simulation-tools/art_illumina.1.en.html).
+
 ### bedtools
 
 <details markdown="1">
@@ -45,7 +47,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 </details>
 
-[ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm) is a tool for simulating Illumina sequencing reads. For further reading and documentation see the [ART Illumina manual](https://manpages.debian.org/testing/art-nextgen-simulation-tools/art_illumina.1.en.html).
+[bedtools](https://pubmed.ncbi.nlm.nih.gov/20110278/) is a suite of tools for genomic data analysis. For further reading and documentation see the [bedtools documentation](https://bedtools.readthedocs.io/en/latest/).
 
 ### Bowtie2
 
@@ -85,8 +87,6 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <details markdown="1">
 <summary>Output files</summary>
 
-- `crabs_dbdownload/`
-  - `*.fa`: Reference fasta file.
 - `crabs_dbimport/`
   - `*.fa`: Reference fasta file.
 - `crabs_insilicopcr/`
@@ -128,6 +128,8 @@ The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They m
   - `*.fna.gz`: Reference fasta files downloaded from NCBI
 
 </details>
+
+[ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) downloads reference genome files from NCBI.
 
 ### InSilicoSeq
 
