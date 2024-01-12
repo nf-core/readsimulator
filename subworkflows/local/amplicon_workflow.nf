@@ -22,7 +22,7 @@ workflow AMPLICON_WORKFLOW {
     //
     if ( !params.fasta ) {
         CRABS_DBDOWNLOAD(
-            params.amplicon_ncbi_db ?: [],
+            [],
             params.amplicon_embl_db ?: [],
             params.amplicon_bold_db ?: [])
         ch_versions = ch_versions.mix(CRABS_DBDOWNLOAD.out.versions)
