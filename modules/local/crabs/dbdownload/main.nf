@@ -9,11 +9,6 @@ process CRABS_DBDOWNLOAD {
         'https://depot.galaxyproject.org/singularity/crabs:0.1.1--pyhb7b1952_0':
         'biocontainers/crabs:0.1.1--pyhb7b1952_0' }"
 
-    input:
-    val amplicon_ncbi_db
-    val amplicon_embl_db
-    val amplicon_bold_db
-
     output:
     path("*.fasta")     , emit: fasta
     path "versions.yml" , emit: versions
