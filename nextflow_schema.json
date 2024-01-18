@@ -52,21 +52,25 @@
                 "amplicon": {
                     "type": "boolean",
                     "description": "Option to simulate amplicon sequencing reads.",
+                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 },
                 "target_capture": {
                     "type": "boolean",
                     "description": "Option to simulate target capture sequencing reads.",
+                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 },
                 "metagenome": {
                     "type": "boolean",
                     "description": "Option to simulate metagenomic sequencing reads.",
+                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 },
                 "wholegenome": {
                     "type": "boolean",
                     "description": "Option to simulate wholegenomic sequencing reads.",
+                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 }
             }
@@ -77,48 +81,15 @@
             "fa_icon": "fas fa-dna",
             "description": "Options for simulating amplicon sequencing reads.",
             "properties": {
-                "fw_primer": {
+                "amplicon_fw_primer": {
                     "type": "string",
-                    "description": "Forward primer to use with crabs_insilicopcr. E.g., GTCGGTAAAACTCGTGCCAGC",
+                    "description": "Forward primer to use with crabs_insilicopcr.",
                     "default": "GTCGGTAAAACTCGTGCCAGC"
                 },
-                "rv_primer": {
+                "amplicon_rv_primer": {
                     "type": "string",
-                    "description": "Reverse primer to use with crabs_insilicopcr. E.g., CATAGTGGGGTATCTAATCCCAGTTTG",
+                    "description": "Reverse primer to use with crabs_insilicopcr.",
                     "default": "CATAGTGGGGTATCTAATCCCAGTTTG"
-                },
-                "amplicon_ref_source": {
-                    "type": "string",
-                    "description": "Source for downloading reference database when using `--amplicon` parameter, but not using `--fasta` parameter.",
-                    "help_text": "Can be 'ncbi', 'embl', or 'bold'.",
-                    "default": "bold",
-                    "enum": ["ncbi", "embl", "bold"]
-                },
-                "amplicon_ncbi_db": {
-                    "type": "string",
-                    "description": "NCBI database to use when `--amplicon_ref_source` is set to 'ncbi'",
-                    "default": "nucleotide"
-                },
-                "amplicon_ncbi_query": {
-                    "type": "string",
-                    "description": "NCBI query to use when `--amplicon_ref_source` is set to 'ncbi'",
-                    "default": "16S[All Fields] AND (\"1\"[SLEN] : \"50000\"[SLEN])",
-                    "help_text": "Multiple species can be queried like this '(\"Mus musculus\"[Organism] OR \"Salmo salar\"[Organism]) AND 16S[All Fields]'"
-                },
-                "amplicon_ncbi_batchsize": {
-                    "type": "integer",
-                    "description": "Batchsize to use when `--amplicon_ref_source` is set to 'ncbi'",
-                    "default": 5000
-                },
-                "amplicon_embl_db": {
-                    "type": "string",
-                    "description": "EMBL database to use when `--amplicon_ref_source` is set to 'embl'",
-                    "default": "vrt*"
-                },
-                "amplicon_bold_db": {
-                    "type": "string",
-                    "description": "BOLD database to use when `--amplicon_ref_source` is set to 'bold'. Separate database names with `|`",
-                    "default": "Actinopterygii|Aves"
                 },
                 "amplicon_read_count": {
                     "type": "integer",
@@ -134,8 +105,8 @@
                     "type": "string",
                     "description": "Sequencing system of reads to be simulated.",
                     "default": "HS25",
-                    "help_text": "Can be 'GA1' for Genome Analyser I, 'GA2' for Genome Analyser II, 'HS10' for HiSeq 1000, 'HS20' for HiSeq 2000, 'HS25' for HiSeq 2500, or 'MS' for MiSeq.",
-                    "enum": ["GA1", "GA2", "HS10", "HS20", "HS25", "MS"]
+                    "help_text": "Can be 'GA1' for Genome Analyser I, 'GA2' for Genome Analyser II, 'HS10' for HiSeq 1000, 'HS20' for HiSeq 2000, 'HS25' for HiSeq 2500, 'HSXn' for HiSeqX PCR free, 'HSXt' for HiSeqX TruSeq, 'MinS' for MiniSeq TruSeq, 'MSv1' for MiSeq v1, 'MSv3' for MiSeq v3, or 'NS50' for NextSeq500 v2.",
+                    "enum": ["GA1", "GA2", "HS10", "HS20", "HS25", "HSXn", "HSXt", "MinS", "MSv1", "MSv3", "NS50"]
                 }
             }
         },
@@ -145,13 +116,12 @@
             "fa_icon": "fas fa-dna",
             "description": "Options for simulating target capture sequencing reads.",
             "properties": {
-                "probe_fasta": {
+                "probe_file": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
                     "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
-                    "description": "Path to FASTA probe file.",
+                    "description": "Path to bait/probe file. Can be a fasta file or a bed file.",
                     "help_text": "This parameter is *mandatory* if `--probe_ref_name` is not specified but `--target_capture` is specified.",
                     "fa_icon": "far fa-file-code"
                 },
@@ -182,7 +152,7 @@
                 },
                 "target_capture_fmedian": {
                     "type": "integer",
-                    "default": 2000,
+                    "default": 500,
                     "description": "Median of fragment size at shearing."
                 },
                 "target_capture_fshape": {
@@ -210,12 +180,12 @@
                 },
                 "target_capture_num": {
                     "type": "integer",
-                    "default": 1000000,
+                    "default": 500000,
                     "description": "Number of fragments."
                 },
                 "target_capture_illen": {
                     "type": "integer",
-                    "default": 300,
+                    "default": 150,
                     "description": "Illumina: read length."
                 },
                 "target_capture_pblen": {
@@ -238,18 +208,6 @@
             "fa_icon": "fas fa-dna",
             "description": "Options for simulating metagenomic sequencing reads.",
             "properties": {
-                "metagenome_ncbi_db": {
-                    "type": "string",
-                    "default": "viruses",
-                    "description": "NCBI databases supported by InSilicoSeq. This option gets used when not using the `--fasta` or `--genome` parameters.",
-                    "help_text": "Supported databases are 'bacteria', 'viruses', and 'archaea'. Multiple databases can be used by providing a space seperated string."
-                },
-                "metagenome_n_genomes": {
-                    "type": "string",
-                    "default": "10",
-                    "description": "Number of genomes to download form NCBI. This option gets used when not using the `--fasta` or `--genome` parameters.",
-                    "help_text": "Use multiple values (space seperated) if using multiple NCBI databases"
-                },
                 "metagenome_abundance": {
                     "type": "string",
                     "default": "lognormal",
@@ -378,7 +336,7 @@
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to reference FASTA file.",
-                    "help_text": "If this parameter is not used, the pipeline will download a fasta file, either using the `--genome` parameter or by using other parameters specific to individual modes (e.g., the `--amplicon` mode has parameters specific to just that mode.).",
+                    "help_text": "If this parameter is not used, the pipeline will download a fasta file, either using the `--genome` parameter or by using ncbi-genome-download (relevant parameters for ncbi-genome-download all start with `--ncbidownload_`).",
                     "fa_icon": "far fa-file-code"
                 },
                 "igenomes_ignore": {
@@ -387,6 +345,45 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                },
+                "ncbidownload_accessions": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to text file containing accession ids (one accession per row)."
+                },
+                "ncbidownload_taxids": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to text file containing taxids (one taxid per row).",
+                    "help_text": ""
+                },
+                "ncbidownload_group": {
+                    "type": "string",
+                    "default": "all",
+                    "description": "The NCBI taxonomic groups to download. Options include 'all', 'archaea', 'bacteria', 'fungi', 'invertebrate', 'metagenomes', 'plant', 'protozoa', 'vertebrate_mammalian', 'vertebrate_other', and 'viral'. A comma-separated list is also valid (e.g., 'bacteria,viral').",
+                    "enum": [
+                        "all",
+                        "archaea",
+                        "bacteria",
+                        "fungi",
+                        "invertebrate",
+                        "metagenomes",
+                        "plant",
+                        "protozoa",
+                        "vertebrate_mammalian",
+                        "vertebrate_other",
+                        "viral"
+                    ]
+                },
+                "ncbidownload_section": {
+                    "type": "string",
+                    "default": "refseq",
+                    "description": "The NCBI section to download. 'refseq' or 'genbank'.",
+                    "enum": ["refseq", "genbank"]
                 }
             }
         },

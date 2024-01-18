@@ -10,17 +10,19 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [ART](#art) - ART Illumina simulated reads
-- [Bowtie2](#bowtie2) - Bowtie2 alignments and SAMtools index
-- [CapSim](#capsim) - CapSim simulated reads (Illumina or Pacbio)
-- [CRABS](#crabs) - Formated reference database for simulating amplicon reads
+- [ART](#art) - Simulated amplicon reads
+- [bedtools](#bedtools) - Probe fasta file
+- [Bowtie2](#bowtie2) - Alignments and index files
+- [CapSim](#capsim) - Simulated target capture reads
+- [CRABS](#crabs) - Reference database formatted for amplicon read simulation
 - [FastQC](#fastqc) - Raw read QC
-- [InSilicoSeq](#insilicoseq) - InSilicoSeq simulated metagenomic reads
+- [InSilicoSeq](#insilicoseq) - Simulated metagenomic reads
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
+- [ncbi-genome-download](#ncbi-genome-download) - Reference fasta files
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 - [Samplesheet](#samplesheet) - Samplesheets produced during the running of the pipeline
 - [Unzip](#unzip) - Unziped probe file
-- [Wgsim](#wgsim) - Wgsim simulated wholegenome reads
+- [Wgsim](#wgsim) - Simulated wholegenome reads
 
 ### ART
 
@@ -34,6 +36,18 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 </details>
 
 [ART](https://www.niehs.nih.gov/research/resources/software/biostatistics/art/index.cfm) is a tool for simulating Illumina sequencing reads. For further reading and documentation see the [ART Illumina manual](https://manpages.debian.org/testing/art-nextgen-simulation-tools/art_illumina.1.en.html).
+
+### bedtools
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `bedtools/`
+  - `*.fa`: The probe fasta file extracted from the reference fasta file if the input probe file was a bed file.
+
+</details>
+
+[bedtools](https://pubmed.ncbi.nlm.nih.gov/20110278/) is a suite of tools for genomic data analysis. For further reading and documentation see the [bedtools documentation](https://bedtools.readthedocs.io/en/latest/).
 
 ### Bowtie2
 
@@ -73,8 +87,6 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <details markdown="1">
 <summary>Output files</summary>
 
-- `crabs_dbdownload/`
-  - `*.fasta`: Reference fasta file.
 - `crabs_dbimport/`
   - `*.fa`: Reference fasta file.
 - `crabs_insilicopcr/`
@@ -106,6 +118,18 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 :::note
 The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
 :::
+
+### ncbi-genome-download
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `ncbigenomedownload/`
+  - `*.fna.gz`: Reference fasta files downloaded from NCBI
+
+</details>
+
+[ncbi-genome-download](https://github.com/kblin/ncbi-genome-download) downloads reference genome files from NCBI.
 
 ### InSilicoSeq
 

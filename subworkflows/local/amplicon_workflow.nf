@@ -2,7 +2,6 @@
 // Simulate amplicon reads
 //
 
-include { CRABS_DBDOWNLOAD  } from '../../modules/local/crabs/dbdownload/main'
 include { CRABS_DBIMPORT    } from '../../modules/local/crabs/dbimport/main'
 include { CRABS_INSILICOPCR } from '../../modules/local/crabs/insilicopcr/main'
 include { ART_ILLUMINA      } from '../../modules/nf-core/art/illumina/main'
@@ -18,33 +17,19 @@ workflow AMPLICON_WORKFLOW {
     ch_versions = Channel.empty()
 
     //
-    // MODULE: Run Crabs db_download if user doesn't have a reference database
+    // MODULE: Run Crabs db_import
     //
-    if ( !params.fasta ) {
-        CRABS_DBDOWNLOAD()
-        ch_versions = ch_versions.mix(CRABS_DBDOWNLOAD.out.versions)
-        ch_ref_fasta = CRABS_DBDOWNLOAD.out.fasta
-            .map {
-                fasta ->
-                    return [ [id:"amplicon"], fasta ]
-            }
+    ch_meta_fasta = ch_fasta
+        .map {
+            fasta ->
+                return [ [id:"amplicon"], fasta ]
+        }
 
-    //
-    // MODULE: Run Crabs db_import if user does have a reference database
-    //
-    } else {
-        ch_meta_fasta = Channel.fromPath(params.fasta)
-            .map {
-                fasta ->
-                    return [ [id:"amplicon"], fasta ]
-            }
-
-        CRABS_DBIMPORT (
-            ch_meta_fasta
-        )
-        ch_versions  = ch_versions.mix(CRABS_DBIMPORT.out.versions)
-        ch_ref_fasta = CRABS_DBIMPORT.out.fasta
-    }
+    CRABS_DBIMPORT (
+        ch_meta_fasta
+    )
+    ch_versions  = ch_versions.mix(CRABS_DBIMPORT.out.versions)
+    ch_ref_fasta = CRABS_DBIMPORT.out.fasta
 
     //
     // MODULE: Run Crabs insilico_pcr
