@@ -4,7 +4,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { paramsSummaryLog; paramsSummaryMap; fromSamplesheet } from 'plugin/nf-validation'
+include { paramsSummaryLog; paramsSummaryMap } from 'plugin/nf-validation'
 
 def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
 def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
@@ -35,16 +35,16 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // MODULE: Local modules
 //
-include { INSILICOSEQ_GENERATE    } from '../modules/local/insilicoseq/generate/main'
-include { CREATE_SAMPLESHEET      } from '../modules/local/custom/create_samplesheet/main'
-include { MERGE_SAMPLESHEETS      } from '../modules/local/custom/merge_samplesheets/main'
-include { WGSIM                   } from '../modules/local/wgsim/main'
+include { INSILICOSEQ_GENERATE    } from '../../modules/local/insilicoseq/generate/main'       // TODO: Add module to nf-core/modules
+include { CREATE_SAMPLESHEET      } from '../../modules/local/custom/create_samplesheet/main'
+include { MERGE_SAMPLESHEETS      } from '../../modules/local/custom/merge_samplesheets/main'
+include { WGSIM                   } from '../../modules/local/wgsim/main'                      // TODO: Add module to nf-core/modules
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { AMPLICON_WORKFLOW       } from '../subworkflows/local/amplicon_workflow'
-include { TARGET_CAPTURE_WORKFLOW } from '../subworkflows/local/target_capture_workflow'
+include { AMPLICON_WORKFLOW       } from '../../subworkflows/local/amplicon_workflow'
+include { TARGET_CAPTURE_WORKFLOW } from '../../subworkflows/local/target_capture_workflow'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,9 +55,9 @@ include { TARGET_CAPTURE_WORKFLOW } from '../subworkflows/local/target_capture_w
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { FASTQC                      } from '../modules/nf-core/fastqc/main'
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { FASTQC                      } from '../../modules/nf-core/fastqc/main'
+include { MULTIQC                     } from '../../modules/nf-core/multiqc/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,8 +70,11 @@ def multiqc_report = []
 
 workflow READSIMULATOR {
 
+    take:
+    ch_input
+
+    main:
     ch_versions        = Channel.empty()
-    ch_input           = Channel.fromSamplesheet("input")
     ch_simulated_reads = Channel.empty()
 
     if ( params.fasta ) {
@@ -158,7 +161,7 @@ workflow READSIMULATOR {
             meta, samplesheet ->
                 tuple( meta.datatype, meta, samplesheet )
         }
-        .groupTuple()
+        .groupTuple(sort: 'deep')
         .map {
             datatype, old_meta, samplesheet ->
                 def meta = [:]
@@ -167,7 +170,7 @@ workflow READSIMULATOR {
         }
 
     // MODULE: Merge the samplesheets by data type
-    MERGE_SAMPLESHEETS (
+    ch_final_samplesheet = MERGE_SAMPLESHEETS (
         ch_samplesheets
     )
 
@@ -205,6 +208,10 @@ workflow READSIMULATOR {
         ch_multiqc_logo.toList()
     )
     multiqc_report = MULTIQC.out.report.toList()
+
+    emit:
+    simulated_reads = ch_simulated_reads
+    samplesheet     = ch_final_samplesheet
 }
 
 /*
