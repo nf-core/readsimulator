@@ -14,6 +14,10 @@
 
   > Weichun Huang, Leping Li, Jason R. Myers, Gabor T. Marth, ART: a next-generation sequencing read simulator, Bioinformatics, Volume 28, Issue 4, February 2012, Pages 593–594, https://doi.org/10.1093/bioinformatics/btr708
 
+- [bedtools](https://pubmed.ncbi.nlm.nih.gov/20110278/)
+
+  > Quinlan AR and Hall IM, 2010. BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics. 26, 6, pp. 841–842. hhtps://doi.org/10.1093/bioinformatics/btq033
+
 - [Bowtie2](https://www.nature.com/articles/nmeth.1923)
 
   > Langmead, B., Salzberg, S. Fast gapped-read alignment with Bowtie 2. Nat Methods 9, 357–359 (2012). https://doi.org/10.1038/nmeth.1923
@@ -37,6 +41,10 @@
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
 
   > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
+
+- [ncbi-genome-download](https://zenodo.org/records/8192486)
+
+  > DOI: 10.5281/zenodo.8192432
 
 - [Samtools](https://academic.oup.com/gigascience/article/10/2/giab008/6137722?login=false)
 
