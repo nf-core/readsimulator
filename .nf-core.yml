@@ -1,2 +1,3 @@
 repository_type: pipeline
-actions_ci: false
+lint:
+  actions_ci: false
