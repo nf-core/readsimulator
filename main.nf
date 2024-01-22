@@ -59,7 +59,6 @@ include { READSIMULATOR } from './workflows/readsimulator/main'
 workflow NFCORE_READSIMULATOR {
 
     ch_input    = Channel.fromSamplesheet("input")
-    ch_input.view()
 
     READSIMULATOR ( ch_input )
 }

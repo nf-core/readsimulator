@@ -56,6 +56,7 @@ include { TARGET_CAPTURE_WORKFLOW } from '../../subworkflows/local/target_captur
 // MODULE: Installed directly from nf-core/modules
 //
 include { FASTQC                      } from '../../modules/nf-core/fastqc/main'
+include { NCBIGENOMEDOWNLOAD          } from '../../modules/nf-core/ncbigenomedownload/main'
 include { MULTIQC                     } from '../../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
 
@@ -76,15 +77,44 @@ workflow READSIMULATOR {
     main:
     ch_versions        = Channel.empty()
     ch_simulated_reads = Channel.empty()
+    ch_taxids          = Channel.empty()
+    ch_accessions      = Channel.empty()
 
     if ( params.fasta ) {
         ch_fasta = Channel.fromPath(params.fasta)
     } else {
-        ch_fasta = Channel.empty()
+        if ( params.ncbidownload_accessions ) {
+            ch_accessions = Channel.fromPath(params.ncbidownload_accessions)
+        } else if ( params.ncbidownload_taxids ) {
+            ch_taxids = Channel.fromPath(params.ncbidownload_taxids)
+        }
+
+        //
+        // MODULE: Download reference fasta files
+        //
+        NCBIGENOMEDOWNLOAD (
+            [ id:"ncbigenomedownload" ],
+            ch_accessions.ifEmpty([]),
+            ch_taxids.ifEmpty([]),
+            params.ncbidownload_group
+        )
+
+        //
+        // MODULE: Combine FASTA files
+        //
+        MERGE_FASTAS (
+            NCBIGENOMEDOWNLOAD.out.fna
+        )
+
+        ch_fasta = MERGE_FASTAS.out.fasta
+            .map {
+                meta, fasta ->
+                return fasta
+            }
     }
 
-    if ( params.probe_fasta ) {
-        ch_probes = Channel.fromPath(params.probe_fasta)
+    if ( params.probe_file ) {
+        ch_probes = Channel.fromPath(params.probe_file)
     } else {
         ch_probes = Channel.empty()
     }
