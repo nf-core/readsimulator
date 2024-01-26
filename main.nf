@@ -27,7 +27,7 @@ if (!params.fasta) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { validateParameters; paramsHelp } from 'plugin/nf-validation'
+include { validateParameters; paramsHelp; fromSamplesheet } from 'plugin/nf-validation'
 
 // Print help message if needed
 if (params.help) {
@@ -51,13 +51,16 @@ WorkflowMain.initialise(workflow, params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { READSIMULATOR } from './workflows/readsimulator'
+include { READSIMULATOR } from './workflows/readsimulator/main'
 
 //
 // WORKFLOW: Run main nf-core/readsimulator analysis pipeline
 //
 workflow NFCORE_READSIMULATOR {
-    READSIMULATOR ()
+
+    ch_input    = Channel.fromSamplesheet("input")
+
+    READSIMULATOR ( ch_input )
 }
 
 /*

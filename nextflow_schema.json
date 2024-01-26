@@ -52,25 +52,21 @@
                 "amplicon": {
                     "type": "boolean",
                     "description": "Option to simulate amplicon sequencing reads.",
-                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 },
                 "target_capture": {
                     "type": "boolean",
                     "description": "Option to simulate target capture sequencing reads.",
-                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 },
                 "metagenome": {
                     "type": "boolean",
                     "description": "Option to simulate metagenomic sequencing reads.",
-                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 },
                 "wholegenome": {
                     "type": "boolean",
                     "description": "Option to simulate wholegenomic sequencing reads.",
-                    "default": false,
                     "fa_icon": "fas fa-question-circle"
                 }
             }
@@ -107,6 +103,11 @@
                     "default": "HS25",
                     "help_text": "Can be 'GA1' for Genome Analyser I, 'GA2' for Genome Analyser II, 'HS10' for HiSeq 1000, 'HS20' for HiSeq 2000, 'HS25' for HiSeq 2500, 'HSXn' for HiSeqX PCR free, 'HSXt' for HiSeqX TruSeq, 'MinS' for MiniSeq TruSeq, 'MSv1' for MiSeq v1, 'MSv3' for MiSeq v3, or 'NS50' for NextSeq500 v2.",
                     "enum": ["GA1", "GA2", "HS10", "HS20", "HS25", "HSXn", "HSXt", "MinS", "MSv1", "MSv3", "NS50"]
+                },
+                "amplicon_crabs_ispcr_error": {
+                    "type": "number",
+                    "default": 4.5,
+                    "description": "Maximum number of errors allowed in CRABS insilicoPCR primer sequences"
                 }
             }
         },
@@ -157,7 +158,7 @@
                 },
                 "target_capture_fshape": {
                     "type": "number",
-                    "default": 6.0,
+                    "default": 6,
                     "description": "Shape parameter of the fragment size distribution."
                 },
                 "target_capture_smedian": {
@@ -167,7 +168,7 @@
                 },
                 "target_capture_sshape": {
                     "type": "number",
-                    "default": 6.0,
+                    "default": 6,
                     "description": "Shape parameter of the fragment size distribution."
                 },
                 "target_capture_tmedian": {
@@ -358,8 +359,7 @@
                     "format": "file-path",
                     "exists": true,
                     "mimetype": "text/plain",
-                    "description": "Path to text file containing taxids (one taxid per row).",
-                    "help_text": ""
+                    "description": "Path to text file containing taxids (one taxid per row)."
                 },
                 "ncbidownload_group": {
                     "type": "string",
