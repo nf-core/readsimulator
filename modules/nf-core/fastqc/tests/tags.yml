@@ -1,2 +1,2 @@
-fastqc:
-  - modules/nf-core/fastqc/**
+#fastqc:
+#  - modules/nf-core/fastqc/**
