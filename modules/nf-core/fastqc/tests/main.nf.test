@@ -11,9 +11,6 @@ nextflow_process {
     test("sarscov2 single-end [fastq]") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = Channel.of([
@@ -44,9 +41,6 @@ nextflow_process {
     test("sarscov2 paired-end [fastq]") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = Channel.of([
@@ -77,9 +71,6 @@ nextflow_process {
     test("sarscov2 interleaved [fastq]") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = Channel.of([
@@ -106,9 +97,6 @@ nextflow_process {
     test("sarscov2 paired-end [bam]") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = Channel.of([
@@ -135,9 +123,6 @@ nextflow_process {
     test("sarscov2 multiple [fastq]") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = Channel.of([
@@ -176,9 +161,6 @@ nextflow_process {
     test("sarscov2 custom_prefix") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = Channel.of([
@@ -207,9 +189,6 @@ nextflow_process {
         options "-stub"
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = Channel.of([

@@ -10,9 +10,6 @@ nextflow_process {
     test("sarscov2 single-end [fastqc]") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = Channel.of([file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz_fastqc_zip'], checkIfExists: true)])
@@ -37,9 +34,6 @@ nextflow_process {
     test("sarscov2 single-end [fastqc] [config]") {
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = Channel.of([file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz_fastqc_zip'], checkIfExists: true)])
@@ -65,9 +59,6 @@ nextflow_process {
         options "-stub"
 
         when {
-            params {
-                outdir   = "$outputDir"
-            }
             process {
                 """
                 input[0] = Channel.of([file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz_fastqc_zip'], checkIfExists: true)])
