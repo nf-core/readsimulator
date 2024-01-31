@@ -1,0 +1,4 @@
+readsimulator_test_amplicon:
+  - ./**
+readsimulator_test_wholegenome:
+  - ./**

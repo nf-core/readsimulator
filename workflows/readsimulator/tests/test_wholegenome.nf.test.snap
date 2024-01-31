@@ -1,0 +1,101 @@
+{
+    "wholegenome = true": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "first",
+                            "seed": 40,
+                            "outdir": "wgsim",
+                            "datatype": "wholegenome"
+                        },
+                        [
+                            "first_R1.fq.gz:md5,90ebdcc4f7783290afe3e6ee02d6d803",
+                            "first_R2.fq.gz:md5,bfb972c268a36edcef29317fd1ced544"
+                        ]
+                    ],
+                    [
+                        {
+                            "id": "second",
+                            "seed": 41,
+                            "outdir": "wgsim",
+                            "datatype": "wholegenome"
+                        },
+                        [
+                            "second_R1.fq.gz:md5,7902aa5c9041fc9e2585ebdd0c83597e",
+                            "second_R2.fq.gz:md5,fa9f52716714e16d354e575c331d4ffc"
+                        ]
+                    ],
+                    [
+                        {
+                            "id": "third",
+                            "seed": 42,
+                            "outdir": "wgsim",
+                            "datatype": "wholegenome"
+                        },
+                        [
+                            "third_R1.fq.gz:md5,a76e6d7ab7a4f4bae18747ae6abb607e",
+                            "third_R2.fq.gz:md5,e42714cc210d161fbb3df55c75e96d61"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "wholegenome"
+                        },
+                        "wholegenome_samplesheet.csv:md5,310b2ee2f03a2b44beb88da1816bc3d0"
+                    ]
+                ],
+                "samplesheet": [
+                    [
+                        {
+                            "id": "wholegenome"
+                        },
+                        "wholegenome_samplesheet.csv:md5,310b2ee2f03a2b44beb88da1816bc3d0"
+                    ]
+                ],
+                "simulated_reads": [
+                    [
+                        {
+                            "id": "first",
+                            "seed": 40,
+                            "outdir": "wgsim",
+                            "datatype": "wholegenome"
+                        },
+                        [
+                            "first_R1.fq.gz:md5,90ebdcc4f7783290afe3e6ee02d6d803",
+                            "first_R2.fq.gz:md5,bfb972c268a36edcef29317fd1ced544"
+                        ]
+                    ],
+                    [
+                        {
+                            "id": "second",
+                            "seed": 41,
+                            "outdir": "wgsim",
+                            "datatype": "wholegenome"
+                        },
+                        [
+                            "second_R1.fq.gz:md5,7902aa5c9041fc9e2585ebdd0c83597e",
+                            "second_R2.fq.gz:md5,fa9f52716714e16d354e575c331d4ffc"
+                        ]
+                    ],
+                    [
+                        {
+                            "id": "third",
+                            "seed": 42,
+                            "outdir": "wgsim",
+                            "datatype": "wholegenome"
+                        },
+                        [
+                            "third_R1.fq.gz:md5,a76e6d7ab7a4f4bae18747ae6abb607e",
+                            "third_R2.fq.gz:md5,e42714cc210d161fbb3df55c75e96d61"
+                        ]
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2024-01-19T00:04:12.073328968"
+    }
+}

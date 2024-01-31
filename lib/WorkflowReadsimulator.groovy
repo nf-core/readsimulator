@@ -14,9 +14,8 @@ class WorkflowReadsimulator {
 
         genomeExistsError(params, log)
 
-
-        if (!params.fasta) {
-            Nextflow.error "Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file."
+        if (!params.fasta && !params.ncbidownload_accessions && !params.ncbidownload_taxids) {
+            Nextflow.error "Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file. Alternatively, '--ncbidownload_accessions accessions.txt' or '--ncbidownload_taxids taxids.txt' can be used."
         }
     }
 
@@ -52,12 +51,19 @@ class WorkflowReadsimulator {
     //
 
     public static String toolCitationText(params) {
-
-        // TODO nf-core: Optionally add in-text citation tools to this list.
-        // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "Tool (Foo et al. 2023)" : "",
-        // Uncomment function in methodsDescriptionText to render in MultiQC report
         def citation_text = [
                 "Tools used in the workflow included:",
+                params["amplicon"] ? [
+                    "CRABS (Jeunen et al. 2022),",
+                    "ART (Huang et al. 2012),"
+                ].join(' ').trim() : "",
+                params["target_capture"] ? [
+                    "Bowtie2 (Langmead et al. 2012),",
+                    "Samtools (Danecek et al. 2021),",
+                    "CapSim (Cao et al. 2018),"
+                ].join(' ').trim() : "",
+                params["metagenome"] ?
+                    "InSilicoSeq (Gourlé et al. 2018)," : "",
                 "FastQC (Andrews 2010),",
                 "MultiQC (Ewels et al. 2016)",
                 "."
@@ -67,11 +73,18 @@ class WorkflowReadsimulator {
     }
 
     public static String toolBibliographyText(params) {
-
-        // TODO Optionally add bibliographic entries to this list.
-        // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "<li>Author (2023) Pub name, Journal, DOI</li>" : "",
-        // Uncomment function in methodsDescriptionText to render in MultiQC report
         def reference_text = [
+                params["amplicon"] ? [
+                    "<li>Jeunen, G.-J., Dowle, E., Edgecombe, J., von Ammon, U., Gemmell, N. J., & Cross, H. (2022). crabs—A software program to generate curated reference databases for metabarcoding sequencing data. Molecular Ecology Resources, 00, 1– 14. https://doi.org/10.1111/1755-0998.13741</li>",
+                    "<li>Weichun Huang, Leping Li, Jason R. Myers, Gabor T. Marth, ART: a next-generation sequencing read simulator, Bioinformatics, Volume 28, Issue 4, February 2012, Pages 593–594, https://doi.org/10.1093/bioinformatics/btr708</li>"
+                ].join(' ').trim() : "",
+                params["target_capture"] ? [
+                    "<li>Langmead, B., Salzberg, S. Fast gapped-read alignment with Bowtie 2. Nat Methods 9, 357–359 (2012). https://doi.org/10.1038/nmeth.1923</li>",
+                    "<li>Twelve years of SAMtools and BCFtools. Petr Danecek, James K Bonfield, Jennifer Liddle, John Marshall, Valeriu Ohan, Martin O Pollard, Andrew Whitwham, Thomas Keane, Shane A McCarthy, Robert M Davies, Heng Li. GigaScience, Volume 10, Issue 2, February 2021, giab008, https://doi.org/10.1093/gigascience/giab008</li>",
+                    "<li>Minh Duc Cao, Devika Ganesamoorthy, Chenxi Zhou, Lachlan J M Coin, Simulating the dynamics of targeted capture sequencing with CapSim, Bioinformatics, Volume 34, Issue 5, March 2018, Pages 873–874, https://doi.org/10.1093/bioinformatics/btx691</li>"
+                ].join(' ').trim() : "",
+                params["metagenome"] ?
+                    "<li>Gourlé H, Karlsson-Lindsjö O, Hayer J and Bongcam+Rudloff E, Simulating Illumina data with InSilicoSeq. Bioinformatics (2018) doi:10.1093/bioinformatics/bty630</li>" : "",
                 "<li>Andrews S, (2010) FastQC, URL: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).</li>",
                 "<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. doi: /10.1093/bioinformatics/btw354</li>"
             ].join(' ').trim()
@@ -90,12 +103,8 @@ class WorkflowReadsimulator {
         meta["nodoi_text"] = meta.manifest_map.doi ? "": "<li>If available, make sure to update the text to include the Zenodo DOI of version of the pipeline used. </li>"
 
         // Tool references
-        meta["tool_citations"] = ""
-        meta["tool_bibliography"] = ""
-
-        // TODO Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
-        //meta["tool_citations"] = toolCitationText(params).replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
-        //meta["tool_bibliography"] = toolBibliographyText(params)
+        meta["tool_citations"] = toolCitationText(params).replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
+        meta["tool_bibliography"] = toolBibliographyText(params)
 
 
         def methods_text = mqc_methods_yaml.text

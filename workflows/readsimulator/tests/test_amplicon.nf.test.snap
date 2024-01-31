@@ -1,0 +1,101 @@
+{
+    "amplicon = true": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "first",
+                            "seed": 40,
+                            "outdir": "art_illumina",
+                            "datatype": "amplicon_illumina"
+                        },
+                        [
+                            "first1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "first2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ],
+                    [
+                        {
+                            "id": "second",
+                            "seed": 41,
+                            "outdir": "art_illumina",
+                            "datatype": "amplicon_illumina"
+                        },
+                        [
+                            "second1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "second2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ],
+                    [
+                        {
+                            "id": "third",
+                            "seed": 42,
+                            "outdir": "art_illumina",
+                            "datatype": "amplicon_illumina"
+                        },
+                        [
+                            "third1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "third2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "amplicon_illumina"
+                        },
+                        "amplicon_illumina_samplesheet.csv:md5,2f0440b621dd2de3c89cda85c81e5be7"
+                    ]
+                ],
+                "samplesheet": [
+                    [
+                        {
+                            "id": "amplicon_illumina"
+                        },
+                        "amplicon_illumina_samplesheet.csv:md5,2f0440b621dd2de3c89cda85c81e5be7"
+                    ]
+                ],
+                "simulated_reads": [
+                    [
+                        {
+                            "id": "first",
+                            "seed": 40,
+                            "outdir": "art_illumina",
+                            "datatype": "amplicon_illumina"
+                        },
+                        [
+                            "first1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "first2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ],
+                    [
+                        {
+                            "id": "second",
+                            "seed": 41,
+                            "outdir": "art_illumina",
+                            "datatype": "amplicon_illumina"
+                        },
+                        [
+                            "second1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "second2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ],
+                    [
+                        {
+                            "id": "third",
+                            "seed": 42,
+                            "outdir": "art_illumina",
+                            "datatype": "amplicon_illumina"
+                        },
+                        [
+                            "third1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "third2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2024-01-19T19:15:08.881730553"
+    }
+}
