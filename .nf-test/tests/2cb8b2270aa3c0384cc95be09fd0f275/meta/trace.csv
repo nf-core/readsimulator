@@ -1,0 +1,2 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+1	e5/de60cd	24066	CUSTOM_DUMPSOFTWAREVERSIONS (1)	COMPLETED	0	2024-02-02 16:22:57.674	771ms	345ms	59.7%	5.4 MB	13.8 MB	1.2 MB	1.8 KB

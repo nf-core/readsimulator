@@ -1,0 +1,2 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+1	b4/b556db	23385	MULTIQC (1)	COMPLETED	0	2024-02-02 16:22:44.987	3.6s	3.3s	96.8%	72.9 MB	1.1 GB	23.3 MB	283 B

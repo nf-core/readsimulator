@@ -1,0 +1,2 @@
+Sample	Top overrepresented sequence	Sum of remaining overrepresented sequences
+test	2.0	98.0

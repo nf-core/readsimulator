@@ -1,0 +1,2 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+1	46/6e4ea9	17735	FASTQC (test)	COMPLETED	0	2024-02-02 16:20:13.238	6.4s	6s	101.9%	178.4 MB	3.8 GB	11.2 MB	1.8 MB
