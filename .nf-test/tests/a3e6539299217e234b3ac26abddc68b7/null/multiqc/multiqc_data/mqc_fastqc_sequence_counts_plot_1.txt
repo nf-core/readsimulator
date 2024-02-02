@@ -1,2 +1,0 @@
-Sample	Unique Reads	Duplicate Reads
-test	99.0	1.0
