@@ -1,2 +1,2 @@
-#multiqc:
-#  - modules/nf-core/multiqc/**
+multiqc:
+  - modules/nf-core/multiqc/**
