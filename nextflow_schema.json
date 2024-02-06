@@ -20,7 +20,8 @@
                     "pattern": "^\\S+\\.csv$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/readsimulator/usage#samplesheet-input).",
-                    "fa_icon": "fas fa-file-csv"
+                    "fa_icon": "fas fa-file-csv",
+                    "schema": "assets/schema_input.json"
                 },
                 "outdir": {
                     "type": "string",
@@ -42,6 +43,281 @@
                 }
             }
         },
+        "simulation_options": {
+            "title": "Simulation options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Choose the data types that should be simulated by the pipeline.",
+            "properties": {
+                "amplicon": {
+                    "type": "boolean",
+                    "description": "Option to simulate amplicon sequencing reads.",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "target_capture": {
+                    "type": "boolean",
+                    "description": "Option to simulate target capture sequencing reads.",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "metagenome": {
+                    "type": "boolean",
+                    "description": "Option to simulate metagenomic sequencing reads.",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "wholegenome": {
+                    "type": "boolean",
+                    "description": "Option to simulate wholegenomic sequencing reads.",
+                    "fa_icon": "fas fa-question-circle"
+                }
+            }
+        },
+        "amplicon_options": {
+            "title": "Amplicon options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for simulating amplicon sequencing reads.",
+            "properties": {
+                "amplicon_fw_primer": {
+                    "type": "string",
+                    "description": "Forward primer to use with crabs_insilicopcr.",
+                    "default": "GTCGGTAAAACTCGTGCCAGC"
+                },
+                "amplicon_rv_primer": {
+                    "type": "string",
+                    "description": "Reverse primer to use with crabs_insilicopcr.",
+                    "default": "CATAGTGGGGTATCTAATCCCAGTTTG"
+                },
+                "amplicon_read_count": {
+                    "type": "integer",
+                    "description": "Number of reads to be simulated per amplicon.",
+                    "default": 500
+                },
+                "amplicon_read_length": {
+                    "type": "integer",
+                    "description": "Length of reads to be simulated.",
+                    "default": 130
+                },
+                "amplicon_seq_system": {
+                    "type": "string",
+                    "description": "Sequencing system of reads to be simulated.",
+                    "default": "HS25",
+                    "help_text": "Can be 'GA1' for Genome Analyser I, 'GA2' for Genome Analyser II, 'HS10' for HiSeq 1000, 'HS20' for HiSeq 2000, 'HS25' for HiSeq 2500, 'HSXn' for HiSeqX PCR free, 'HSXt' for HiSeqX TruSeq, 'MinS' for MiniSeq TruSeq, 'MSv1' for MiSeq v1, 'MSv3' for MiSeq v3, or 'NS50' for NextSeq500 v2.",
+                    "enum": ["GA1", "GA2", "HS10", "HS20", "HS25", "HSXn", "HSXt", "MinS", "MSv1", "MSv3", "NS50"]
+                },
+                "amplicon_crabs_ispcr_error": {
+                    "type": "number",
+                    "default": 4.5,
+                    "description": "Maximum number of errors allowed in CRABS insilicoPCR primer sequences"
+                }
+            }
+        },
+        "target_capture_options": {
+            "title": "Target capture options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for simulating target capture sequencing reads.",
+            "properties": {
+                "probe_file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to bait/probe file. Can be a fasta file or a bed file.",
+                    "help_text": "This parameter is *mandatory* if `--probe_ref_name` is not specified but `--target_capture` is specified.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "probe_ref_name": {
+                    "type": "string",
+                    "default": "Tetrapods-UCE-5Kv1",
+                    "description": "Name of supported probe. Mandatory if not using `--probes` parameter.",
+                    "help_text": "Supported probes are 'Tetrapods-UCE-2.5Kv1', 'Tetrapods-UCE-5Kv1', 'Actinopterygians-0.5Kv1', 'Acanthomorphs-1Kv1', 'Arachnida-1.1Kv1', 'Coleoptera-1.1Kv1', 'Diptera-2.7Kv1', 'Hemiptera-2.7Kv1', 'Hymenoptera-1.5Kv1', 'Hymenoptera-2.5Kv2', and 'Anthozoa-1.7Kv1'",
+                    "enum": [
+                        "Tetrapods-UCE-2.5Kv1",
+                        "Tetrapods-UCE-5Kv1",
+                        "Actinopterygians-0.5Kv1",
+                        "Acanthomorphs-1Kv1",
+                        "Arachnida-1.1Kv1",
+                        "Coleoptera-1.1Kv1",
+                        "Diptera-2.7Kv1",
+                        "Hemiptera-2.7Kv1",
+                        "Hymenoptera-1.5Kv1",
+                        "Hymenoptera-2.5Kv2",
+                        "Anthozoa-1.7Kv1"
+                    ]
+                },
+                "target_capture_mode": {
+                    "type": "string",
+                    "default": "illumina",
+                    "description": "Simulate 'illumina' or 'pacbio' reads.",
+                    "enum": ["illumina", "pacbio"]
+                },
+                "target_capture_fmedian": {
+                    "type": "integer",
+                    "default": 500,
+                    "description": "Median of fragment size at shearing."
+                },
+                "target_capture_fshape": {
+                    "type": "number",
+                    "default": 6.0,
+                    "description": "Shape parameter of the fragment size distribution."
+                },
+                "target_capture_smedian": {
+                    "type": "integer",
+                    "default": 1300,
+                    "description": "Median of fragment size distribution."
+                },
+                "target_capture_sshape": {
+                    "type": "number",
+                    "default": 6.0,
+                    "description": "Shape parameter of the fragment size distribution."
+                },
+                "target_capture_tmedian": {
+                    "type": "integer",
+                    "description": "Median of target fragment size (the fragment size of the data). If specified, will override '--fmedian' and '--smedian'. Othersise will be estimated."
+                },
+                "target_capture_tshape": {
+                    "type": "number",
+                    "description": "Shape parameter of the effective fragment size distribution."
+                },
+                "target_capture_num": {
+                    "type": "integer",
+                    "default": 500000,
+                    "description": "Number of fragments."
+                },
+                "target_capture_illen": {
+                    "type": "integer",
+                    "default": 150,
+                    "description": "Illumina: read length."
+                },
+                "target_capture_pblen": {
+                    "type": "integer",
+                    "default": 30000,
+                    "description": "PacBio: Average (polymerase) read length."
+                },
+                "target_capture_ilmode": {
+                    "type": "string",
+                    "default": "pe",
+                    "description": "Illumina: Sequencing mode.",
+                    "help_text": "'pe' = paired-end, 'mp' = mate-paired and 'se' = singled-end",
+                    "enum": ["pe", "mp", "se"]
+                }
+            }
+        },
+        "metagenome_options": {
+            "title": "Metagenome options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for simulating metagenomic sequencing reads.",
+            "properties": {
+                "metagenome_abundance": {
+                    "type": "string",
+                    "default": "lognormal",
+                    "description": "Abundance distribution.",
+                    "help_text": "Can be 'uniform', 'halfnormal', 'exponential', 'lognormal', or 'zero_inflated_lognormal'",
+                    "enum": ["uniform", "halfnormal", "exponential", "lognormal", "zero_inflated_lognormal"]
+                },
+                "metagenome_abundance_file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.tsv$",
+                    "mimetype": "text/plain",
+                    "description": "Path to tab-separated file containing abundance distribution.",
+                    "help_text": "The first column should contain the genome and the second column should contain abundance proportion. It's recommended that the total abundace in your file equals 1."
+                },
+                "metagenome_coverage": {
+                    "type": "string",
+                    "description": "Coverage distribution.",
+                    "help_text": "Can be 'uniform', 'halfnormal', 'exponential', 'lognormal', or 'zero_inflated_lognormal'",
+                    "enum": ["uniform", "halfnormal", "exponential", "lognormal", "zero_inflated_lognormal"]
+                },
+                "metagenome_coverage_file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.tsv$",
+                    "mimetype": "text/plain",
+                    "description": "Path to tab-separated file containing coverage information.",
+                    "help_text": "The first column should contain the genome and the second column should contain the coverage (e.g., use the value 20 for a coverage of 20X)."
+                },
+                "metagenome_n_reads": {
+                    "type": "string",
+                    "default": "1M",
+                    "description": "Number of reads to generate.",
+                    "help_text": "Supported suffixes are 'k', 'K', 'm', 'M', 'g', and 'G'."
+                },
+                "metagenome_mode": {
+                    "type": "string",
+                    "default": "kde",
+                    "description": "Can be 'kde', or 'basic'.",
+                    "help_text": "Set this to basic if you don't want to use a model with `--metagenome_model`.",
+                    "enum": ["kde", "basic"]
+                },
+                "metagenome_model": {
+                    "type": "string",
+                    "default": "MiSeq",
+                    "description": "Can be 'HiSeq', 'NovaSeq', or 'MiSeq'.",
+                    "enum": ["HiSeq", "NovaSeq", "MiSeq"]
+                },
+                "metagenome_gc_bias": {
+                    "type": "boolean",
+                    "description": "Use this option to prevent simulating reads that have abnormal GC content."
+                }
+            }
+        },
+        "wholegenome_options": {
+            "title": "Wholegenome options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for simulating wholegenome sequencing reads.",
+            "properties": {
+                "wholegenome_error_rate": {
+                    "type": "number",
+                    "default": 0.02,
+                    "description": "The base error rate."
+                },
+                "wholegenome_outer_dist": {
+                    "type": "integer",
+                    "default": 500,
+                    "description": "The outer distance between the two ends."
+                },
+                "wholegenome_standard_dev": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "The standard deviation."
+                },
+                "wholegenome_n_reads": {
+                    "type": "integer",
+                    "default": 1000000,
+                    "description": "The number of read pairs."
+                },
+                "wholegenome_r1_length": {
+                    "type": "integer",
+                    "default": 70,
+                    "description": "The length of the first reads."
+                },
+                "wholegenome_r2_length": {
+                    "type": "integer",
+                    "default": 70,
+                    "description": "The length of the second reads."
+                },
+                "wholegenome_mutation_rate": {
+                    "type": "number",
+                    "default": 0.001,
+                    "description": "The rate of mutations."
+                },
+                "wholegenome_indel_fraction": {
+                    "type": "number",
+                    "default": 0.15,
+                    "description": "The fraction of indels."
+                },
+                "wholegenome_indel_extended": {
+                    "type": "number",
+                    "default": 0.3,
+                    "description": "The probability that an indel is extended."
+                }
+            }
+        },
         "reference_genome_options": {
             "title": "Reference genome options",
             "type": "object",
@@ -60,17 +336,9 @@
                     "exists": true,
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
-                    "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "description": "Path to reference FASTA file.",
+                    "help_text": "If this parameter is not used, the pipeline will download a fasta file, either using the `--genome` parameter or by using ncbi-genome-download (relevant parameters for ncbi-genome-download all start with `--ncbidownload_`).",
                     "fa_icon": "far fa-file-code"
-                },
-                "igenomes_base": {
-                    "type": "string",
-                    "format": "directory-path",
-                    "description": "Directory / URL base for iGenomes references.",
-                    "default": "s3://ngi-igenomes/igenomes",
-                    "fa_icon": "fas fa-cloud-download-alt",
-                    "hidden": true
                 },
                 "igenomes_ignore": {
                     "type": "boolean",
@@ -78,6 +346,44 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                },
+                "ncbidownload_accessions": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to text file containing accession ids (one accession per row)."
+                },
+                "ncbidownload_taxids": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to text file containing taxids (one taxid per row)."
+                },
+                "ncbidownload_group": {
+                    "type": "string",
+                    "default": "all",
+                    "description": "The NCBI taxonomic groups to download. Options include 'all', 'archaea', 'bacteria', 'fungi', 'invertebrate', 'metagenomes', 'plant', 'protozoa', 'vertebrate_mammalian', 'vertebrate_other', and 'viral'. A comma-separated list is also valid (e.g., 'bacteria,viral').",
+                    "enum": [
+                        "all",
+                        "archaea",
+                        "bacteria",
+                        "fungi",
+                        "invertebrate",
+                        "metagenomes",
+                        "plant",
+                        "protozoa",
+                        "vertebrate_mammalian",
+                        "vertebrate_other",
+                        "viral"
+                    ]
+                },
+                "ncbidownload_section": {
+                    "type": "string",
+                    "default": "refseq",
+                    "description": "The NCBI section to download. 'refseq' or 'genbank'.",
+                    "enum": ["refseq", "genbank"]
                 }
             }
         },
@@ -175,14 +481,12 @@
                     "type": "boolean",
                     "description": "Display help text.",
                     "fa_icon": "fas fa-question-circle",
-                    "default": false,
                     "hidden": true
                 },
                 "version": {
                     "type": "boolean",
                     "description": "Display version and exit.",
                     "fa_icon": "fas fa-question-circle",
-                    "default": false,
                     "hidden": true
                 },
                 "publish_dir_mode": {
@@ -206,7 +510,6 @@
                     "type": "boolean",
                     "description": "Send plain-text email instead of HTML.",
                     "fa_icon": "fas fa-remove-format",
-                    "default": false,
                     "hidden": true
                 },
                 "max_multiqc_email_size": {
@@ -221,7 +524,6 @@
                     "type": "boolean",
                     "description": "Do not use coloured log outputs.",
                     "fa_icon": "fas fa-palette",
-                    "default": false,
                     "hidden": true
                 },
                 "hook_url": {
@@ -260,7 +562,6 @@
                     "type": "boolean",
                     "fa_icon": "far fa-eye-slash",
                     "description": "Show all params when using `--help`",
-                    "default": false,
                     "hidden": true,
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
                 },
@@ -268,7 +569,6 @@
                     "type": "boolean",
                     "fa_icon": "far fa-check-circle",
                     "description": "Validation of parameters fails when an unrecognised parameter is found.",
-                    "default": false,
                     "hidden": true,
                     "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
                 },
@@ -276,7 +576,6 @@
                     "type": "boolean",
                     "fa_icon": "far fa-check-circle",
                     "description": "Validation of parameters in lenient more.",
-                    "default": false,
                     "hidden": true,
                     "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
                 }
@@ -286,6 +585,21 @@
     "allOf": [
         {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/simulation_options"
+        },
+        {
+            "$ref": "#/definitions/amplicon_options"
+        },
+        {
+            "$ref": "#/definitions/target_capture_options"
+        },
+        {
+            "$ref": "#/definitions/metagenome_options"
+        },
+        {
+            "$ref": "#/definitions/wholegenome_options"
         },
         {
             "$ref": "#/definitions/reference_genome_options"

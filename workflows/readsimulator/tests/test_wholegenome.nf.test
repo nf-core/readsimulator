@@ -1,0 +1,37 @@
+nextflow_workflow {
+
+    name "Test workflow: READSIMULATOR"
+    script "../main.nf"
+    workflow "READSIMULATOR"
+    tag "workflows"
+    tag "readsimulator"
+    tag "readsimulator_test_wholegenome"
+
+    test("wholegenome = true") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [ [ id:'first', seed:40] ],
+                    [ [ id:'second', seed:41] ],
+                    [ [ id:'third', seed:42] ],
+                )
+                """
+            }
+            params {
+                wholegenome = true
+                fasta       = 'https://raw.githubusercontent.com/nf-core/test-datasets/readsimulator/testdata/GCF_024334085.1_ASM2433408v1_genomic.fna.gz'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out
+                ).match() }
+            )
+        }
+    }
+}
