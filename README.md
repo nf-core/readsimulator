@@ -6,7 +6,7 @@
 </h1>
 
 [![GitHub Actions CI Status](https://github.com/nf-core/readsimulator/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-core/readsimulator/actions?query=workflow%3A%22nf-core+CI%22)
-[![GitHub Actions Linting Status](https://github.com/nf-core/readsimulator/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-core/readsimulator/actions?query=workflow%3A%22nf-core+linting%22)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/readsimulator/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![GitHub Actions Linting Status](https://github.com/nf-core/readsimulator/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-core/readsimulator/actions?query=workflow%3A%22nf-core+linting%22)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/readsimulator/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.10622410-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.10622410)
 
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A523.04.0-23aa62.svg)](https://www.nextflow.io/)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
@@ -112,8 +112,7 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
-<!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
-<!-- If you use nf-core/readsimulator for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
+If you use nf-core/readsimulator for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.10622410)
 
 <!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
