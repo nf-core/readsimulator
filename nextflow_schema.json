@@ -158,7 +158,7 @@
                 },
                 "target_capture_fshape": {
                     "type": "number",
-                    "default": 6.0,
+                    "default": 6,
                     "description": "Shape parameter of the fragment size distribution."
                 },
                 "target_capture_smedian": {
@@ -168,7 +168,7 @@
                 },
                 "target_capture_sshape": {
                     "type": "number",
-                    "default": 6.0,
+                    "default": 6,
                     "description": "Shape parameter of the fragment size distribution."
                 },
                 "target_capture_tmedian": {
@@ -239,6 +239,13 @@
                     "mimetype": "text/plain",
                     "description": "Path to tab-separated file containing coverage information.",
                     "help_text": "The first column should contain the genome and the second column should contain the coverage (e.g., use the value 20 for a coverage of 20X)."
+                },
+                "metagenome_input_format": {
+                    "type": "string",
+                    "default": "complete",
+                    "description": "Format of FASTA file used to generate reads",
+                    "help_text": "If complete genomes are used (i.e. 1 sequence per genome FASTA) choose 'complete'; if draft genomes are used (i.e. multiple sequences per genome FASTA) choose 'draft'",
+                    "enum": ["complete", "draft"]
                 },
                 "metagenome_n_reads": {
                     "type": "string",
