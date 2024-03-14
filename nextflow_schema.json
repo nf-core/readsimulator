@@ -242,10 +242,10 @@
                 },
                 "metagenome_input_format": {
                     "type": "string",
-                    "default": "complete",
+                    "default": "genomes",
                     "description": "Format of FASTA file used to generate reads",
-                    "help_text": "If complete genomes are used (i.e. 1 sequence per genome FASTA) choose 'complete'; if draft genomes are used (i.e. multiple sequences per genome FASTA) choose 'draft'",
-                    "enum": ["complete", "draft"]
+                    "help_text": "If complete genomes are used (i.e. 1 sequence per genome FASTA) choose 'genomes'; if draft genomes are used (i.e. multiple sequences per genome FASTA) choose 'draft'",
+                    "enum": ["genomes", "draft"]
                 },
                 "metagenome_n_reads": {
                     "type": "string",

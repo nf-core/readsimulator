@@ -22,11 +22,7 @@ process INSILICOSEQ_GENERATE {
     def args2         = task.ext.args2 ?: ''
     def prefix        = task.ext.prefix ?: "${meta.id}"
     def seed          = task.ext.seed ?: "${meta.seed}"
-    if ( params.metagenome_input_format == 'complete' ) {
-        def input_format = '--genomes'
-    } else {
-        def input_format = '--draft'
-    }
+    def input_format  = "--${params.metagenome_input_format}"
     if (fasta) {
         def is_compressed = fasta.name.endsWith(".gz")
         def fasta_name    = fasta.name.replace(".gz", "")
