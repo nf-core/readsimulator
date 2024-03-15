@@ -9,6 +9,7 @@ process INSILICOSEQ_GENERATE {
 
     input:
     tuple val(meta), path(fasta)
+    val(input_format)
 
     output:
     tuple val(meta), path("*.fastq.gz*"), emit: fastq
@@ -22,7 +23,7 @@ process INSILICOSEQ_GENERATE {
     def args2         = task.ext.args2 ?: ''
     def prefix        = task.ext.prefix ?: "${meta.id}"
     def seed          = task.ext.seed ?: "${meta.seed}"
-    def input_format  = "--${params.metagenome_input_format}"
+    def input_format  = input_format == "genomes" ? "--genomes": "--draft"
     if (fasta) {
         def is_compressed = fasta.name.endsWith(".gz")
         def fasta_name    = fasta.name.replace(".gz", "")
