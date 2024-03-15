@@ -33,7 +33,7 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_read
 //   This is an example of how to use getGenomeAttribute() to fetch parameters
 //   from igenomes.config using `--genome`
 if (!params.fasta) {
-    params.fasta = WorkflowMain.getGenomeAttribute(params, 'fasta')
+    params.fasta = getGenomeAttribute('fasta')
 }
 
 /*

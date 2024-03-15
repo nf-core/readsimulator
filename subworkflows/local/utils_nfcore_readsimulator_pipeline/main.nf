@@ -146,9 +146,7 @@ def validateInputParameters() {
 // Validate channels from input samplesheet
 //
 def validateInputSamplesheet(input) {
-    def (metas, seeds) = input[1..2]
-
-    return [ metas[0], seeds ]
+    return [ input[0] ]
 }
 //
 // Get attribute from genome config file e.g. fasta

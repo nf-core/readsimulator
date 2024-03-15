@@ -10,6 +10,7 @@ include { paramsSummaryMap            } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc        } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../../subworkflows/local/utils_nfcore_readsimulator_pipeline'
+include { MERGE_FASTAS                } from '../../modules/local/custom/merge_fastas/main'
 include { INSILICOSEQ_GENERATE        } from '../../modules/local/insilicoseq/generate/main'       // TODO: Add module to nf-core/modules
 include { CREATE_SAMPLESHEET          } from '../../modules/local/custom/create_samplesheet/main'
 include { MERGE_SAMPLESHEETS          } from '../../modules/local/custom/merge_samplesheets/main'
@@ -36,6 +37,7 @@ workflow READSIMULATOR {
     ch_simulated_reads = Channel.empty()
     ch_taxids          = Channel.empty()
     ch_accessions      = Channel.empty()
+    ch_fasta           = Channel.empty()
 
     if ( params.fasta ) {
         ch_fasta = Channel.fromPath(params.fasta)
