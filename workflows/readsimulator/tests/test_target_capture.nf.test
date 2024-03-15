@@ -23,6 +23,7 @@ nextflow_workflow {
                 target_capture  = true
                 probe_ref_name  = 'Diptera-2.7Kv1'
                 fasta           = 'https://raw.githubusercontent.com/nf-core/test-datasets/readsimulator/testdata/GCF_024334085.1_ASM2433408v1_genomic.fna.gz'
+                outdir          = "results"
             }
         }
 
