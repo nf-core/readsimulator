@@ -1,0 +1,8 @@
+readsimulator_test_amplicon:
+  - ./**
+readsimulator_test_wholegenome:
+  - ./**
+readsimulator_test_metagenome:
+  - ./**
+readsimulator_test_target_capture:
+  - ./**
