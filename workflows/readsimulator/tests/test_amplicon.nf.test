@@ -26,6 +26,7 @@ nextflow_workflow {
                 amplicon_read_count         = 1000
                 amplicon_crabs_ispcr_error  = 0
                 fasta                       = 'https://raw.githubusercontent.com/nf-core/test-datasets/readsimulator/testdata/GCF_024334085.1_ASM2433408v1_genomic.fna.gz'
+                outdir                      = "results"
             }
         }
 
