@@ -124,7 +124,7 @@ workflow READSIMULATOR {
     //
     if ( params.wholegenome ) {
         WGSIM (
-            ch_input.combine(ch_fasta)
+            ch_samplesheet.combine(ch_fasta)
         )
         ch_versions          = ch_versions.mix(WGSIM.out.versions.first())
         ch_wholegenome_reads = WGSIM.out.fastq
