@@ -13,21 +13,13 @@
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
                 "meta": ["id"]
             },
-            "fastq_1": {
-                "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
-            },
-            "fastq_2": {
-                "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+            "seed": {
+                "type": "integer",
+                "errorMessage": "Seed must be provided",
+                "unique": true,
+                "meta": ["seed"]
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["sample", "seed"]
     }
 }
