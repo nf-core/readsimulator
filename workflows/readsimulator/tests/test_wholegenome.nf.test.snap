@@ -48,6 +48,20 @@
                         "wholegenome_samplesheet.csv:md5,310b2ee2f03a2b44beb88da1816bc3d0"
                     ]
                 ],
+                "2": [
+                    [
+                        "multiqc_report.html:md5,917fc0076da11bc961b50786fb2f5f62"
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,8acb8b7e1c904e2100c4a4451a880d9c",
+                    "versions.yml:md5,b59d45141b86b92640d12df20868c7b1"
+                ],
+                "multiqc_report": [
+                    [
+                        "multiqc_report.html:md5,917fc0076da11bc961b50786fb2f5f62"
+                    ]
+                ],
                 "samplesheet": [
                     [
                         {
@@ -93,6 +107,10 @@
                             "third_R2.fq.gz:md5,e42714cc210d161fbb3df55c75e96d61"
                         ]
                     ]
+                ],
+                "versions": [
+                    "versions.yml:md5,8acb8b7e1c904e2100c4a4451a880d9c",
+                    "versions.yml:md5,b59d45141b86b92640d12df20868c7b1"
                 ]
             }
         ],

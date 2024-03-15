@@ -48,6 +48,20 @@
                         "metagenomic_illumina_samplesheet.csv:md5,8064936eff731e7c4c879916eb8b2edb"
                     ]
                 ],
+                "2": [
+                    [
+                        "multiqc_report.html:md5,bce82b348cebf13fdad80c9d1d1d1130"
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,8acb8b7e1c904e2100c4a4451a880d9c",
+                    "versions.yml:md5,c8240bb3edb947511ec99bd2ef740b8a"
+                ],
+                "multiqc_report": [
+                    [
+                        "multiqc_report.html:md5,bce82b348cebf13fdad80c9d1d1d1130"
+                    ]
+                ],
                 "samplesheet": [
                     [
                         {
@@ -93,6 +107,10 @@
                             "third_R2.fastq.gz:md5,3a78f893f1c12af70d13fe3df59eaa84"
                         ]
                     ]
+                ],
+                "versions": [
+                    "versions.yml:md5,8acb8b7e1c904e2100c4a4451a880d9c",
+                    "versions.yml:md5,c8240bb3edb947511ec99bd2ef740b8a"
                 ]
             }
         ],

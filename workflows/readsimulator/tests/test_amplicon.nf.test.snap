@@ -48,6 +48,20 @@
                         "amplicon_illumina_samplesheet.csv:md5,2f0440b621dd2de3c89cda85c81e5be7"
                     ]
                 ],
+                "2": [
+                    [
+                        "multiqc_report.html:md5,b874c97a3d170cd7134f456b0f3c1453"
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,7282f5159b374e936cdb2a26261c07dd",
+                    "versions.yml:md5,8acb8b7e1c904e2100c4a4451a880d9c"
+                ],
+                "multiqc_report": [
+                    [
+                        "multiqc_report.html:md5,b874c97a3d170cd7134f456b0f3c1453"
+                    ]
+                ],
                 "samplesheet": [
                     [
                         {
@@ -93,6 +107,10 @@
                             "third2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
                         ]
                     ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7282f5159b374e936cdb2a26261c07dd",
+                    "versions.yml:md5,8acb8b7e1c904e2100c4a4451a880d9c"
                 ]
             }
         ],

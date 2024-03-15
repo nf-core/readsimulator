@@ -48,6 +48,20 @@
                         "target_capture_samplesheet.csv:md5,5279e81ea6bcdee0e3d9e54f7cef1dab"
                     ]
                 ],
+                "2": [
+                    [
+                        "multiqc_report.html:md5,48162ab5564d48280542943b97fb0af3"
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,07f9a388a49fac3bf329410a1654fadd",
+                    "versions.yml:md5,8acb8b7e1c904e2100c4a4451a880d9c"
+                ],
+                "multiqc_report": [
+                    [
+                        "multiqc_report.html:md5,48162ab5564d48280542943b97fb0af3"
+                    ]
+                ],
                 "samplesheet": [
                     [
                         {
@@ -93,6 +107,10 @@
                             "third_2.fastq.gz:md5,995ea1c4eb2bcbb55b252dac290def09"
                         ]
                     ]
+                ],
+                "versions": [
+                    "versions.yml:md5,07f9a388a49fac3bf329410a1654fadd",
+                    "versions.yml:md5,8acb8b7e1c904e2100c4a4451a880d9c"
                 ]
             }
         ],
