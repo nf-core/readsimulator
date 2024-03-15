@@ -50,7 +50,7 @@
                 ],
                 "2": [
                     [
-                        "multiqc_report.html:md5,7275bee57bc698eb68d629faa9f0b77b"
+                        "multiqc_report.html:md5,eb157dddb3ba42fa225d303aa6c32364"
                     ]
                 ],
                 "3": [
@@ -59,7 +59,7 @@
                 ],
                 "multiqc_report": [
                     [
-                        "multiqc_report.html:md5,7275bee57bc698eb68d629faa9f0b77b"
+                        "multiqc_report.html:md5,eb157dddb3ba42fa225d303aa6c32364"
                     ]
                 ],
                 "samplesheet": [
