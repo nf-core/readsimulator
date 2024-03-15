@@ -35,6 +35,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // MODULE: Local modules
 //
+include { MERGE_FASTAS            } from '../../modules/local/custom/merge_fastas/main'
 include { INSILICOSEQ_GENERATE    } from '../../modules/local/insilicoseq/generate/main'       // TODO: Add module to nf-core/modules
 include { CREATE_SAMPLESHEET      } from '../../modules/local/custom/create_samplesheet/main'
 include { MERGE_SAMPLESHEETS      } from '../../modules/local/custom/merge_samplesheets/main'
@@ -149,7 +150,8 @@ workflow READSIMULATOR {
     //
     if ( params.metagenome ) {
         INSILICOSEQ_GENERATE (
-            ch_input.combine(ch_fasta.ifEmpty([[]]))
+            ch_input.combine(ch_fasta.ifEmpty([[]])),
+            params.metagenome_input_format
         )
         ch_versions         = ch_versions.mix(INSILICOSEQ_GENERATE.out.versions.first())
         ch_metagenome_reads = INSILICOSEQ_GENERATE.out.fastq
