@@ -17,7 +17,6 @@ include { WGSIM                       } from '../../modules/local/wgsim/main'   
 include { AMPLICON_WORKFLOW           } from '../../subworkflows/local/amplicon_workflow'
 include { TARGET_CAPTURE_WORKFLOW     } from '../../subworkflows/local/target_capture_workflow'
 include { NCBIGENOMEDOWNLOAD          } from '../../modules/nf-core/ncbigenomedownload/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
