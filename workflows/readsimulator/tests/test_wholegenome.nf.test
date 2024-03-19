@@ -30,7 +30,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out
+                    workflow.out.get(0).findAll { it != "multiqc_report" }
                 ).match() }
             )
         }

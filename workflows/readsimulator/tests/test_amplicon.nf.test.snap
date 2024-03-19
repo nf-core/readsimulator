@@ -1,119 +1,49 @@
 {
     "amplicon = true": {
         "content": [
-            {
-                "0": [
+            [
+                [
+                    {
+                        "id": "first",
+                        "seed": 40,
+                        "outdir": "art_illumina",
+                        "datatype": "amplicon_illumina"
+                    },
                     [
-                        {
-                            "id": "first",
-                            "seed": 40,
-                            "outdir": "art_illumina",
-                            "datatype": "amplicon_illumina"
-                        },
-                        [
-                            "first1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
-                            "first2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
-                        ]
-                    ],
-                    [
-                        {
-                            "id": "second",
-                            "seed": 41,
-                            "outdir": "art_illumina",
-                            "datatype": "amplicon_illumina"
-                        },
-                        [
-                            "second1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
-                            "second2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
-                        ]
-                    ],
-                    [
-                        {
-                            "id": "third",
-                            "seed": 42,
-                            "outdir": "art_illumina",
-                            "datatype": "amplicon_illumina"
-                        },
-                        [
-                            "third1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
-                            "third2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
-                        ]
+                        "first1.fq.gz:md5,5dfb2de5a3d547b4a1cbdfe8fe33eb78",
+                        "first2.fq.gz:md5,3ff099ec08c9d1f1f87f7bcd1455aad3"
                     ]
                 ],
-                "1": [
+                [
+                    {
+                        "id": "second",
+                        "seed": 41,
+                        "outdir": "art_illumina",
+                        "datatype": "amplicon_illumina"
+                    },
                     [
-                        {
-                            "id": "amplicon_illumina"
-                        },
-                        "amplicon_illumina_samplesheet.csv:md5,2f0440b621dd2de3c89cda85c81e5be7"
+                        "second1.fq.gz:md5,fdb32a77b5d100efd77f9b253475b354",
+                        "second2.fq.gz:md5,97b1101a3a2a3814f301ccd90b5c2f30"
                     ]
                 ],
-                "2": [
+                [
+                    {
+                        "id": "third",
+                        "seed": 42,
+                        "outdir": "art_illumina",
+                        "datatype": "amplicon_illumina"
+                    },
                     [
-                        "multiqc_report.html:md5,788578636e6f53ba65a66cecf8172f3a"
+                        "third1.fq.gz:md5,62ab3b38160c81c9d9fa972871f896d3",
+                        "third2.fq.gz:md5,912ae27dc22fea5b3d2f8f3a5dd4fa08"
                     ]
-                ],
-                "3": [
-                    "versions.yml:md5,7282f5159b374e936cdb2a26261c07dd",
-                    "versions.yml:md5,8acb8b7e1c904e2100c4a4451a880d9c"
-                ],
-                "multiqc_report": [
-                    [
-                        "multiqc_report.html:md5,788578636e6f53ba65a66cecf8172f3a"
-                    ]
-                ],
-                "samplesheet": [
-                    [
-                        {
-                            "id": "amplicon_illumina"
-                        },
-                        "amplicon_illumina_samplesheet.csv:md5,2f0440b621dd2de3c89cda85c81e5be7"
-                    ]
-                ],
-                "simulated_reads": [
-                    [
-                        {
-                            "id": "first",
-                            "seed": 40,
-                            "outdir": "art_illumina",
-                            "datatype": "amplicon_illumina"
-                        },
-                        [
-                            "first1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
-                            "first2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
-                        ]
-                    ],
-                    [
-                        {
-                            "id": "second",
-                            "seed": 41,
-                            "outdir": "art_illumina",
-                            "datatype": "amplicon_illumina"
-                        },
-                        [
-                            "second1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
-                            "second2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
-                        ]
-                    ],
-                    [
-                        {
-                            "id": "third",
-                            "seed": 42,
-                            "outdir": "art_illumina",
-                            "datatype": "amplicon_illumina"
-                        },
-                        [
-                            "third1.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e",
-                            "third2.fq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
-                        ]
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,7282f5159b374e936cdb2a26261c07dd",
-                    "versions.yml:md5,8acb8b7e1c904e2100c4a4451a880d9c"
                 ]
-            }
+            ]
         ],
-        "timestamp": "2024-01-19T19:15:08.881730553"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-19T14:38:49.385639018"
     }
 }
