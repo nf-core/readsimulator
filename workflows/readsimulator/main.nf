@@ -108,7 +108,8 @@ workflow READSIMULATOR {
     //
     if ( params.metagenome ) {
         INSILICOSEQ_GENERATE (
-            ch_samplesheet.combine(ch_fasta.ifEmpty([[]]))
+            ch_samplesheet.combine(ch_fasta.ifEmpty([[]])),
+            params.metagenome_input_format
         )
         ch_versions         = ch_versions.mix(INSILICOSEQ_GENERATE.out.versions.first())
         ch_metagenome_reads = INSILICOSEQ_GENERATE.out.fastq
