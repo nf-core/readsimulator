@@ -1,101 +1,49 @@
 {
     "metagenome = true": {
         "content": [
-            {
-                "0": [
+            [
+                [
+                    {
+                        "id": "first",
+                        "seed": 40,
+                        "outdir": "insilicoseq",
+                        "datatype": "metagenomic_illumina"
+                    },
                     [
-                        {
-                            "id": "first",
-                            "seed": 40,
-                            "outdir": "insilicoseq",
-                            "datatype": "metagenomic_illumina"
-                        },
-                        [
-                            "first_R1.fastq.gz:md5,2a324062e0afb4d3eab8134479f317d4",
-                            "first_R2.fastq.gz:md5,9e0c86c0ff15091734fe7d52039f7727"
-                        ]
-                    ],
-                    [
-                        {
-                            "id": "second",
-                            "seed": 41,
-                            "outdir": "insilicoseq",
-                            "datatype": "metagenomic_illumina"
-                        },
-                        [
-                            "second_R1.fastq.gz:md5,3536190205e1a6ba3609fe6a1567e0c7",
-                            "second_R2.fastq.gz:md5,a91ff7cf5ea2069d541fc7d081c82bfb"
-                        ]
-                    ],
-                    [
-                        {
-                            "id": "third",
-                            "seed": 42,
-                            "outdir": "insilicoseq",
-                            "datatype": "metagenomic_illumina"
-                        },
-                        [
-                            "third_R1.fastq.gz:md5,137d1f3ced4783a0a45f6d7aed6da743",
-                            "third_R2.fastq.gz:md5,3a78f893f1c12af70d13fe3df59eaa84"
-                        ]
+                        "first_R1.fastq.gz:md5,2a324062e0afb4d3eab8134479f317d4",
+                        "first_R2.fastq.gz:md5,9e0c86c0ff15091734fe7d52039f7727"
                     ]
                 ],
-                "1": [
+                [
+                    {
+                        "id": "second",
+                        "seed": 41,
+                        "outdir": "insilicoseq",
+                        "datatype": "metagenomic_illumina"
+                    },
                     [
-                        {
-                            "id": "metagenomic_illumina"
-                        },
-                        "metagenomic_illumina_samplesheet.csv:md5,8064936eff731e7c4c879916eb8b2edb"
+                        "second_R1.fastq.gz:md5,3536190205e1a6ba3609fe6a1567e0c7",
+                        "second_R2.fastq.gz:md5,a91ff7cf5ea2069d541fc7d081c82bfb"
                     ]
                 ],
-                "samplesheet": [
+                [
+                    {
+                        "id": "third",
+                        "seed": 42,
+                        "outdir": "insilicoseq",
+                        "datatype": "metagenomic_illumina"
+                    },
                     [
-                        {
-                            "id": "metagenomic_illumina"
-                        },
-                        "metagenomic_illumina_samplesheet.csv:md5,8064936eff731e7c4c879916eb8b2edb"
-                    ]
-                ],
-                "simulated_reads": [
-                    [
-                        {
-                            "id": "first",
-                            "seed": 40,
-                            "outdir": "insilicoseq",
-                            "datatype": "metagenomic_illumina"
-                        },
-                        [
-                            "first_R1.fastq.gz:md5,2a324062e0afb4d3eab8134479f317d4",
-                            "first_R2.fastq.gz:md5,9e0c86c0ff15091734fe7d52039f7727"
-                        ]
-                    ],
-                    [
-                        {
-                            "id": "second",
-                            "seed": 41,
-                            "outdir": "insilicoseq",
-                            "datatype": "metagenomic_illumina"
-                        },
-                        [
-                            "second_R1.fastq.gz:md5,3536190205e1a6ba3609fe6a1567e0c7",
-                            "second_R2.fastq.gz:md5,a91ff7cf5ea2069d541fc7d081c82bfb"
-                        ]
-                    ],
-                    [
-                        {
-                            "id": "third",
-                            "seed": 42,
-                            "outdir": "insilicoseq",
-                            "datatype": "metagenomic_illumina"
-                        },
-                        [
-                            "third_R1.fastq.gz:md5,137d1f3ced4783a0a45f6d7aed6da743",
-                            "third_R2.fastq.gz:md5,3a78f893f1c12af70d13fe3df59eaa84"
-                        ]
+                        "third_R1.fastq.gz:md5,137d1f3ced4783a0a45f6d7aed6da743",
+                        "third_R2.fastq.gz:md5,3a78f893f1c12af70d13fe3df59eaa84"
                     ]
                 ]
-            }
+            ]
         ],
-        "timestamp": "2024-01-19T00:09:35.115953915"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-19T14:51:11.751345459"
     }
 }

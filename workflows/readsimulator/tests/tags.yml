@@ -1,8 +1,8 @@
 readsimulator_test_amplicon:
-  - ./**
+  - workflows/readsimulator/**
 readsimulator_test_wholegenome:
-  - ./**
+  - workflows/readsimulator/**
 readsimulator_test_metagenome:
-  - ./**
+  - workflows/readsimulator/**
 readsimulator_test_target_capture:
-  - ./**
+  - workflows/readsimulator/**
