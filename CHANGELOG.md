@@ -9,12 +9,12 @@ Minor release after nf-core template 2.13.1 update
 
 ### `Added`
 
-- Merged nf-core template 2.13.1 update
+- [#36] - Merged nf-core template 2.13.1 update
 
 ### `Fixed`
 
-- Fixed metagenome mode to allow draft genomes
-- Fixed bug with MERGE_FASTA process not being declared
+- [#38] - Fixed metagenome mode to allow draft genomes
+- [#36] - Fixed bug with MERGE_FASTA process not being declared
 
 ## 1.0.0 - 2024-02-07
 
