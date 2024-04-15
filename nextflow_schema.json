@@ -372,7 +372,7 @@
                     "type": "string",
                     "default": "all",
                     "description": "The NCBI taxonomic groups to download. Options include 'all', 'archaea', 'bacteria', 'fungi', 'invertebrate', 'metagenomes', 'plant', 'protozoa', 'vertebrate_mammalian', 'vertebrate_other', and 'viral'. A comma-separated list is also valid (e.g., 'bacteria,viral').",
-                    "pattern": "^(?:[all|archaea|bacteria|fungi|invertebrate|metagenomes|plant|protozoa|vertebrate_mammalian|vertebrate_other|viral]+(?:,[all|archaea|bacteria|fungi|invertebrate|metagenomes|plant|protozoa|vertebrate_mammalian|vertebrate_other|viral]+)*)?$"
+                    "pattern": "^((all|archaea|bacteria|fungi|invertebrate|metagenomes|plant|protozoa|vertebrate_mammalian|vertebrate_other|viral)?,?)*(?<!,)$"
                 },
                 "ncbidownload_section": {
                     "type": "string",
