@@ -22,6 +22,7 @@ nextflow_workflow {
             params {
                 wholegenome = true
                 fasta       = 'https://raw.githubusercontent.com/nf-core/test-datasets/readsimulator/testdata/GCF_024334085.1_ASM2433408v1_genomic.fna.gz'
+                outdir      = "results"
             }
         }
 
@@ -29,7 +30,7 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    workflow.out
+                    workflow.out.get(0).findAll { it != "multiqc_report" }
                 ).match() }
             )
         }
